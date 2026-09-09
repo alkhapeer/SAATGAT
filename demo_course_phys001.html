@@ -6725,7 +6725,7 @@
                     // زر تيليجرام (إذا كان الرابط موجوداً)
                     if (TELEGRAM_LINK && TELEGRAM_LINK.trim() !== '') {
                         const tgBtn = document.createElement('a');
-                        tgBtn.href = TELEGRAM_LINK + '?text=' + encodeURIComponent('مرحباً، أريد تفعيل الدورة. المفتاح هو: ' + fp);
+                        tgBtn.href = 'https://t.me/' + '?text=' + encodeURIComponent('مرحباً، أريد تفعيل الدورة. المفتاح هو: ' + fp);
                         tgBtn.target = '_blank';
                         tgBtn.textContent = '💬 تيليجرام';
                         tgBtn.className = 'btn-telegram';

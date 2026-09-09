@@ -6681,7 +6681,7 @@
                     box.appendChild(title);
 
                     const sub = document.createElement('p');
-                    sub.textContent = 'انسخ البصمة أدناه وأرسلها للبائع لتحصل على كود التفعيل.';
+                    sub.textContent = 'انسخ المفتاح أدناه وأرسله للبائع لتحصل على كود التفعيل.';
                     Object.assign(sub.style, { color: '#475569', fontSize: '15px', marginBottom: '16px' });
                     box.appendChild(sub);
 
@@ -6707,7 +6707,7 @@
 
                     // زر واتساب
                     const waBtn = document.createElement('a');
-                    waBtn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=مرحباً، أريد تفعيل الدورة. بصمتي هي: ' + encodeURIComponent(fp);
+                    waBtn.href = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=مرحباً، أريد تفعيل الدورة. مفتاحي هو: ' + encodeURIComponent(fp);
                     waBtn.target = '_blank';
                     waBtn.textContent = '📱 واتساب';
                     waBtn.className = 'btn-whatsapp';
@@ -6725,7 +6725,7 @@
                     // زر تيليجرام (إذا كان الرابط موجوداً)
                     if (TELEGRAM_LINK && TELEGRAM_LINK.trim() !== '') {
                         const tgBtn = document.createElement('a');
-                        tgBtn.href = TELEGRAM_LINK + '?text=' + encodeURIComponent('مرحباً، أريد تفعيل الدورة. بصمتي هي: ' + fp);
+                        tgBtn.href = TELEGRAM_LINK + '?text=' + encodeURIComponent('مرحباً، أريد تفعيل الدورة. مفتاحي هو: ' + fp);
                         tgBtn.target = '_blank';
                         tgBtn.textContent = '💬 تيليجرام';
                         tgBtn.className = 'btn-telegram';

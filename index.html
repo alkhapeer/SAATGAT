@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>أكاديمية هيرو | التحصيلي والقدرات</title>
+  <meta name="description" content="أكاديمية هيرو للتدريب على التحصيلي والقدرات. مواد التحصيلي والقدرات الكمي واللفظي في واجهة تعليمية سهلة.">
+  <meta name="theme-color" content="#2563eb">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      padding-bottom: 85px;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== Header ===== */
+
+    header {
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.18), transparent 25%),
+        linear-gradient(135deg, #173b8f, #2563eb 55%, #3b82f6);
+      color: white;
+      padding: 55px 20px 70px;
+      text-align: center;
+      border-radius: 0 0 35px 35px;
+    }
+
+    .brand {
+      font-size: 17px;
+      font-weight: bold;
+      opacity: .9;
+      margin-bottom: 15px;
+    }
+
+    header h1 {
+      font-size: clamp(30px, 6vw, 48px);
+      margin-bottom: 12px;
+      font-weight: 800;
+    }
+
+    header p {
+      max-width: 650px;
+      margin: auto;
+      font-size: 17px;
+      opacity: .92;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .hero-btn {
+      background: white;
+      color: #1d4ed8;
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-weight: bold;
+      transition: .2s;
+    }
+
+    .hero-btn.secondary {
+      background: rgba(255,255,255,.13);
+      color: white;
+      border: 1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* ===== Main ===== */
+
+    main {
+      max-width: 1150px;
+      margin: -25px auto 0;
+      padding: 0 18px;
+      position: relative;
+    }
+
+    section {
+      scroll-margin-top: 20px;
+      margin-bottom: 45px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .section-title h2 {
+      font-size: 27px;
+      color: #172033;
+      margin-bottom: 5px;
+    }
+
+    .section-title p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* ===== Cards ===== */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 17px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 22px;
+      padding: 25px 18px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(30, 64, 175, .08);
+      border: 1px solid #e7ebf3;
+      transition: .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: #2563eb;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 32px rgba(30, 64, 175, .14);
+    }
+
+    .icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 31px;
+      background: #eff6ff;
+    }
+
+    .card h3 {
+      font-size: 19px;
+      margin-bottom: 7px;
+    }
+
+    .card p {
+      color: #6b7280;
+      font-size: 13px;
+      min-height: 44px;
+    }
+
+    .card-button {
+      display: inline-block;
+      margin-top: 15px;
+      background: #2563eb;
+      color: white;
+      padding: 9px 19px;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* ===== Qudrat ===== */
+
+    .qudrat-section .cards {
+      grid-template-columns: repeat(2, 1fr);
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .qudrat-section .card:first-child::before {
+      background: #7c3aed;
+    }
+
+    .qudrat-section .card:last-child::before {
+      background: #059669;
+    }
+
+    .qudrat-section .card:first-child .icon {
+      background: #f3e8ff;
+    }
+
+    .qudrat-section .card:last-child .icon {
+      background: #d1fae5;
+    }
+
+    /* ===== Feature ===== */
+
+    .feature-box {
+      background: white;
+      border-radius: 25px;
+      padding: 30px 25px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      border: 1px solid #e7ebf3;
+      box-shadow: 0 8px 25px rgba(30,64,175,.06);
+    }
+
+    .feature {
+      text-align: center;
+    }
+
+    .feature-icon {
+      font-size: 27px;
+      margin-bottom: 7px;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .feature p {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    /* ===== About ===== */
+
+    .about {
+      background: linear-gradient(135deg, #172554, #1e40af);
+      color: white;
+      padding: 35px 25px;
+      border-radius: 25px;
+      text-align: center;
+    }
+
+    .about h2 {
+      margin-bottom: 10px;
+    }
+
+    .about p {
+      max-width: 700px;
+      margin: auto;
+      opacity: .9;
+      font-size: 14px;
+    }
+
+    /* ===== Bottom Navigation ===== */
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 72px;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: center;
+      z-index: 1000;
+      box-shadow: 0 -5px 20px rgba(0,0,0,.06);
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 650px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      font-size: 12px;
+      gap: 2px;
+      transition: .2s;
+    }
+
+    .nav-item span:first-child {
+      font-size: 21px;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      color: #2563eb;
+      font-weight: bold;
+    }
+
+    /* ===== Responsive ===== */
+
+    @media (max-width: 850px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-box {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 550px) {
+      header {
+        padding: 40px 17px 55px;
+      }
+
+      header p {
+        font-size: 15px;
+      }
+
+      .cards,
+      .qudrat-section .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 22px 18px;
+      }
+
+      .bottom-nav {
+        height: 68px;
+      }
+
+      .nav-item {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== Hero ===== -->
+
+  <header id="home">
+    <div class="brand">HERO ACADEMY</div>
+
+    <h1>أكاديمية هيرو</h1>
+
+    <p>
+      طريقك للاستعداد للقدرات والتحصيلي
+      بطريقة منظمة وسهلة تساعدك على التعلم والمراجعة والاستعداد للاختبار.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="https://app.hero1.vip/#courses" class="hero-btn">استكشف الدورات</a>
+      <a href="https://app.hero1.vip/#helper" class="hero-btn secondary">مساعد الطالب</a>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- ===== Courses ===== -->
+
+    <section id="courses">
+
+      <div class="section-title">
+        <h2>التحصيلي</h2>
+        <p>اختر المادة التي تريد البدء بها</p>
+      </div>
+
+      <div class="cards">
+
+        <!-- Physics -->
+        <a href="#" class="card">
+          <div class="icon">⚛️</div>
+          <h3>الفيزياء</h3>
+          <p>مراجعة ومحتوى الفيزياء للتحصيلي</p>
+          <span class="card-button">دخول المادة</span>
+        </a>
+
+        <!-- Chemistry -->
+        <a href="#" class="card">
+          <div class="icon">🧪</div>
+          <h3>الكيمياء</h3>
+          <p>مراجعة ومحتوى الكيمياء للتحصيلي</p>
+          <span class="card-button">دخول المادة</span>
+        </a>
+
+        <!-- Biology -->
+        <a href="#" class="card">
+          <div class="icon">🧬</div>
+          <h3>الأحياء</h3>
+          <p>مراجعة ومحتوى الأحياء للتحصيلي</p>
+          <span class="card-button">دخول المادة</span>
+        </a>
+
+        <!-- Math -->
+        <a href="#" class="card">
+          <div class="icon">📐</div>
+          <h3>الرياضيات</h3>
+          <p>مراجعة ومحتوى الرياضيات للتحصيلي</p>
+          <span class="card-button">دخول المادة</span>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ===== Qudrat ===== -->
+
+    <section class="qudrat-section">
+
+      <div class="section-title">
+        <h2>القدرات</h2>
+        <p>تدرب على القسمين الكمي واللفظي</p>
+      </div>
+
+      <div class="cards">
+
+        <!-- Quantitative -->
+        <a href="#" class="card">
+          <div class="icon">🔢</div>
+          <h3>القدرات الكمي</h3>
+          <p>تدريب على المهارات والأسئلة الكمية</p>
+          <span class="card-button">دخول المادة</span>
+        </a>
+
+        <!-- Verbal -->
+        <a href="#" class="card">
+          <div class="icon">📖</div>
+          <h3>القدرات اللفظي</h3>
+          <p>تدريب على المهارات والأسئلة اللفظية</p>
+          <span class="card-button">دخول المادة</span>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- ===== Helper ===== -->
+
+    <section id="helper">
+
+      <div class="section-title">
+        <h2>مساعد الطالب</h2>
+        <p>أدوات تساعدك على تنظيم رحلة الاستعداد</p>
+      </div>
+
+      <div class="feature-box">
+
+        <div class="feature">
+          <div class="feature-icon">🎯</div>
+          <h3>تعلم بتركيز</h3>
+          <p>انتقل مباشرة إلى المادة التي تحتاجها.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">📚</div>
+          <h3>مراجعة منظمة</h3>
+          <p>اجعل المراجعة جزءًا ثابتًا من استعدادك.</p>
+        </div>
+
+        <div class="feature">
+          <div class="feature-icon">🏆</div>
+          <h3>استعد للاختبار</h3>
+          <p>طوّر مهاراتك وتابع تقدمك خطوة بخطوة.</p>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ===== About ===== -->
+
+    <section id="about">
+
+      <div class="about">
+        <h2>عن أكاديمية هيرو</h2>
+
+        <p>
+          أكاديمية هيرو منصة تعليمية تهدف إلى تقديم محتوى تدريبي
+          يساعد الطلاب على الاستعداد لاختبارات القدرات والتحصيلي
+          من خلال تجربة بسيطة وسهلة الاستخدام.
+        </p>
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ===== Fixed Bottom Navigation ===== -->
+
+  <nav class="bottom-nav">
+
+    <div class="nav-inner">
+
+      <a href="https://app.hero1.vip/#home" class="nav-item active">
+        <span>⌂</span>
+        <span>الرئيسية</span>
+      </a>
+
+      <a href="https://app.hero1.vip/#courses" class="nav-item">
+        <span>📚</span>
+        <span>الدورات</span>
+      </a>
+
+      <a href="https://app.hero1.vip/#helper" class="nav-item">
+        <span>💡</span>
+        <span>مساعد الطالب</span>
+      </a>
+
+      <a href="https://app.hero1.vip/#about" class="nav-item">
+        <span>ℹ️</span>
+        <span>عن</span>
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <script>
+    // تحديث العنصر النشط في القائمة السفلية
+    const navItems = document.querySelectorAll(".nav-item");
+
+    navItems.forEach(item => {
+      item.addEventListener("click", () => {
+        navItems.forEach(n => n.classList.remove("active"));
+        item.classList.add("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
+

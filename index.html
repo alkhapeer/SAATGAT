@@ -90,6 +90,33 @@
     .hero-btn:hover {
       transform: translateY(-2px);
     }
+    header {
+  position: relative;
+  margin-bottom: 65px;
+}
+
+.section-badge {
+  position: absolute;
+  bottom: -28px;
+  right: 50%;
+  transform: translateX(50%);
+
+  background: white;
+  color: #2563eb;
+
+  padding: 10px 32px;
+  border-radius: 16px;
+
+  font-size: 22px;
+  font-weight: 800;
+
+  border: 3px solid #2563eb;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+
+  white-space: nowrap;
+  z-index: 10;
+}
 
     /* ===== Main ===== */
 
@@ -358,20 +385,25 @@
   <!-- ===== Hero ===== -->
 
   <header id="home">
-    <div class="brand">HERO ACADEMY</div>
 
-    <h1>أكاديمية هيرو</h1>
+  <div class="brand">HERO ACADEMY</div>
 
-    <p>
-      طريقك للاستعداد للقدرات والتحصيلي
-      بطريقة منظمة وسهلة تساعدك على التعلم والمراجعة والاستعداد للاختبار.
-    </p>
+  <h1>أكاديمية هيرو</h1>
 
-    <div class="hero-buttons">
-      <a href="https://app.hero1.vip/#courses" class="hero-btn">استكشف الدورات</a>
-      <a href="https://app.hero1.vip/#helper" class="hero-btn secondary">مساعد الطالب</a>
-    </div>
-  </header>
+  <p>
+    طريقك للاستعداد للقدرات والتحصيلي
+    بطريقة منظمة وسهلة تساعدك على التعلم والمراجعة والاستعداد للاختبار.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#courses" class="hero-btn">استكشف الدورات</a>
+    <a href="#helper" class="hero-btn secondary">مساعد الطالب</a>
+  </div>
+
+  <!-- شارة التحصيلي خارج البانر -->
+  <div class="section-badge">التحصيلي</div>
+
+</header>
 
 
   <main>

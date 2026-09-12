@@ -1,1255 +1,1413 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
-    <title>🧬 الأحياء التحصيلي المتقدم</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --primary: #0b2b4a;
-            --primary-light: #1a4a6e;
-            --accent: #0d9488;
-            --accent-light: #14b8a6;
-            --success: #16a34a;
-            --danger: #dc2626;
-            --warning: #f59e0b;
-            --gray-50: #f8fafc;
-            --gray-100: #f1f5f9;
-            --gray-200: #e9edf2;
-            --gray-300: #cbd5e1;
-            --gray-500: #94a3b8;
-            --gray-700: #475569;
-            --gray-900: #1e293b;
-            --radius: 16px;
-            --radius-sm: 10px;
-            --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.10);
-            --transition: 0.2s ease;
-            --bottom-nav-height: 66px;
-        }
-        body {
-            font-family: 'Segoe UI', 'Tahoma', system-ui, sans-serif;
-            background: #f0f4f8;
-            color: var(--gray-900);
-            min-height: 100vh;
-            padding-bottom: calc(var(--bottom-nav-height) + 16px);
-            -webkit-font-smoothing: antialiased;
-        }
-        .app-shell { max-width: 1200px; margin: 0 auto; padding: 10px 14px 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كتالوج مرئي — الأحياء التحصيلي المتقدم | Hero Academy</title>
+<style>
+/* ============================================================
+   الأساسيات
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box;}
 
-        /* HEADER */
-        .app-header {
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 8px; padding: 10px 18px; background: #fff;
-            border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 14px;
-        }
-        .app-header .brand { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: var(--primary); }
-        .app-header .brand small { font-size: 12px; font-weight: 400; color: var(--gray-500); }
-        .app-header .badge-header { font-size: 12px; background: var(--gray-100); padding: 4px 14px; border-radius: 40px; color: var(--gray-700); }
+:root{
+  --navy:#0b2b4a;
+  --navy2:#1a4a6e;
+  --teal:#0d9488;
+  --teal2:#14b8a6;
+  --gold:#f5c542;
+  --gold2:#ffd966;
+  --success:#16a34a;
+  --danger:#dc2626;
+  --warning:#f59e0b;
+  --bg:#f0f4f8;
+  --ink:#1e293b;
+  --muted:#475569;
+  --line:#e9edf2;
+}
 
-        /* NOTIFICATION */
-        .notification-banner {
-            background: #fff; border-radius: var(--radius); padding: 8px 16px; margin-bottom: 12px;
-            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
-            border-right: 4px solid var(--accent); box-shadow: var(--shadow); font-size: 13px;
-        }
-        .notification-banner .icon { font-size: 20px; }
-        .notification-banner .msg { flex: 1; }
-        .notification-banner .dismiss { background: none; border: none; font-size: 16px; cursor: pointer; color: var(--gray-500); padding: 0 4px; }
+html{-webkit-text-size-adjust:100%;}
 
-        /* RESUME */
-        .resume-card {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: var(--radius); padding: 14px 20px; color: #fff;
-            display: flex; align-items: center; justify-content: space-between;
-            flex-wrap: wrap; gap: 10px; margin-bottom: 14px;
-            box-shadow: 0 6px 24px rgba(11, 43, 74, 0.25); cursor: pointer; transition: var(--transition);
-        }
-        .resume-card:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(11, 43, 74, 0.35); }
-        .resume-card .info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .resume-card .info .label { font-size: 13px; opacity: 0.8; }
-        .resume-card .info .value { font-weight: 700; font-size: 16px; }
-        .resume-card .btn-resume {
-            background: rgba(255, 255, 255, 0.18); border: 1.5px solid rgba(255, 255, 255, 0.3);
-            color: #fff; padding: 6px 20px; border-radius: 40px; font-weight: 600;
-            font-size: 13px; cursor: pointer; font-family: inherit;
-        }
-        .resume-card .btn-resume:hover { background: rgba(255, 255, 255, 0.30); }
+body{
+  font-family:'Segoe UI','Tahoma','Arial',sans-serif;
+  background:#dbe3ee;color:var(--ink);direction:rtl;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;line-height:1.7;
+}
 
-        /* STATS */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 14px; }
-        .stats-grid .stat-box { background: #fff; border-radius: var(--radius-sm); padding: 12px; text-align: center; box-shadow: var(--shadow); border: 1px solid var(--gray-200); }
-        .stats-grid .stat-box .num { font-size: 22px; font-weight: 800; color: var(--primary); line-height: 1.2; }
-        .stats-grid .stat-box .num.green { color: var(--success); }
-        .stats-grid .stat-box .num.red { color: var(--danger); }
-        .stats-grid .stat-box .num.gold { color: var(--warning); }
-        .stats-grid .stat-box .lbl { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+/* ============================================================
+   صفحة A4
+   ============================================================ */
+.page{
+  width:210mm;height:297mm;background:#fff;margin:10mm auto;
+  padding:11mm 11mm 8mm;position:relative;box-shadow:0 10px 34px rgba(11,43,74,.20);
+  overflow:hidden;display:flex;flex-direction:column;
+  page-break-after:always;break-after:page;
+}
+.page:last-child{page-break-after:auto;break-after:auto;}
+@page{size:A4;margin:0;}
+@media print{body{background:#fff;}.page{margin:0;box-shadow:none;}}
 
-        /* PAGES */
-        .page { display: none; animation: fadeUp 0.3s ease; }
-        .page.active { display: block; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* ============================================================
+   رأس وتذييل الصفحة
+   ============================================================ */
+.page-head{
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:2px solid var(--line);padding-bottom:6px;margin-bottom:9px;
+  font-size:10.5px;color:var(--muted);flex:0 0 auto;
+}
+.page-head .ph-right{display:flex;align-items:center;gap:8px;}
+.page-head .ph-title{font-weight:700;color:var(--navy);font-size:13px;}
+.page-head .ph-num{
+  background:var(--navy);color:#fff;min-width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;padding:0 6px;
+}
+.page-head .ph-brand{
+  background:var(--gold);color:var(--navy);padding:2px 11px;border-radius:20px;
+  font-weight:700;font-size:10px;
+}
+.page-foot{
+  flex:0 0 auto;margin-top:7px;padding-top:6px;
+  border-top:1px dashed #dce4ec;font-size:8.5px;color:#8a9aa8;
+  display:flex;justify-content:space-between;align-items:center;
+}
 
-        /* DOSE CARDS */
-        .dose-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
-        .dose-card {
-            background: #fff; border-radius: var(--radius); padding: 16px 18px;
-            box-shadow: var(--shadow); border: 1px solid var(--gray-200);
-            transition: var(--transition); cursor: pointer; position: relative;
-        }
-        .dose-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
-        .dose-card .dose-number { font-size: 11px; color: var(--gray-500); font-weight: 600; }
-        .dose-card .dose-title { font-size: 15px; font-weight: 700; margin: 4px 0; color: var(--primary); }
-        .dose-card .dose-meta { font-size: 12px; color: var(--gray-700); display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
-        .dose-card .dose-meta span { background: var(--gray-100); padding: 2px 10px; border-radius: 30px; }
-        .dose-card .progress-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-left: 4px; }
-        .dose-card .progress-dot.done { background: var(--success); }
-        .dose-card .progress-dot.partial { background: var(--warning); }
-        .dose-card .progress-dot.pending { background: var(--gray-300); }
-        .dose-card .dose-pct { font-size: 13px; font-weight: 700; color: var(--primary); margin-top: 6px; }
-        .dose-card .dose-bar { height: 4px; background: var(--gray-200); border-radius: 10px; margin-top: 6px; overflow: hidden; }
-        .dose-card .dose-bar .fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+/* ============================================================
+   جسم الصفحة: هاتف + تعليقات
+   ============================================================ */
+.page-body{flex:1 1 auto;display:flex;gap:9mm;align-items:flex-start;min-height:0;}
 
-        /* DOSE DETAIL */
-        .dose-detail-view { background: #fff; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); margin-bottom: 14px; border: 1px solid var(--gray-200); }
-        .dose-detail-view .back-btn { background: var(--gray-100); border: none; padding: 6px 18px; border-radius: 40px; font-weight: 600; cursor: pointer; font-family: inherit; font-size: 13px; margin-bottom: 12px; }
-        .dose-detail-view .back-btn:hover { background: var(--gray-200); }
-        .dose-detail-view .dose-head { border-bottom: 2px solid var(--gray-200); padding-bottom: 10px; margin-bottom: 14px; }
-        .dose-detail-view .dose-head h2 { font-size: 22px; color: var(--primary); }
-        .dose-detail-view .dose-head p { color: var(--gray-700); font-size: 14px; margin-top: 4px; }
-        .dose-detail-view .concept-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; margin: 10px 0 14px; }
-        @media (max-width: 550px) { .dose-detail-view .concept-grid { grid-template-columns: 1fr; } }
-        .dose-detail-view .concept-grid .c-item { padding: 4px 0; font-size: 14px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; gap: 6px; }
-        .dose-detail-view .concept-grid .c-item .dot { color: var(--accent); font-weight: 700; }
-        .dose-detail-view .dose-questions { margin-top: 14px; border-top: 1px solid var(--gray-200); padding-top: 14px; }
-        .dose-detail-view .dose-questions h4 { font-size: 16px; margin-bottom: 10px; color: var(--primary); }
-        .dose-detail-view .dq-item { background: var(--gray-50); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; border: 1px solid var(--gray-200); }
-        .dose-detail-view .dq-item .dq-q { font-weight: 500; font-size: 14px; line-height: 1.6; }
-        .dose-detail-view .dq-item .dq-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; margin-top: 6px; }
-        @media (max-width: 500px) { .dose-detail-view .dq-item .dq-opts { grid-template-columns: 1fr; } }
-        .dose-detail-view .dq-item .dq-opts .opt { font-size: 13px; padding: 4px 8px; border-radius: 6px; cursor: pointer; border: 1.5px solid transparent; display: flex; align-items: center; gap: 6px; }
-        .dose-detail-view .dq-item .dq-opts .opt:hover { background: var(--gray-100); }
-        .dose-detail-view .dq-item .dq-opts .opt.selected { background: #dbeafe; border-color: var(--accent); }
-        .dose-detail-view .dq-item .dq-opts .opt.correct { background: #dcfce7; border-color: var(--success); }
-        .dose-detail-view .dq-item .dq-opts .opt.wrong { background: #fee2e2; border-color: var(--danger); }
-        .dose-detail-view .dq-item .dq-explain { margin-top: 6px; font-size: 13px; padding: 6px 12px; background: #fff; border-radius: 6px; border-right: 3px solid var(--accent); display: none; line-height: 1.6; }
-        .dose-detail-view .dq-item .dq-explain.show { display: block; }
+/* ---------- الهاتف ---------- */
+.phone{
+  width:60mm;flex:0 0 60mm;
+  background:linear-gradient(160deg,#123456,#0b2b4a);
+  border-radius:26px;padding:6px;
+  box-shadow:0 16px 34px rgba(11,43,74,.30),inset 0 0 0 2px rgba(255,255,255,.08);
+  position:relative;
+}
+.phone::before{
+  content:'';position:absolute;top:11px;left:50%;transform:translateX(-50%);
+  width:36px;height:5px;border-radius:10px;background:rgba(255,255,255,.35);z-index:9;
+}
+.phone::after{
+  content:'';position:absolute;bottom:9px;left:50%;transform:translateX(-50%);
+  width:52px;height:4px;border-radius:10px;background:rgba(255,255,255,.25);z-index:9;
+}
+.phone-screen{
+  background:var(--bg);border-radius:21px;height:145mm;overflow:hidden;
+  display:flex;flex-direction:column;font-size:8px;line-height:1.5;
+}
 
-        /* QUESTION BANK */
-        .qb-filters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; background: #fff; padding: 10px 14px; border-radius: var(--radius-sm); box-shadow: var(--shadow); align-items: center; }
-        .qb-filters select, .qb-filters button { padding: 5px 12px; border-radius: 30px; border: 1px solid var(--gray-200); background: #fff; font-family: inherit; font-size: 12px; flex: 1; min-width: 80px; cursor: pointer; }
-        .qb-filters button { flex: 0 0 auto; background: var(--gray-100); }
-        .qb-filters button:hover { background: var(--gray-200); }
-        .qb-question { background: #fff; border-radius: var(--radius-sm); padding: 16px 18px; margin-bottom: 12px; box-shadow: var(--shadow); border: 1px solid var(--gray-200); }
-        .qb-question .q-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-bottom: 8px; }
-        .qb-question .q-head .qid { font-weight: 600; color: var(--gray-500); font-size: 12px; }
-        .qb-question .q-head .tag { font-size: 11px; padding: 2px 12px; border-radius: 30px; background: var(--gray-100); }
-        .qb-question .q-head .tag.dose-tag { background: #ccfbf1; color: var(--accent); }
-        .qb-question .q-text { font-size: 15px; font-weight: 500; margin-bottom: 10px; line-height: 1.7; }
-        .qb-question .q-options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
-        @media (max-width: 550px) { .qb-question .q-options { grid-template-columns: 1fr; } }
-        .qb-question .q-options .opt { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 14px; border: 1.5px solid transparent; }
-        .qb-question .q-options .opt:hover { background: var(--gray-100); }
-        .qb-question .q-options .opt.selected { background: #dbeafe; border-color: var(--accent); }
-        .qb-question .q-options .opt.correct { background: #dcfce7; border-color: var(--success); }
-        .qb-question .q-options .opt.wrong { background: #fee2e2; border-color: var(--danger); }
-        .qb-question .q-explain { margin-top: 10px; padding: 10px 14px; background: var(--gray-50); border-radius: var(--radius-sm); font-size: 13px; border-right: 3px solid var(--accent); display: none; line-height: 1.7; }
-        .qb-question .q-explain.show { display: block; }
-        .qb-pagination { display: flex; justify-content: center; align-items: center; gap: 10px; padding: 10px 0; }
-        .qb-pagination button { padding: 4px 18px; border-radius: 30px; border: 1px solid var(--gray-200); background: #fff; font-family: inherit; cursor: pointer; font-size: 13px; }
-        .qb-pagination button:disabled { opacity: 0.4; cursor: not-allowed; }
+/* ---------- شريط التطبيق داخل الهاتف ---------- */
+.ms-head{
+  background:var(--navy);color:#fff;padding:11px 9px 8px;
+  display:flex;justify-content:space-between;align-items:center;
+  border-radius:0 0 14px 14px;font-size:8px;flex:0 0 auto;
+}
+.ms-head b{font-size:8.5px;font-weight:700;}
+.ms-head small{display:block;font-size:6px;opacity:.75;font-weight:400;}
+.ms-actions{display:flex;gap:3px;}
+.ms-actions span{background:rgba(255,255,255,.16);padding:2px 5px;border-radius:20px;font-size:6.5px;}
+.ms-actions .gold{background:var(--gold);color:var(--navy);}
 
-        /* MISTAKES */
-        .mistake-item { background: #fff; border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 8px; border-right: 4px solid var(--danger); box-shadow: var(--shadow); }
-        .mistake-item .m-q { font-weight: 500; font-size: 14px; line-height: 1.6; }
-        .mistake-item .m-detail { font-size: 13px; color: var(--gray-700); margin-top: 4px; }
-        .mistake-item .m-detail .wrong-ans { color: var(--danger); font-weight: 600; }
-        .mistake-item .m-detail .correct-ans { color: var(--success); font-weight: 600; }
-        .mistake-item .review-mistake { background: var(--accent); color: #fff; border: none; padding: 2px 16px; border-radius: 30px; font-size: 12px; cursor: pointer; font-family: inherit; margin-right: 8px; }
+.ms-pad{padding:8px 8px 10px;flex:1 1 auto;overflow:hidden;}
 
-        /* ANALYTICS */
-        .analytics-full { background: #fff; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); border: 1px solid var(--gray-200); }
-        .analytics-full .an-top { display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gray-200); padding-bottom: 14px; margin-bottom: 16px; }
-        .analytics-full .an-accuracy { font-size: 38px; font-weight: 800; color: var(--primary); }
-        .analytics-full .an-accuracy span { font-size: 16px; font-weight: 400; color: var(--gray-500); }
-        .analytics-full .an-stats { display: flex; gap: 20px; flex-wrap: wrap; }
-        .analytics-full .an-stats .as-item { text-align: center; }
-        .analytics-full .an-stats .as-item .as-num { font-size: 22px; font-weight: 700; }
-        .analytics-full .an-stats .as-item .as-num.green { color: var(--success); }
-        .analytics-full .an-stats .as-item .as-num.red { color: var(--danger); }
-        .analytics-full .an-stats .as-item .as-label { font-size: 12px; color: var(--gray-500); }
-        .analytics-full .ad-item { display: flex; align-items: center; gap: 10px; padding: 4px 0; border-bottom: 1px solid var(--gray-100); font-size: 13px; }
-        .analytics-full .ad-item .ad-name { min-width: 140px; font-weight: 500; }
-        .analytics-full .ad-item .ad-bar { flex: 1; height: 6px; background: var(--gray-200); border-radius: 10px; overflow: hidden; }
-        .analytics-full .ad-item .ad-bar .fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; }
-        .analytics-full .ad-item .ad-pct { min-width: 40px; font-weight: 600; }
-        .analytics-full .aw-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-        .analytics-full .aw-tags .tag { background: #fee2e2; color: var(--danger); padding: 4px 14px; border-radius: 30px; font-size: 13px; font-weight: 600; }
-        .analytics-full .aw-tags .tag.green { background: #dcfce7; color: var(--success); }
-        .analytics-full .ach-tags .tag { background: #fef9c3; color: #854d0e; padding: 4px 14px; border-radius: 30px; font-size: 13px; font-weight: 600; }
-        .analytics-full .ach-tags .tag.done { background: #dcfce7; color: var(--success); }
+.ms-h1{font-size:9px;font-weight:700;color:var(--navy);border-right:3px solid var(--gold);padding-right:6px;margin-bottom:4px;}
+.ms-sub{font-size:6.5px;color:var(--muted);margin-bottom:8px;}
 
-        /* DIAGNOSTIC */
-        .diag-container { background: #fff; border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); border: 1px solid var(--gray-200); }
-        .diag-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-        .diag-header h3 { font-size: 20px; color: var(--primary); }
-        .diag-start-btn { padding: 8px 28px; border-radius: 40px; border: none; background: var(--primary); color: #fff; font-weight: 700; cursor: pointer; font-family: inherit; font-size: 14px; }
-        .diag-start-btn:hover { background: var(--primary-light); }
-        .diag-results .dr-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--gray-100); font-size: 14px; }
+/* ---------- بطاقات عامة ---------- */
+.ms-card{
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  padding:7px 8px;margin-bottom:6px;box-shadow:0 2px 7px rgba(11,43,74,.05);
+}
+.ms-card h4{font-size:7px;color:var(--navy);margin-bottom:3px;}
+.ms-card p{font-size:6px;color:#44586e;line-height:1.65;}
+.ms-card ul{padding-right:10px;}
+.ms-card li{font-size:6px;color:#44586e;line-height:1.7;}
 
-        /* RESOURCES */
-        .resources-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
-        .resource-card { background: #fff; border-radius: var(--radius-sm); padding: 14px; box-shadow: var(--shadow); border: 1px solid var(--gray-200); text-align: center; transition: var(--transition); cursor: pointer; }
-        .resource-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-        .resource-card .r-icon { font-size: 28px; }
-        .resource-card .r-title { font-weight: 600; font-size: 13px; margin: 4px 0 2px; }
-        .resource-card .r-desc { font-size: 11px; color: var(--gray-500); }
+.ms-box{background:#eaf0f8;border-radius:9px;padding:7px 8px;font-size:6px;color:#2c4a6e;margin-top:7px;}
+.ms-box b{display:block;color:var(--navy);font-size:6.5px;margin-bottom:2px;}
 
-        /* EMPTY STATE */
-        .empty-state { text-align: center; padding: 30px 16px; color: var(--gray-500); }
-        .empty-state .icon { font-size: 40px; margin-bottom: 8px; }
+.ms-note{
+  border-radius:8px;padding:6px 8px;margin:6px 0;
+  border-right:3px solid var(--teal);background:#effdfb;color:#0f766e;
+  font-size:6px;
+}
+.ms-note.gold{border-right-color:var(--warning);background:#fef9ef;color:#7a5a12;}
+.ms-note.red{border-right-color:var(--danger);background:#fdeaea;color:#8a2a20;}
 
-        /* TOAST */
-        .toast-container {
-            position: fixed; bottom: calc(var(--bottom-nav-height) + 20px); left: 50%;
-            transform: translateX(-50%); z-index: 999; background: var(--primary); color: #fff;
-            padding: 8px 22px; border-radius: 40px; font-size: 13px; font-weight: 500;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            transform: translateX(-50%) translateY(20px); pointer-events: none; max-width: 90%;
-        }
-        .toast-container.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+.ms-sec{
+  display:flex;justify-content:space-between;align-items:center;
+  border-bottom:1.5px solid #dce4ec;padding-bottom:4px;margin-bottom:6px;
+}
+.ms-sec h3{font-size:8px;color:var(--navy);}
+.ms-sec span{
+  font-size:5.5px;background:#fff;border:1px solid #dce4ec;
+  padding:2px 6px;border-radius:20px;color:var(--navy2);
+}
 
-        /* BOTTOM NAV */
-        .bottom-nav {
-            position: fixed; bottom: 0; left: 0; right: 0; background: #fff;
-            border-top: 1px solid var(--gray-200); display: flex; justify-content: space-around;
-            align-items: center; padding: 4px 0 env(safe-area-inset-bottom);
-            height: var(--bottom-nav-height); z-index: 100;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06); overflow-x: auto;
-        }
-        .bottom-nav::-webkit-scrollbar { height: 0; }
-        .bottom-nav .nav-item {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            font-size: 10px; color: var(--gray-500); cursor: pointer; padding: 4px 10px;
-            border: none; background: transparent; font-family: inherit;
-            transition: var(--transition); flex: 0 0 auto; min-width: 50px;
-            gap: 2px; border-radius: 8px;
-        }
-        .bottom-nav .nav-item .nav-icon { font-size: 20px; line-height: 1.2; }
-        .bottom-nav .nav-item .nav-label { font-size: 9px; font-weight: 600; }
-        .bottom-nav .nav-item.active { color: var(--primary); }
-        .bottom-nav .nav-item .badge-nav {
-            background: var(--danger); color: #fff; font-size: 9px; border-radius: 30px;
-            padding: 0 6px; font-weight: 700; margin-right: 2px; position: absolute; top: 2px;
-        }
-        .bottom-nav .nav-item { position: relative; }
+/* ---------- شبكة الأزرار ---------- */
+.ms-grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin:6px 0;}
+.ms-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:6px 0;}
 
-        /* RESPONSIVE */
-        @media (max-width: 600px) {
-            .app-shell { padding: 6px 6px 0; }
-            .app-header .brand { font-size: 15px; }
-            .app-header .brand small { font-size: 10px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-            .stats-grid .stat-box .num { font-size: 18px; }
-            .dose-grid { grid-template-columns: 1fr; }
-            .dose-detail-view { padding: 14px 12px; }
-            .dose-detail-view .concept-grid { grid-template-columns: 1fr; }
-            .analytics-full .an-top { flex-direction: column; align-items: stretch; text-align: center; }
-            .analytics-full .an-stats { justify-content: center; }
-            .analytics-full .ad-item { flex-wrap: wrap; }
-            .analytics-full .ad-item .ad-name { min-width: 80px; font-size: 12px; }
-            .resume-card { flex-direction: column; align-items: stretch; text-align: center; }
-            .resume-card .btn-resume { align-self: center; }
-            .resources-grid { grid-template-columns: 1fr 1fr; }
-            .diag-header { flex-direction: column; align-items: stretch; }
-            .qb-filters { flex-direction: column; align-items: stretch; }
-            .qb-filters select, .qb-filters button { width: 100%; }
-            .bottom-nav .nav-item { min-width: 40px; padding: 2px 6px; }
-            .bottom-nav .nav-item .nav-icon { font-size: 18px; }
-            .bottom-nav .nav-item .nav-label { font-size: 8px; }
-        }
-        @media (max-width: 400px) {
-            .resources-grid { grid-template-columns: 1fr; }
-            .bottom-nav .nav-item { min-width: 34px; padding: 1px 4px; }
-            .bottom-nav .nav-item .nav-icon { font-size: 16px; }
-            .bottom-nav .nav-item .nav-label { font-size: 7px; }
-        }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: var(--gray-100); }
-        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 10px; }
-    </style>
+/* ---------- بطاقات الإحصاء ---------- */
+.ms-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:6px 0;}
+.ms-stat{background:#fff;border-radius:7px;border:1px solid var(--line);padding:5px 3px;text-align:center;}
+.ms-stat .n{font-size:9px;font-weight:800;color:var(--navy);line-height:1.1;}
+.ms-stat .n.green{color:var(--success);}
+.ms-stat .n.gold{color:var(--warning);}
+.ms-stat .l{font-size:5px;color:#94a3b8;margin-top:1px;}
+
+/* ---------- بطاقات الجرعات ---------- */
+.ms-dose{background:#fff;border:1px solid var(--line);border-radius:9px;padding:7px 8px;margin-bottom:5px;box-shadow:0 2px 6px rgba(11,43,74,.04);}
+.ms-dose .num{font-size:5.5px;color:#94a3b8;font-weight:600;}
+.ms-dose .ttl{font-size:7px;font-weight:700;color:var(--navy);margin:2px 0;}
+.ms-dose .mt{font-size:5.5px;color:var(--muted);}
+.ms-dose .pct{font-size:7px;font-weight:700;color:var(--navy);margin-top:3px;}
+.ms-dose .bar{height:3px;background:#e9edf2;border-radius:10px;margin-top:3px;overflow:hidden;}
+.ms-dose .bar .fill{height:100%;border-radius:10px;}
+
+/* ---------- بنك الأسئلة ---------- */
+.ms-chiprow{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px;}
+.ms-chip{background:#fff;border:1px solid #dce4ec;border-radius:20px;padding:2px 7px;font-size:5.5px;color:var(--navy2);}
+.ms-chip.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+.ms-q{background:#fff;border:1px solid var(--line);border-right:3px solid var(--teal);border-radius:8px;padding:6px 8px;margin-bottom:5px;}
+.ms-q .qh{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:3px;}
+.ms-q .qh span{background:#f1f5f9;border-radius:20px;padding:1px 6px;font-size:5px;color:#475569;}
+.ms-q .qh span.teal{background:#ccfbf1;color:#0d9488;}
+.ms-q b{font-size:6px;color:var(--navy);display:block;line-height:1.6;}
+.ms-q span.opt{font-size:5.5px;color:#44586e;display:block;padding:2px 5px;border-radius:5px;margin-top:2px;}
+.ms-q span.opt.correct{background:#dcfce7;color:#166534;border:1px solid #16a34a;}
+
+/* ---------- الأخطاء ---------- */
+.ms-mist{background:#fff;border:1px solid var(--line);border-right:3px solid var(--danger);border-radius:8px;padding:6px 8px;margin-bottom:5px;}
+.ms-mist b{font-size:6px;color:var(--navy);display:block;line-height:1.55;}
+.ms-mist .de{font-size:5.5px;margin-top:3px;}
+.ms-mist .wr{color:var(--danger);font-weight:600;}
+.ms-mist .co{color:var(--success);font-weight:600;}
+
+/* ---------- التحليلات ---------- */
+.ms-acc{font-size:16px;font-weight:800;color:var(--navy);line-height:1;}
+.ms-acc span{font-size:6px;color:#94a3b8;font-weight:400;display:block;margin-top:2px;}
+.ms-ad{display:flex;align-items:center;gap:5px;padding:3px 0;font-size:5.5px;border-bottom:1px solid #f1f5f9;}
+.ms-ad .nm{min-width:38px;color:var(--muted);}
+.ms-ad .br{flex:1;height:4px;background:#e9edf2;border-radius:10px;overflow:hidden;}
+.ms-ad .br .fl{height:100%;border-radius:10px;}
+.ms-ad .pc{min-width:22px;font-weight:700;color:var(--navy);}
+.ms-tagrow{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px;}
+.ms-tag{background:#fee2e2;color:var(--danger);padding:2px 8px;border-radius:20px;font-size:5.5px;font-weight:600;}
+.ms-tag.gr{background:#dcfce7;color:var(--success);}
+.ms-tag.gd{background:#fef9c3;color:#854d0e;}
+
+/* ---------- التشخيصي ---------- */
+.ms-dr{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f1f5f9;font-size:5.5px;color:var(--muted);}
+.ms-dr b{color:var(--navy);}
+
+/* ---------- الموارد ---------- */
+.ms-res{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 4px;text-align:center;}
+.ms-res .ic{font-size:12px;}
+.ms-res .tt{font-size:5.5px;font-weight:600;color:var(--navy);margin-top:2px;}
+
+/* ---------- الشريط السفلي داخل الهاتف ---------- */
+.ms-nav{
+  background:#fff;border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;padding:4px 2px;flex:0 0 auto;
+  border-radius:0 0 21px 21px;
+}
+.ms-nav div{text-align:center;font-size:4.5px;color:#94a3b8;font-weight:600;}
+.ms-nav div span{display:block;font-size:9px;line-height:1;}
+.ms-nav div.on{color:var(--navy);}
+
+/* ============================================================
+   عمود التعليقات
+   ============================================================ */
+.notes{flex:1 1 auto;min-width:0;}
+
+.notes h2{font-size:15px;color:var(--navy);border-right:5px solid var(--gold);padding-right:10px;margin-bottom:4px;}
+.notes .lead{font-size:9.5px;color:var(--muted);margin-bottom:10px;}
+
+.note-item{
+  display:flex;gap:8px;align-items:flex-start;
+  background:#f8fbff;border:1px solid var(--line);border-radius:12px;
+  padding:8px 10px;margin-bottom:7px;box-shadow:0 2px 8px rgba(11,43,74,.04);
+}
+.note-item .ni-ico{
+  flex:0 0 24px;height:24px;border-radius:8px;background:var(--navy);
+  color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;
+}
+.note-item .ni-ico.teal{background:var(--teal);color:#fff;}
+.note-item .ni-ico.gold{background:var(--gold);color:var(--navy);}
+.note-item .ni-body b{display:block;font-size:9.5px;color:var(--navy);margin-bottom:1px;}
+.note-item .ni-body p{font-size:8.5px;color:#44586e;line-height:1.65;}
+
+.tag-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.tag{background:#eaf0f8;color:var(--navy2);border-radius:20px;padding:3px 10px;font-size:8px;font-weight:600;}
+.tag.teal{background:#ccfbf1;color:#0f766e;}
+.tag.gold{background:#fef3d4;color:#8a6a10;}
+
+.spec-box{
+  background:linear-gradient(135deg,var(--navy),var(--navy2));
+  border-radius:14px;padding:12px 14px;color:#fff;margin-top:10px;
+}
+.spec-box b{color:var(--gold);font-size:10px;display:block;margin-bottom:4px;}
+.spec-box p{font-size:8.5px;opacity:.9;line-height:1.7;}
+
+/* ============================================================
+   الغلاف
+   ============================================================ */
+.cover{
+  background:radial-gradient(circle at 78% 12%,#1a4a6e 0%,#0b2b4a 45%,#051a2e 100%);
+  color:#fff;padding:0;justify-content:space-between;
+}
+.cover-inner{flex:1;display:flex;flex-direction:column;padding:20mm 16mm 14mm;position:relative;z-index:2;}
+.cover::before{
+  content:'';position:absolute;left:-70mm;bottom:-70mm;
+  width:150mm;height:150mm;border-radius:50%;
+  background:radial-gradient(circle,rgba(245,197,66,.20),transparent 68%);
+}
+.cover::after{
+  content:'';position:absolute;right:-40mm;top:-40mm;
+  width:110mm;height:110mm;border-radius:50%;
+  border:1.5px dashed rgba(245,197,66,.28);
+}
+.cover-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(245,197,66,.14);border:1px solid rgba(245,197,66,.45);
+  color:var(--gold);border-radius:30px;padding:5px 16px;
+  font-size:10px;font-weight:700;align-self:flex-start;letter-spacing:.3px;
+}
+.cover h1{font-size:37px;line-height:1.35;font-weight:800;margin-top:14px;letter-spacing:-.5px;}
+.cover h1 em{font-style:normal;color:var(--gold);}
+.cover .cover-line{width:70px;height:5px;border-radius:10px;background:linear-gradient(90deg,var(--gold),rgba(245,197,66,.1));margin:16px 0;}
+.cover .cover-sub{font-size:13px;opacity:.9;max-width:130mm;line-height:1.9;}
+.cover .cover-year{margin-top:auto;display:flex;flex-direction:column;gap:6px;font-size:11px;opacity:.92;}
+.cover .cover-year strong{color:var(--gold);font-weight:700;}
+.cover .cover-emoji{font-size:52px;letter-spacing:8px;margin:10px 0 2px;}
+.cover-cta{
+  margin-top:16px;display:inline-block;align-self:flex-start;
+  background:var(--gold);color:var(--navy);font-weight:800;font-size:13px;
+  padding:11px 34px;border-radius:30px;text-decoration:none;
+  box-shadow:0 10px 24px rgba(245,197,66,.32);
+}
+.cover-foot{
+  background:rgba(0,0,0,.25);padding:9px 16mm;font-size:9px;opacity:.8;
+  display:flex;justify-content:space-between;position:relative;z-index:2;
+}
+
+/* ============================================================
+   صفحة الفهرس
+   ============================================================ */
+.toc-title{font-size:26px;color:var(--navy);margin-bottom:4px;}
+.toc-sub{font-size:10px;color:var(--muted);margin-bottom:14px;}
+.toc-list{display:flex;flex-direction:column;gap:6px;}
+.toc-row{display:flex;align-items:center;gap:11px;background:#f8fbff;border:1px solid var(--line);border-radius:12px;padding:8px 12px;}
+.toc-row .toc-ico{flex:0 0 28px;height:28px;border-radius:9px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.toc-row .toc-ico.teal{background:var(--teal);color:#fff;}
+.toc-row .toc-txt{flex:1;}
+.toc-row .toc-txt b{font-size:11px;color:var(--navy);display:block;}
+.toc-row .toc-txt span{font-size:8.5px;color:var(--muted);}
+.toc-row .toc-page{font-size:10px;font-weight:800;color:var(--navy);background:var(--gold);border-radius:20px;padding:1px 11px;}
+.toc-dots{flex:1;border-bottom:1.5px dotted #c8d6e6;margin:0 4px;height:1px;}
+
+/* ============================================================
+   صفحة الخاتمة CTA
+   ============================================================ */
+.cta-page{
+  background:radial-gradient(circle at 50% 30%,#1a4a6e 0%,#0b2b4a 50%,#051a2e 100%);
+  color:#fff;justify-content:center;align-items:center;text-align:center;padding:24mm 20mm;
+}
+.cta-page::before{content:'';position:absolute;inset:14mm;border:1.5px dashed rgba(245,197,66,.30);border-radius:22px;}
+.cta-inner{position:relative;z-index:3;max-width:150mm;}
+.cta-emoji{font-size:46px;letter-spacing:6px;margin-bottom:10px;}
+.cta-page h2{font-size:34px;font-weight:800;margin-bottom:12px;}
+.cta-page h2 em{font-style:normal;color:var(--gold);}
+.cta-page p{font-size:12.5px;opacity:.9;line-height:2;margin-bottom:8px;}
+.cta-features{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 22px;}
+.cta-features span{background:rgba(245,197,66,.14);border:1px solid rgba(245,197,66,.40);color:var(--gold);border-radius:30px;padding:6px 15px;font-size:10px;font-weight:700;}
+.cta-btn{
+  display:inline-block;background:var(--gold);color:var(--navy);font-weight:800;font-size:15px;
+  padding:14px 46px;border-radius:34px;text-decoration:none;
+  box-shadow:0 14px 32px rgba(245,197,66,.35);margin-bottom:14px;
+}
+.cta-link{display:block;font-size:10.5px;color:#bcd0e6;direction:ltr;letter-spacing:.4px;margin-bottom:20px;text-decoration:none;}
+.cta-rule{width:60px;height:3px;background:rgba(245,197,66,.5);border-radius:10px;margin:0 auto 14px;}
+.cta-copy{font-size:9.5px;opacity:.7;}
+</style>
 </head>
 <body>
-    <div class="app-shell" id="app">
-        <div class="toast-container" id="toast"></div>
 
-        <header class="app-header">
-            <div class="brand">🧬 الأحياء التحصيلي <small>المتقدّم</small></div>
-            <div class="badge-header">📘 إعداد: إبراهيم الدسوقي</div>
-        </header>
+<!-- ============================================================
+     صفحة 1 — الغلاف
+     ============================================================ -->
+<section class="page cover">
+  <div class="cover-inner">
+    <span class="cover-badge">🧬 إصدار كتالوج مرئي 2026-2027</span>
 
-        <div class="notification-banner" id="notifBanner">
-            <span class="icon">📢</span>
-            <span class="msg" id="notifMsg">👋 مرحباً! أكمل مراجعة الجرعات الست لتعزيز مستواك في التحصيلي.</span>
-            <button class="dismiss" id="dismissNotif">✕</button>
-        </div>
+    <h1>الأحياء التحصيلي<br><em>المتقدّم — المستوى الاحترافي</em></h1>
+    <div class="cover-line"></div>
+    <p class="cover-sub">
+      تطبيق تدريب ذكي مبني على نظام «الجرعات المركزة» الست، يغطي المنهجية العلمية،
+      تصنيف الحياة، الأجهزة الحيوية، الوراثة، وحتى هندسة اللافقاريات — مع بنك أسئلة
+      موسّع، تشخيصي شامل، وتحليلات أداء تفصيلية.
+    </p>
 
-        <div class="resume-card" id="resumeCard">
-            <div class="info">
-                <span>▶</span>
-                <div>
-                    <div class="label">تابع من حيث توقفت</div>
-                    <div class="value" id="resumeText">الجرعة الأولى — خريطة تصنيف الحياة</div>
-                </div>
-            </div>
-            <button class="btn-resume" id="resumeBtn">استئناف</button>
-        </div>
+    <div class="cover-emoji">🧬 🧪 📊 🔬</div>
 
-        <div class="stats-grid">
-            <div class="stat-box"><div class="num" id="statLevel">0%</div><div class="lbl">📊 مستواك</div></div>
-            <div class="stat-box"><div class="num gold" id="statLastScore">—</div><div class="lbl">📝 آخر اختبار</div></div>
-            <div class="stat-box"><div class="num" id="statSolved">0</div><div class="lbl">✅ محلولة</div></div>
-            <div class="stat-box"><div class="num green" id="statCorrect">0</div><div class="lbl">🎯 صحيحة</div></div>
-        </div>
-
-        <!-- HOME -->
-        <div class="page active" id="page-home">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
-                <div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
-                    <div style="font-size:12px;color:var(--gray-500);">🎯 التشخيصي</div>
-                    <div style="font-size:17px;font-weight:700;color:var(--primary);margin:4px 0;">تحديد نقاط الضعف</div>
-                    <button class="btn-resume" style="background:var(--accent);color:#fff;border:none;padding:5px 18px;border-radius:40px;font-weight:600;cursor:pointer;font-family:inherit;" id="diagQuickBtn">ابدأ التشخيص</button>
-                </div>
-                <div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
-                    <div style="font-size:12px;color:var(--gray-500);">⚡ الجرعات</div>
-                    <div style="font-size:17px;font-weight:700;color:var(--primary);margin:4px 0;">6 جرعات مركزة</div>
-                    <button class="btn-resume" style="background:var(--primary);color:#fff;border:none;padding:5px 18px;border-radius:40px;font-weight:600;cursor:pointer;font-family:inherit;" id="doseQuickBtn">استعراض الجرعات</button>
-                </div>
-            </div>
-            <div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:8px;">
-                    <span style="font-weight:700;font-size:15px;">📈 تقدمك في الجرعات</span>
-                    <span style="font-size:12px;color:var(--gray-500);" id="doseProgressText">0/6 مكتملة</span>
-                </div>
-                <div id="doseProgressBar" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
-            </div>
-        </div>
-
-        <!-- TRAINING -->
-        <div class="page" id="page-training">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-                <h3 style="font-size:18px;color:var(--primary);">⚡ الجرعات المركزة</h3>
-                <span style="font-size:12px;color:var(--gray-500);" id="trainingProgressLabel">0/6</span>
-            </div>
-            <div id="trainingContent"><div class="dose-grid" id="doseGrid"></div></div>
-            <div id="doseDetailContainer"></div>
-        </div>
-
-        <!-- QUESTIONS -->
-        <div class="page" id="page-questions">
-            <div class="qb-filters">
-                <select id="qbFilterTopic"><option value="all">جميع الموضوعات</option></select>
-                <select id="qbFilterDose"><option value="all">جميع الجرعات</option></select>
-                <select id="qbFilterDiff"><option value="all">جميع المستويات</option><option value="سهل">سهل</option><option value="متوسط">متوسط</option><option value="صعب">صعب</option></select>
-                <select id="qbFilterStatus"><option value="all">الكل</option><option value="answered">تمّت الإجابة</option><option value="unanswered">لم تُجب</option><option value="correct">صحيحة</option><option value="wrong">خاطئة</option></select>
-                <button id="qbResetFilters">↺</button>
-            </div>
-            <div id="qbList"></div>
-            <div class="qb-pagination">
-                <button id="qbPrev" disabled>‹ السابق</button>
-                <span id="qbPageInfo">1 / 1</span>
-                <button id="qbNext" disabled>التالي ›</button>
-            </div>
-        </div>
-
-        <!-- MISTAKES -->
-        <div class="page" id="page-mistakes">
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
-                <h3 style="font-size:18px;color:var(--primary);">🔥 أخطائي</h3>
-                <span style="font-size:12px;color:var(--gray-500);" id="mistakesCountLabel">0 سؤال خاطئ</span>
-            </div>
-            <div id="mistakesList"></div>
-        </div>
-
-        <!-- ANALYTICS -->
-        <div class="page" id="page-analytics"><div id="analyticsFullContainer"></div></div>
-
-        <!-- DIAGNOSTIC -->
-        <div class="page" id="page-diagnostic">
-            <div class="diag-container">
-                <div class="diag-header">
-                    <h3>🎯 التشخيصي الشامل</h3>
-                    <button class="diag-start-btn" id="diagStartBtn">🔄 تشغيل التشخيص</button>
-                </div>
-                <div id="diagContent">
-                    <p style="color:var(--gray-700);font-size:14px;">سيقوم التشخيص بتحليل أدائك في جميع الأسئلة وتحديد نقاط القوة والضعف لديك.</p>
-                    <div id="diagResults" style="margin-top:14px;"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RESOURCES -->
-        <div class="page" id="page-resources">
-            <div style="margin-bottom:12px;">
-                <h3 style="font-size:18px;color:var(--primary);">📚 الموارد والمراجعة النهائية</h3>
-            </div>
-            <div class="resources-grid" id="resourcesGrid"></div>
-            <div id="rescueSheetContainer" style="margin-top:14px;"></div>
-        </div>
+    <div class="cover-year">
+      <div>إعداد المحتوى: <strong>إبراهيم الدسوقي</strong></div>
+      <div>الفئة المستهدفة: <strong>طلاب التحصيلي — المسار العلمي</strong></div>
+      <div>اللغة: <strong>العربية — تنسيق RTL</strong></div>
+      <div>عدد الأسئلة: <strong>54 سؤالاً أصلياً</strong></div>
     </div>
 
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav" id="bottomNav">
-        <button class="nav-item active" data-tab="home"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
-        <button class="nav-item" data-tab="training"><span class="nav-icon">⚡</span><span class="nav-label">التدريب</span></button>
-        <button class="nav-item" data-tab="questions"><span class="nav-icon">🧠</span><span class="nav-label">الأسئلة</span></button>
-        <button class="nav-item" data-tab="mistakes"><span class="nav-icon">🔥</span><span class="nav-label">أخطائي</span><span class="badge-nav" id="mistakeCountBottom">0</span></button>
-        <button class="nav-item" data-tab="analytics"><span class="nav-icon">📊</span><span class="nav-label">تحليلي</span></button>
-        <button class="nav-item" data-tab="diagnostic"><span class="nav-icon">🎯</span><span class="nav-label">تشخيصي</span></button>
-        <button class="nav-item" data-tab="resources"><span class="nav-icon">📚</span><span class="nav-label">الموارد</span></button>
-    </nav>
+    <a class="cover-cta" href="https://app.hero1.vip/#about" target="_blank" rel="noopener">🛒 اشترِ الآن</a>
+  </div>
 
-    <script>
-    // ============================================================================
-    //  QUESTION DATA — Biology (بنك + محاكاة 1 + محاكاة 2)
-    // ============================================================================
-    const QUESTIONS = [
-        // ============ بنك الأسئلة (18 سؤالاً) ============
-        { id:"Q01", set:"bank", topic:"المنهجية العلمية", concept:"عناصر التجربة المنضبطة", skill:"تحليل", difficulty:"متوسط",
-          question:"أجرى باحث تجربة لمعرفة أثر تركيزات مختلفة من مادة كيميائية مضادة للبكتيريا على قطر منطقة التثبيط لنمو بكتيريا حقيقية. أعد أربعة أطباق بترية تحوي نفس نوع البكتيريا والوسط الغذائي، وأضاف التركيزات (10mg, 20mg, 30mg) للأطباق الثلاثة الأولى، بينما ترك الطبق الرابع بدون إضافة. ما المتغير المستقل بداخل هذه التجربة؟",
-          A:"نوع البكتيريا ونوع الوسط الغذائي", B:"قطر منطقة التثبيط المقاسة لنمو البكتيريا", C:"تركيز المادة الكيميائية المضادة المضافة", D:"الطبق الرابع الخالي من المادة الكيميائية",
-          correct:"C", explanation:"المتغير المستقل هو العامل الوحيد الذي يغيره الباحث عمداً بداخل التجربة لاختبار أثره (تركيز المادة الكيميائية)، بينما يمثل قطر التثبيط المتغير التابع، والطبق الرابع هو المجموعة الضابطة.",
-          dose:"الجرعة الأولى" },
+  <div class="cover-foot">
+    <span>Hero Academy — Visual Catalog</span>
+    <span>© 2026-2027 — جميع الحقوق محفوظة</span>
+  </div>
+</section>
 
-        { id:"Q02", set:"bank", topic:"تصنيف الأحياء", concept:"التركيب الكيميائي للجدار الخلوي", skill:"استدلال", difficulty:"صعب",
-          question:"فحص فني مجهري عينة لثلاثة كائنات حية (X, Y, Z): أظهرت العينة (X) وجود جدار خلوي غني بمادة الببتيدوجلايكان، والعينة (Y) جداراً خلوياً مكوناً من الكايتين، والعينة (Z) جداراً صلباً يحوي السيليكا. ما التصنيف الدقيق للكائنات (X, Y, Z) على التوالي؟",
-          A:"X: بكتيريا حقيقية ، Y: فطريات ، Z: دياتومات", B:"X: بكتيريا بدائية ، Y: نباتات ، Z: دياتومات", C:"X: فطريات ، Y: بكتيريا حقيقية ، Z: طحالب حمراء", D:"X: دياتومات ، Y: فطريات ، Z: بكتيريا حقيقية",
-          correct:"A", explanation:"البكتيريا الحقيقية يمتاز جدارها باحتوائه على الببتيدوجلايكان، بينما تتكون جدر الفطريات من الكايتين، وتحوي جدر الدياتومات مادة السيليكا.",
-          dose:"الجرعة الأولى" },
 
-        { id:"Q03", set:"bank", topic:"التسمية الثنائية", concept:"قواعد التسمية الثنائية لينيوس", skill:"فهم", difficulty:"سهل",
-          question:"أي الخيارات التالية يُعبر عن الصيغة اللاتينية الصحيحة لكتابة الاسم العلمي للبصل عند طباعته طبقاً لنظام لينيوس للتسمية الثنائية؟",
-          A:"Allium Cepa", B:"allium cepa", C:"Allium cepa", D:"ALLIUM cepa",
-          correct:"C", explanation:"تنص قواعد التسمية الثنائية على كتابة اسم الجنس أولاً يبدأ بحرف كبير (Capital)، واسم النوع ثانياً يبدأ بحرف صغير (Small)، ويكتبان بخط مائل عند الطباعة.",
-          dose:"الجرعة الأولى" },
+<!-- ============================================================
+     صفحة 2 — الفهرس
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right">
+      <span class="ph-num">02</span>
+      <span class="ph-title">فهرس المحتويات</span>
+    </div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
 
-        { id:"Q04", set:"bank", topic:"الجهاز الهيكلي", concept:"الأنسجة الضامة الرابطة (الأربطة والأوتار)", skill:"تطبيق", difficulty:"متوسط",
-          question:"تعرض لاعب كرة قدم لالتواء حاد في الركبة، وأفاد التقرير الطبي بتمدد الأنسجة الضامة الصلبة التي تربط عظم الفخذ بعظم الساق مباشرة. ما الاسم العلمي لهذه الأنسجة المتضررة؟",
-          A:"الأوتار", B:"الأربطة", C:"الغضاريف الهيالينية", D:"العضلات الملساء",
-          correct:"B", explanation:"الأربطة هي أشرطة صلبة من نسيج ضام تربط عظماً بعظم آخر عند المفصل لتثبيته، بينما تربط الأوتار العضلات بالعظام.",
-          dose:"الجرعة الثانية" },
+  <div class="page-body" style="flex-direction:column;">
+    <div>
+      <h2 class="toc-title">📑 فهرس الأقسام</h2>
+      <p class="toc-sub">جولة بصرية داخل شاشات التطبيق — من الشاشة الرئيسية إلى الموارد والمراجعة النهائية.</p>
+    </div>
 
-        { id:"Q05", set:"bank", topic:"الجهاز العضلي", concept:"الألياف العضلية بطيئة وسريعة الانقباض", skill:"تحليل", difficulty:"متوسط",
-          question:"عينة عضلية مأخوذة من متسابق ماراثون أظهرت فحصاً غنياً ببروتين الميوجلوبين والميتوكندريا وتعتمد الفسيولوجيا الهوائية وتستمر بالعمل دون إعياء سريع. كيف تُصنف هذه الألياف العضلية؟",
-          A:"ألياف سريعة الانقباض تنقبض بقوة وتراكم اللاكتيك", B:"ألياف بطيئة الانقباض تقاوم التعب والإعياء", C:"عضلات ملساء لا إرادية غير مخططة", D:"عضلات قلبية متفرعة ذات أقراص بينية",
-          correct:"B", explanation:"الألياف بطيئة الانقباض تمتاز بكونها غنية بالميتوكندريا والميوجلوبين (لونها داكن) وتعتمد التنفس الهوائي وتقاوم التعب والإعياء فتنسجم مع متسابقي الماراثون.",
-          dose:"الجرعة الثانية" },
+    <div class="toc-list">
+      <div class="toc-row">
+        <div class="toc-ico">🏠</div>
+        <div class="toc-txt"><b>الشاشة الرئيسية</b><span>مستواك، آخر اختبار، واختصارات التشخيصي والجرعات</span></div>
+        <div class="toc-dots"></div><div class="toc-page">03</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico teal">⚡</div>
+        <div class="toc-txt"><b>الجرعات المركزة الست</b><span>شبكة التدريب مع نسبة التقدم لكل جرعة</span></div>
+        <div class="toc-dots"></div><div class="toc-page">04</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico teal">🧪</div>
+        <div class="toc-txt"><b>تفصيل الجرعة والأسئلة</b><span>المفاهيم الرئيسية وأسئلة الجرعة التفاعلية</span></div>
+        <div class="toc-dots"></div><div class="toc-page">05</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico">🧠</div>
+        <div class="toc-txt"><b>بنك الأسئلة الشامل</b><span>54 سؤالاً مع فلترة متقدمة وبحث فوري</span></div>
+        <div class="toc-dots"></div><div class="toc-page">06</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico">🔥</div>
+        <div class="toc-txt"><b>أخطائي</b><span>مراجعة كل سؤال خاطئ مع تفسيره</span></div>
+        <div class="toc-dots"></div><div class="toc-page">07</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico">📊</div>
+        <div class="toc-txt"><b>تحليلي</b><span>الدقة، نقاط القوة، نقاط الضعف، والإنجازات</span></div>
+        <div class="toc-dots"></div><div class="toc-page">08</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico teal">🎯</div>
+        <div class="toc-txt"><b>التشخيصي الشامل</b><span>تحليل ذكي لنقاط الضعف مع توصيات</span></div>
+        <div class="toc-dots"></div><div class="toc-page">09</div>
+      </div>
+      <div class="toc-row">
+        <div class="toc-ico">📚</div>
+        <div class="toc-txt"><b>الموارد وورقة الإنقاذ</b><span>مراجعة صفحة واحدة + مصفوفة التشخيص</span></div>
+        <div class="toc-dots"></div><div class="toc-page">10</div>
+      </div>
+      <div class="toc-row" style="background:#fef9ef;border-color:#f1dba8;">
+        <div class="toc-ico gold" style="background:var(--gold);color:var(--navy);">⭐</div>
+        <div class="toc-txt"><b>أعجبتك طريقة Hero؟</b><span>احصل على النسخة الكاملة الآن</span></div>
+        <div class="toc-dots"></div><div class="toc-page">11</div>
+      </div>
+    </div>
 
-        { id:"Q06", set:"bank", topic:"الجهاز العصبي", concept:"جهود غشاء الخلية العصبية وقانون الكل أو العدم", skill:"استدلال", difficulty:"صعب",
-          question:"إذا كانت عتبة التنبيه لخلية عصبية تبلغ -55 mV، وتم تنبيه الخلية بمؤثر شدته -60 mV فلم يتولد جهد فعل. عند زيادة شدة المؤثر إلى -40 mV تولد جهد فعل كامل. ما الذي نستنتجه بخصوص شدة جهد الفعل إذا زدنا المؤثر مستقبلاً إلى -20 mV؟",
-          A:"تزداد شدة جهد الفعل وسرعته إلى ضعف القيمة السابقة", B:"يقل جهد الفعل بسب فرط التنبيه والإنهاك العصبي", C:"يتولد جهد فعل بذات الشدة والاتساع طبقاً لقانون الكل أو العدم", D:"ينتقل السيال العصبي بالاتجاه المعاكس نحو الزوائد الشجيرية",
-          correct:"C", explanation:"ينص قانون الكل أو العدم على أن السيال العصبي يتولد بشدة ثابتة وكاملة بمجرد الوصول لعتبة التنبيه أو تجاوزها، ولا تزداد شدته بزيادة شدة المنبه.",
-          dose:"الجرعة الثانية" },
+    <div class="spec-box">
+      <b>💡 ملاحظة للقارئ</b>
+      <p>
+        كل صفحة في هذا الكتالوج تعرض لقطة مبسّطة من شاشة التطبيق الفعلية، مع تعليقات جانبية
+        توضّح وظيفة كل عنصر وكيف يساعدك أثناء التدريب والمراجعة قبل الاختبار التحصيلي.
+      </p>
+    </div>
+  </div>
 
-        { id:"Q07", set:"bank", topic:"جهاز الدوران", concept:"قواعد التوافق بنقل الدم وعامل الريزوس (Rh)", skill:"تطبيق", difficulty:"متوسط",
-          question:"أصيب شخص فصيلة دمه A⁻ بداخل حادث ونزف كمية من الدم. أي المتبرعين التاليين يُعد خياراً آمناً لنقل الدم إليه بداخل الطوارئ دون حدوث تخثر؟",
-          A:"متبرع فصيلة دمه AB⁻", B:"متبرع فصيلة دمه A⁺", C:"متبرع فصيلة دمه O⁻", D:"متبرع فصيلة دمه B⁻",
-          correct:"C", explanation:"صاحب الفصيلة A⁻ يستقبل الدم من فصيلته السالبة A⁻ أو من الفصيلة السالبة المعطية للجميع O⁻ لتفادي التخثر المناعي وتفاعل الأجسام المضادة مع عامل الريزوس.",
-          dose:"الجرعة الثالثة" },
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 2 من 11</span>
+  </div>
+</section>
 
-        { id:"Q08", set:"bank", topic:"القناة الهضمية", concept:"هضم البروتينات بالببسين وأثر pH", skill:"تحليل", difficulty:"صعب",
-          question:"وُضعت كمية من زلال البيض (بروتين) مع إنزيم الببسين بداخل أنبوب اختبار، وضبط الرقم الهيدروجيني عند (pH = 8). لوحظ عدم هضم البروتين إطلاقاً. ما التعديل الفسيولوجي المباشر الواجب اتخاذه لنشاط الإنزيم؟",
-          A:"رفع درجة الحرارة إلى 60°C", B:"إضافة حمض HCl لخفض الرقم الهيدروجيني ليكون حمضياً شديداً (pH 1.5 - 2)", C:"إضافة مادة الصفراء لتحويل الوسط إلى مستحلب قاعدي", D:"إضافة إنزيم الأميليز لتنشيط الموقع الفعال",
-          correct:"B", explanation:"إنزيم الببسين يفرز بالمعدة ويشترط لعمله بفعالية وهضم البروتينات وجود وسط حمضي شديد يوفر بحمض الهيدروكلوريك HCl.",
-          dose:"الجرعة الثالثة" },
 
-        { id:"Q09", set:"bank", topic:"الجهاز الإخراجي والتغذية", concept:"حساب السعرات الحرارية والتحويل بين الوحدات", skill:"حساب", difficulty:"متوسط",
-          question:"تمنح وجبة غذائية الجسم كمية طاقة تبلغ 350 سعراً حرارياً كبيراً (Calorie). كم تبلغ هذه الطاقة بوحدة السعر الحراري الصغير (cal)؟",
-          A:"35 cal", B:"3,500 cal", C:"350,000 cal", D:"35,000 cal",
-          correct:"C", explanation:"السعر الحراري الغذائي الكبير (Calorie) يعادل 1000 سعر حراري صغير (cal). بالتالي: 350 × 1000 = 350,000 cal.",
-          dose:"الجرعة الثالثة" },
+<!-- ============================================================
+     صفحة 3 — الشاشة الرئيسية
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">03</span><span class="ph-title">الشاشة الرئيسية</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
 
-        { id:"Q10", set:"bank", topic:"جهاز الغدد الصم", concept:"تصنيف الهرمونات وآلية النفاذ عبر الغشاء", skill:"فهم", difficulty:"سهل",
-          question:"أي الهرمونات التالية ينتمي للهرمونات الستيرويدية (الدهنية) ويستطيع الانتشار المباشر عبر الغشاء البلازمي للخلية المستهدفة والارتباط بمستقبل بداخل النواة؟",
-          A:"الأنسولين", B:"التستوستيرون", C:"هرمون النمو HG", D:"الجلوكاجون",
-          correct:"B", explanation:"الهرمونات الستيرويدية مثل التستوستيرون والكورتيزول تذوب في الدهون فتخترق الغشاء البلازمي وتدخل لترتبط بمستقبل بداخل الخلية أو النواة، بينما هرمونات الأحماض الأمينية ترتبط بمستقبلات سطحية خارجية.",
-          dose:"الجرعة الرابعة" },
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-note">📢 مرحباً! أكمل مراجعة الجرعات الست لتعزيز مستواك في التحصيلي.</div>
 
-        { id:"Q11", set:"bank", topic:"التكاثر والنمو", concept:"وظائف أعضاء الجهاز التناسلي الذكري", skill:"تطبيق", difficulty:"متوسط",
-          question:"أين يكتمل نضج الحيوانات المنوية وتكتسب قدرتها على الحركة والسباحة وتُخزن بداخل الجهاز التناسلي الذكري بداخل الإنسان؟",
-          A:"الخصية بداخل الأنابيب المنوية", B:"قناة فالوب", C:"البربخ", D:"الوعاء الناقل (الأسهر)",
-          correct:"C", explanation:"تُنتج الحيوانات المنوية بالأنابيب المنوية بالخصية، ولكن نضجها واكتمال حركتها وتخزينها يتم بداخل البربخ.",
-          dose:"الجرعة الرابعة" },
+          <div style="background:linear-gradient(135deg,#0b2b4a,#1a4a6e);border-radius:9px;padding:7px 8px;color:#fff;margin-bottom:6px;">
+            <div style="font-size:5.5px;opacity:.8;">▶ تابع من حيث توقفت</div>
+            <div style="font-size:7px;font-weight:700;">الجرعة الأولى — خريطة تصنيف الحياة</div>
+          </div>
 
-        { id:"Q12", set:"bank", topic:"الجهاز المناعي", concept:"المناعة المكتسبة النشطة مقابل السلبية", skill:"استدلال", difficulty:"صعب",
-          question:"تلقى طفل تطعيم اللقاح الثلاثي بداخل الموعد المحدد، مما دفع جسمه لبناء أجسام مضادة وتكوين خلايا ذاكرة مناعية طويلة المدى. كيف نُصنف هذا النوع من المناعة؟",
-          A:"مناعة سلبية مؤقتة", B:"مناعة نشطة (إيجابية)", C:"مناعة غير متخصصة كيميائية", D:"مناعة سلبية جنينية",
-          correct:"B", explanation:"المناعة النشطة (الإيجابية) تحدث عندما يحفز الجسم ذاتياً لبناء الأجسام المضادة وتكوين ذاكرة مناعية نتيجة التعرض لعدوى أو أخذ اللقاحات؛ أما المناعة السلبية فتتم بنقل أجسام مضادة جاهزة دون ذاكرة.",
-          dose:"الجرعة الرابعة" },
+          <div class="ms-stats">
+            <div class="ms-stat"><div class="n">0%</div><div class="l">📊 مستواك</div></div>
+            <div class="ms-stat"><div class="n gold">—</div><div class="l">📝 آخر اختبار</div></div>
+            <div class="ms-stat"><div class="n">0</div><div class="l">✅ محلولة</div></div>
+            <div class="ms-stat"><div class="n green">0</div><div class="l">🎯 صحيحة</div></div>
+          </div>
 
-        { id:"Q13", set:"bank", topic:"الوراثة الجزيئية", concept:"حساب نسب القواعد النيتروجينية بقوانين تشارجاف", skill:"حساب", difficulty:"متوسط",
-          question:"أظهر تحليل عينة من حمض الـ DNA أن نسبة قاعدة الجوانين (G) تعادل 22%. كم تبلغ النسبة المئوية لقاعدة الثايمين (T) بداخل هذه العينة المزدوجة؟",
-          A:"22%", B:"28%", C:"44%", D:"56%",
-          correct:"B", explanation:"طبقاً لقاعدة تشارجاف: [C] = [G] = 22%. إذن مجموع (G + C) = 44%. المتبقي للقواعد الأخرى (A + T) = 100% - 44% = 56%. وبما أن [A] = [T]، فإن نسبة الثايمين [T] = 56% ÷ 2 = 28%.",
-          dose:"الجرعة الخامسة" },
-
-        { id:"Q14", set:"bank", topic:"الوراثة المندلية", concept:"حساب عدد التراكيب الجينية للأمشاج (2^n)", skill:"حساب", difficulty:"صعب",
-          question:"مخلوق حي يحتوي طرازه الجيني لثلاث صفات وراثية على التركيب الهجين المتباين: (AaBbCc). كم عدد التراكيب الجينية المتباينة والمحتملة للأمشاج الناتجة عن التوزيع الحر بداخل الانقسام الاختزالي؟",
-          A:"3 أمشاج", B:"6 أمشاج", C:"8 أمشاج", D:"16 مشيجاً",
-          correct:"C", explanation:"نستخدم الصيغة 2^n لحساب احتمالات الأمشاج، حيث n هو عدد أزواج الجينات المتباينة الهجينة. هنا توجد 3 أزواج متباينة (Aa, Bb, Cc)، فتكون n = 3. بالتالي: 2^3 = 8 أمشاج متباينة.",
-          dose:"الجرعة الخامسة" },
-
-        { id:"Q15", set:"bank", topic:"الوراثة البشرية", concept:"الاختلالات الكروموسومية وعدم الانفصال", skill:"تحليل", difficulty:"صعب",
-          question:"كشف الفحص الكروموسومي لأنثى تعاني من قامة قصيرة وعدم نضج للأعضاء التناسلية عن وجود (45 كروموسوماً) بتركيب جنسي (XO). ما اسم هذا الاختلال الكروموسومي؟",
-          A:"متلازمة داون", B:"متلازمة كلينفلتر (XXY)", C:"متلازمة تيرنر", D:"مرض هنتنجتون السائد",
-          correct:"C", explanation:"تنتج متلازمة تيرنر عن عدم انفصال الكروموسومات الجنسية أثناء الانقسام المنصف، فتولد الأنثى بـ (45 كروموسوماً) وتفقد كروموسوماً جنسياً (XO).",
-          dose:"الجرعة الخامسة" },
-
-        { id:"Q16", set:"bank", topic:"مدخل إلى الحيوانات", concept:"مستويات التناظر والتغذية الترشيحية", skill:"فهم", difficulty:"سهل",
-          question:"أي الكائنات اللافقارية التالية يُصنف تشريحياً على أنه عديم التناظر ويتغذى عن طريق التغذية الترشيحية من الماء؟",
-          A:"قنديل البحر", B:"دودة البلايناريا", C:"الإسفنج", D:"الجراد",
-          correct:"C", explanation:"الإسفنجيات حيوانات بسيطة عديمة التناظر ولا يمكن تقسيم جسمها لنصفين متماثلين، وتعتمد حصراً على التغذية الترشيحية.",
-          dose:"الجرعة السادسة" },
-
-        { id:"Q17", set:"bank", topic:"المفصليات", concept:"الخصائص التشريحية للعنكبيات", skill:"تطبيق", difficulty:"متوسط",
-          question:"قام طالب بتشريح كائن مفصلي فوجد أن جسمه مقسم لـ (رأس-صدر وبطن)، ويمتلك رئات كتابية، ويفتقر تماماً لقرون الاستشعار. إلى أي طائفة ينتمي هذا الكائن؟",
-          A:"القشريات", B:"الحشرات", C:"العنكبيات", D:"مئويات الأرجل",
-          correct:"C", explanation:"العنكبيات هي الطائفة المفصلية الوحيدة التي تتميز بغياب قرون الاستشعار تماماً وتعتمد على الرئات الكتابية والمغازل لإنتاج الحرير.",
-          dose:"الجرعة السادسة" },
-
-        { id:"Q18", set:"bank", topic:"أجهزة الإخراج اللافقارية", concept:"أنابيب ملبيجي والخلايا اللهبية والنفريديا", skill:"استدلال", difficulty:"صعب",
-          question:"أظهرت النتائج المجهرية أن الكائن (A) يخرج فضلاته عبر خلايا لهبية، والكائن (B) عبر نفريديا، والكائن (C) عبر أنابيب ملبيجي. ما التصنيف الدقيق للكائنات (A, B, C) على التوالي؟",
-          A:"A: بلايناريا (مفلطحة) ، B: حلزون (رخويات) ، C: حشرة الجراد (مفصليات)", B:"A: جراد ، B: إسفنج ، C: دودة الأرض", C:"A: دودة الأرض ، B: بلايناريا ، C: قنديل البحر", D:"A: هيدرا ، B: خطبوط ، C: سرطان البحر",
-          correct:"A", explanation:"تمتاز الديدان المفلطحة كالبلايناريا بخلايا لهبية للإخراج، والرخويات كالحلزون والحلقيات بنفريديا، والمفصليات كالحشرات بأنابيب ملبيجي.",
-          dose:"الجرعة السادسة" },
-
-        // ============ محاكاة 1 (18 سؤالاً) ============
-        { id:"S1-01", set:"sim1", topic:"المنهجية العلمية", concept:"الفرضية العلمية", skill:"فهم", difficulty:"سهل",
-          question:"أجرى عالم أحياء تجربة مخبرية لاختبار مدى فاعلية تركيزات مختلفة من مركب كيميائي بكتيري. ما المصطلح الذي يطلق على التفسير القابل للاختبار الذي يبدأ به الباحث قبل التجربة؟",
-          A:"القانون العلمي", B:"الفرضية العلمية", C:"النظرية العلمية", D:"الاستنتاج النهائي",
-          correct:"B", explanation:"الفرضية هي تفسير قابل للاختبار ينطلق منه الباحث قبل إجراء التجارب المنضبطة.",
-          dose:"الجرعة الأولى" },
-        { id:"S1-02", set:"sim1", topic:"المنهجية العلمية", concept:"أنواع البيانات العلمية", skill:"فهم", difficulty:"سهل",
-          question:"قام طالب بجمع بيانات بداخل تجربة لمعرفة أثر كمية السماد المضاف على طول نبات القمح، وسجل أطوال النباتات بالسنتمتر (cm) وكتلة الجذور بالجرام (g). كيف نُصنف هذه البيانات المسجلة؟",
-          A:"بيانات وصفية", B:"بيانات كمية", C:"مجموعات ضابطة", D:"فرضيات علمية",
-          correct:"B", explanation:"البيانات الكمية هي القياسات الأرقام والوحدات (كالطول بالـ cm والكتلة بالـ g).",
-          dose:"الجرعة الأولى" },
-        { id:"S1-03", set:"sim1", topic:"تصنيف الأحياء", concept:"خصائص الفطريات والجدار الخلوي", skill:"استدلال", difficulty:"متوسط",
-          question:"فحص فني مجهري عينة لخلية حيوانية غير معروفة، أظهرت وجود نواة محاطة بغشاء نباتي وجدار خلوي مكون من مادة الكايتين وخيوط فطرية، وتفتقر للبلاستيدات الخضراء. إلى أي الممالك التالية ينتمي هذا الكائن؟",
-          A:"مملكة النباتات", B:"مملكة الطلائعيات", C:"مملكة الفطريات", D:"مملكة البكتيريا الحقيقية",
-          correct:"C", explanation:"تتميز الفطريات باحتواء جدارها الخلوي على مادة الكايتين ووجود خيوط فطرية وغياب البلاستيدات.",
-          dose:"الجرعة الأولى" },
-        { id:"S1-04", set:"sim1", topic:"الجهاز الهيكلي", concept:"المفاصل الكروية", skill:"تطبيق", difficulty:"سهل",
-          question:"أي أنواع المفاصل التالية بداخل الهيكل العظمي للإنسان تسمح بحركة العظام بداخل جميع الاتجاهات وفي نطاق واسع جداً كحركة مفصل الكتف والورك؟",
-          A:"المفاصل الرزية", B:"المفاصل الكروية (الحقية)", C:"المفاصل الدرزية غير المتحركة", D:"المفاصل المنزلقة",
-          correct:"B", explanation:"المفصل الكروي (كالكتف والورك) يمنح الحركة واسعة النطاق بجميع الاتجاهات.",
-          dose:"الجرعة الثانية" },
-        { id:"S1-05", set:"sim1", topic:"الجهاز العصبي", concept:"القوس الانعكاسي والحبل الشوكي", skill:"تحليل", difficulty:"صعب",
-          question:"عند تعرض شخص لوكزة إبرة مفاجئة بيده، سحب يده بسرعة فائقة دون تفكير. أي أجزاء الجهاز العصبي التالية يمثل حلقة الوصل ومقر معالجة السيال العصبي بداخل مسار القوس الانعكاسي دون الحاجة لتدخل المخ المباشر؟",
-          A:"المخيخ", B:"الحبل الشوكي", C:"النخاع المستطيل", D:"منطقة تحت المهاد",
-          correct:"B", explanation:"معالجة رد الفعل المنعكس وتوجيه الاستجابة الحركية تتم بداخل الحبل الشوكي سريعاً وحماية للجسم دون الحاجة للرجوع للمخ أولاً.",
-          dose:"الجرعة الثانية" },
-        { id:"S1-06", set:"sim1", topic:"الجهاز العضلي", concept:"الألياف العضلية سريعة الانقباض", skill:"تطبيق", difficulty:"متوسط",
-          question:"رياضي متخصص بداخل سباقات الجري الانفجاري للمسافات القصيرة (100م). ما الخصائص الأكثر ملاءمة بداخل ألياف عضلات ساقيه الفسيولوجية لتحقيق أقصى قوة سريعة؟",
-          A:"ألياف بطيئة الانقباض غنية بالميوجلوبين والميتوكندريا", B:"ألياف سريعة الانقباض تحوي ميوجلوبين أقل وتعتمد التنفس اللاهوائي", C:"عضلات ملساء لا إرادية مغزلية الشكل", D:"عضلات قلبية غير مخططة تحوي أقراصاً بينية",
-          correct:"B", explanation:"الانقباضات الانفجارية السريعة (كسباق 100م) تعتمد على ألياف سريعة الانقباض تحوي ميوجلوبين أقل وتصاب بالإعياء سريعاً لتراكم حمض اللاكتيك.",
-          dose:"الجرعة الثانية" },
-        { id:"S1-07", set:"sim1", topic:"جهاز الدوران", concept:"الأوردة الرئوية", skill:"فهم", difficulty:"سهل",
-          question:"أي الأوعية الدموية التالية بداخل جهاز الدوران ينقل الدم المؤكسج الغني بالأكسجين القادم من الرئتين ليتجه به مباشرة نحو الأذين الأيسر بالقلب؟",
-          A:"الشريان الأبهر (الأورطي)", B:"الشريان الرئوي", C:"الأوردة الرئوية", D:"الوريد الأجوف السفلي",
-          correct:"C", explanation:"تنقل الأوردة الرئوية الدم المؤكسج القادم من الرئتين لتصبه بالأذين الأيسر للقلب.",
-          dose:"الجرعة الثالثة" },
-        { id:"S1-08", set:"sim1", topic:"التغذية", concept:"حساب السعرات الحرارية", skill:"حساب", difficulty:"متوسط",
-          question:"تحتوي الوجبة الغذائية لشخص على 400 سعر حراري كبير (Calorie). كم تبلغ كمية الطاقة التي تمنحها هذه الوجبة بوحدة السعر الحراري الصغير (cal)؟",
-          A:"400 cal", B:"4,000 cal", C:"40,000 cal", D:"400,000 cal",
-          correct:"D", explanation:"السعر الحراري الغذائي الكبير (Calorie) يعادل 1000 سعر صغير (cal)؛ بالتالي: 400 × 1000 = 400,000 cal.",
-          dose:"الجرعة الثالثة" },
-        { id:"S1-09", set:"sim1", topic:"الجهاز الإخراجي", concept:"الترشيح الكلوي ومحفظة بومان", skill:"تحليل", difficulty:"صعب",
-          question:"أظهر فحص عينة راشح بداخل محفظة بومان للنفرون الكلي لدى مريض وجود جزيئات بروتينية كبيرة وخلايا دم حمراء بالراشح الأول. ما الاستدلال العلمي الدقيق للخلل بداخل الوحدة الكلوية؟",
-          A:"حدوث تلف بداخل الشعيرات الدموية المكونة للكبة بداخل محفظة بومان", B:"انسداد بداخل قناة الحالب الموصلة للمثانة", C:"زيادة إعادة الامتصاص بداخل الأنابيب الملتوية", D:"توقف إفراز الهرمون المانع لإدرار البول",
-          correct:"A", explanation:"تمنع شعيرات الكبة بالكُلية نفاذ الخلايا الحمراء والبروتينات الكبيرة، ووجودها بالراشح يستدل منه على تلف أو خلل بنفاذية الشعيرات الكبية.",
-          dose:"الجرعة الثالثة" },
-        { id:"S1-10", set:"sim1", topic:"جهاز الغدد الصم", concept:"هرمون الجلوكاجون", skill:"تطبيق", difficulty:"متوسط",
-          question:"عند انخفاض تركيز سكر الجلوكوز بالدم لدى شخص صائم، ما الهرمون الذي يفرزه البنكرياس فسيولوجياً لتحفيز الكبد على تحليل الجلايكوجين وإعادة السكر لمستواه الطبيعي؟",
-          A:"هرمون الأنسولين", B:"هرمون الجلوكاجون", C:"هرمون الثيروكسين", D:"هرمون الألدوستيرون",
-          correct:"B", explanation:"يُفرز الجلوكاجون عند انخفاض سكر الدم ليحلل الجلايكوجين بالكبد ويحوله لجلوكوز لرفعه للاتزان.",
-          dose:"الجرعة الرابعة" },
-        { id:"S1-11", set:"sim1", topic:"التكاثر والنمو", concept:"موقع الإخصاب بالجهاز الأنثوي", skill:"فهم", difficulty:"سهل",
-          question:"أين يحدث الإخصاب الطبيعي واندماج الحيوان المنوي بالبويضة لتكوين الزيجوت بداخل الجهاز التناسلي الأنثوي بداخل الإنسان؟",
-          A:"المبيض", B:"قناة فالوب (قناة البيض)", C:"بطانة الرحم", D:"المهبل",
-          correct:"B", explanation:"يتم اندماج الحيوان المنوي بالبويضة والإخصاب طبيعياً بداخل أعلى قناة فالوب (قناة البيض).",
-          dose:"الجرعة الرابعة" },
-        { id:"S1-12", set:"sim1", topic:"الجهاز المناعي", concept:"المناعة السلبية والمصل", skill:"استدلال", difficulty:"صعب",
-          question:"تعرض شخص لعضة حيوان مشتبه بمرض السعار، فقام الطبيب بحقنه فوراً بأجسام مضادة جاهزة وموجهة للحماية السريعة المباشرة دون إعطائه المسبب المرضي. ما نوع هذه المناعة؟",
-          A:"مناعة نشطة إيجابية طويلة المدى", B:"مناعة سلبية مؤقتة", C:"مناعة غير متخصصة تشريحية", D:"استجابة التهابية خلية",
-          correct:"B", explanation:"إعطاء أجسام مضادة جاهزة يمنح مناعة سلبية مؤقتة وسريعة دون تكوين ذاكرة مناعية.",
-          dose:"الجرعة الرابعة" },
-        { id:"S1-13", set:"sim1", topic:"الوراثة الجزيئية", concept:"قاعدة تشارجاف لـ DNA", skill:"حساب", difficulty:"صعب",
-          question:"بداخل جزيء DNA مزدوج، إذا بلغت نسبة قاعدة الأدينين (A) نسبة 30% بداخل العينة الوراثية. كم تبلغ النسبة المئوية لقاعدة السيتوسين (C) بداخل هذه العينة المزدوجة؟",
-          A:"20%", B:"30%", C:"40%", D:"60%",
-          correct:"A", explanation:"بحسب قاعدة تشارجاف: [T] = [A] = 30%. المتبقي للقواعد النيتروجينية الأخرى [G + C] = 100% - 60% = 40%. وبما أن [G] = [C]، فإن نسبة السيتوسين [C] = 40% ÷ 2 = 20%.",
-          dose:"الجرعة الخامسة" },
-        { id:"S1-14", set:"sim1", topic:"الانقسام المنصف", concept:"العبور الجيني", skill:"فهم", difficulty:"سهل",
-          question:"في أي أطوار الانقسام الاختزالي (المنصف) تحدث ظاهرة العبور الجيني (Crossing Over) وتبادل القطع بين الكروموسومات المتماثلة لزيادة التنوع الوراثي؟",
-          A:"الطور التمهيدي الأول", B:"الطور الاستوائي الأول", C:"الطور التمهيدي الثاني", D:"الطور الانفصالي الثاني",
-          correct:"A", explanation:"تحدث ظاهرة العبور الجيني وتبادل القطع الكروموسومية بداخل الطور التمهيدي الأول من الانقسام المنصف.",
-          dose:"الجرعة الخامسة" },
-        { id:"S1-15", set:"sim1", topic:"الوراثة البشرية", concept:"متلازمة تيرنر", skill:"تحليل", difficulty:"صعب",
-          question:"أنثى يُظهر فحص مخططها الكروموسومي وجود 45 كروموسوماً فقط مع غياب كروموسوم جنسي واحد (XO) وقامة قصيرة وعقم. ما اسم هذه المتلازمة الكروموسومية؟",
-          A:"متلازمة داون", B:"متلازمة كلينفلتر", C:"متلازمة تيرنر", D:"مرض هنتنجتون",
-          correct:"C", explanation:"تنتج متلازمة تيرنر عن عدم انفصال الكروموسومات الجنسية فتولد الأنثى بـ 45 كروموسوماً وتركيبة جنسية مفردة (XO).",
-          dose:"الجرعة الخامسة" },
-        { id:"S1-16", set:"sim1", topic:"مدخل إلى الحيوانات", concept:"الإسفنجيات وتناظر الجسم", skill:"فهم", difficulty:"سهل",
-          question:"أي الشعب اللافقارية التالية يُصنف كائن الإسفنج بداخلها، ويمتاز بكونه عديم التناظر ويتغذى بوساطة التغذية الترشيحية من الماء؟",
-          A:"اللاسعات (الجوفمعويات)", B:"الإسفنجيات (المساميات)", C:"الديدان المفلطحة", D:"المفصليات",
-          correct:"B", explanation:"الإسفنجيات حيوانات بسيطة عديمة التناظر وتعتمد على التغذية الترشيحية من الماء.",
-          dose:"الجرعة السادسة" },
-        { id:"S1-17", set:"sim1", topic:"أجهزة الإخراج اللافقارية", concept:"أنابيب ملبيجي", skill:"تطبيق", difficulty:"سهل",
-          question:"ما اسم التراكيب الإخراجية المتخصصة بداخل التجويف الجسمي لحشرة الجراد والمفصليات والتي تخلصه من الفضلات النيتروجينية بداخل الدم؟",
-          A:"الخلايا اللهبية", B:"النفريديا", C:"أنابيب ملبيجي", D:"أجهزة السيفون",
-          correct:"C", explanation:"تمتاز الحشرات والمفصليات بأنابيب ملبيجي المتخصصة بجمع الفضلات النيتروجينية من الدم وإخراجها.",
-          dose:"الجرعة السادسة" },
-        { id:"S1-18", set:"sim1", topic:"المفصليات", concept:"العنكبيات وخصائص العناكب", skill:"تحليل", difficulty:"متوسط",
-          question:"كائن مفصلي ينتمي لطائفة تمتاز باحتواء جسمها على 4 أزواج من الأرجل المفصلية ووجود المغازل لغزل الحرير وتفتقر تماماً لاحتواء جسمها على قرون استشعار. ما هذا الكائن؟",
-          A:"سرطان البحر (القشريات)", B:"العنكبوت / العقرب (العنكبيات)", C:"حشرة النحل (الحشرات)", D:"مئويات الأرجل",
-          correct:"B", explanation:"تتميز طائفة العنكبيات (كالعقارب والعناكب) بامتلاك 4 أزواج من الأرجل المفصلية ووجود المغازل لغزل الحرير وافتقارها لقرون الاستشعار.",
-          dose:"الجرعة السادسة" },
-
-        // ============ محاكاة 2 (18 سؤالاً) ============
-        { id:"S2-01", set:"sim2", topic:"المنهجية العلمية", concept:"المتغير التابع", skill:"تطبيق", difficulty:"متوسط",
-          question:"قام باحث بتجربة لتقييم أثر تغير الرقم الهيدروجيني (pH) بداخل أسطوانة تفاعل على نشاط إنزيم الأميليز، وقاس كمية سكر الجلوكوز الناتجة في فترات زمنية متساوية. ما العامل الذي يُعد «متغيراً تابعاً» في هذه التجربة؟",
-          A:"درجة الحموضة (pH) المضبوطة", B:"نوع إنزيم الأميليز المستعمل", C:"كمية سكر الجلوكوز الناتجة والمقاسة", D:"درجة حرارة الحاضنة المخبرية الثابتة",
-          correct:"C", explanation:"المتغير التابع هو النتيجة الناتجة والمقاسة بداخل التجربة والتي تعتمد على المتغير المستقل (كمية الجلوكوز).",
-          dose:"الجرعة الأولى" },
-        { id:"S2-02", set:"sim2", topic:"المنهجية العلمية", concept:"البيانات الوصفية والكمية", skill:"فهم", difficulty:"سهل",
-          question:"لاحظ طالب بداخل مختبر الأحياء كائناً حياً مجهرياً وسجل: \"الكائن مجهري حلزوني الشكل، لونه أخضر يتألق تحت الضوء، وحركته سريعة ومتموجة\". كيف نُصنف هذه البيانات؟",
-          A:"بيانات كمية", B:"بيانات وصفية", C:"فرضيات استنتاجية", D:"متغيرات تجريبية",
-          correct:"B", explanation:"البيانات الوصفية هي خواص مدركة بالحواس وتُصاغ بكلمات وأوصاف كـ اللون والشكل والحركة.",
-          dose:"الجرعة الأولى" },
-        { id:"S2-03", set:"sim2", topic:"تصنيف الأحياء", concept:"البكتيريا البدائية والجدار الخلوي", skill:"استدلال", difficulty:"صعب",
-          question:"مخلوق حي دقيق بدائي النواة يعيش في بيئة ينعدم فيها الأكسجين تماماً بداخل رواسب مستنقعات كبريتية حارة، وأثبت التحليل الكيميائي خلو جدرانه الخلوية تماماً من مادة الببتيدوجلايكان. ما التصنيف المباشر لهذا المخلوق؟",
-          A:"مملكة البكتيريا الحقيقية", B:"فوق مملكة البدائيات (البكتيريا البدائية)", C:"مملكة الطلائعيات الشبيهة بالحيوانات", D:"مملكة الفطريات الكايتينية",
-          correct:"B", explanation:"البدائيات كائنات تعيش بالظروف القاسية (كالحرارة وانعدام الأكسجين) ويخلو جدارها الخلوي من الببتيدوجلايكان.",
-          dose:"الجرعة الأولى" },
-        { id:"S2-04", set:"sim2", topic:"الجهاز الهيكلي", concept:"المفصل الرزي", skill:"تطبيق", difficulty:"سهل",
-          question:"أي أنواع المفاصل التالية في الهيكل العظمي البشري يربط بين عظم العضد وعظمي الساعد عند مفصل المرفق، ويسمح بالحركة في مستوى واحد فقط إلى الأمام والخلف؟",
-          A:"المفصل الكروي (الحقي)", B:"المفصل الرزي", C:"المفصل المنزلق", D:"المفصل الدرزي غير المتحرك",
-          correct:"B", explanation:"المفصل الرزي (كالمرفق والركبة) يسمح بالحركة بداخل مستوى واحد فقط للأمام والخلف كرزة الباب.",
-          dose:"الجرعة الثانية" },
-        { id:"S2-05", set:"sim2", topic:"الجهاز العصبي الذاتي", concept:"الجهاز السمبثاوي", skill:"تحليل", difficulty:"متوسط",
-          question:"عند مشاهدة شخص لحيوان مفترس مفاجئ بداخل الغابة، تتسع قزحية عينيه ويزداد معدل تنفسه وتتسارع نبضات قلبه وتتوقف حركة أمعائه. ما الجزء المسؤول مباشرة عن هذه الاستجابة؟",
-          A:"الجهاز العصبي جار السمبثاوي", B:"الجهاز العصبي السمبثاوي", C:"المخيخ وقشرة المخ", D:"الجهاز العصبي الجسمي الإرادي",
-          correct:"B", explanation:"يعمل الجهاز السمبثاوي بداخل حالات الطوارئ والإجهاد والخوف فيوسع البؤبؤ ويزيد النبض والتنفس ويثبط الهضم.",
-          dose:"الجرعة الثانية" },
-        { id:"S2-06", set:"sim2", topic:"الجهاز العضلي", concept:"الألياف بطيئة الانقباض", skill:"تطبيق", difficulty:"متوسط",
-          question:"عينة عضلية مأخوذة من متسابق بداخل سباقات السباحة للمسافات الطويلة، أظهر الفحص النسيجي احتواءها على نسبة مرتفعة جداً من الميتوكندريا وبروتين الميوجلوبين وقدرة فائقة على الاستمرار في العمل دون تراكم حمض اللاكتيك. ما نوع هذه الألياف العضلية؟",
-          A:"ألياف سريعة الانقباض", B:"ألياف بطيئة الانقباض", C:"عضلات ملساء لا إرادية", D:"عضلات قلبية غير مخططة",
-          correct:"B", explanation:"الألياف بطيئة الانقباض غنية بالميوجلوبين والميتوكندريا وتعتمد التنفس الهوائي وتقاوم التعب بسباقات التحمل.",
-          dose:"الجرعة الثانية" },
-        { id:"S2-07", set:"sim2", topic:"جهاز الدوران", concept:"البطين الأيسر بالقلب", skill:"فهم", difficulty:"سهل",
-          question:"أي حجرات القلب التالية تمتلك أسمك جدار عضلي لتمكينها من ضخ الدم المؤكسج تحت ضغط عالٍ جداً ليدفع عبر الشريان الأبهر (الأورطي) إلى جميع أجزاء وأنسجة الجسم؟",
-          A:"الأذين الأيمن", B:"البطين الأيمن", C:"الأذين الأيسر", D:"البطين الأيسر",
-          correct:"D", explanation:"يمتلك البطين الأيسر أسمك جدار عضلي لضخ الدم المؤكسج تحت ضغط عالٍ بداخل الشريان الأبهر لجميع أعضاء الجسم.",
-          dose:"الجرعة الثالثة" },
-        { id:"S2-08", set:"sim2", topic:"التغذية", concept:"حساب السعرات الحرارية", skill:"حساب", difficulty:"متوسط",
-          question:"تحتوي وجبة إفطار صحية على كمية طاقة تبلغ 250 سعراً حرارياً كبيراً (Calorie). كم تعادل هذه الطاقة بوحدة السعر الحراري الصغير (cal)؟",
-          A:"250 cal", B:"2,500 cal", C:"25,000 cal", D:"250,000 cal",
-          correct:"D", explanation:"السعر الحراري الغذائي الكبير (Calorie) يساوي 1000 سعر صغير (cal)؛ بالتالي: 250 × 1000 = 250,000 cal.",
-          dose:"الجرعة الثالثة" },
-        { id:"S2-09", set:"sim2", topic:"القناة الهضمية", concept:"إنزيم الببسين ودرجة الحموضة", skill:"تحليل", difficulty:"صعب",
-          question:"أُضيف إنزيم الببسين إلى أنبوب اختبار يحتوي على زلال البيض (بروتين) ورُفع الرقم الهيدروجيني للأنبوب إلى وسط قاعدي (pH = 9). لوحظ عدم حدوث أي هضم للبروتين. ما السبب العلمي المباشر لذلك؟",
-          A:"إنزيم الببسين يتلف بالكامل بداخل درجات الحرارة العادية", B:"إنزيم الببسين يحتاج حصراً إلى وسط حمضي شديد بوجود HCl ليعمل بفعالية", C:"الببسين لا يهضم البروتينات بل يختص بهضم الكربوهيدرات", D:"زلال البيض يحتاج لإنزيم الأميليز اللعابي أولاً لتفكيكه",
-          correct:"B", explanation:"يشترط لنشاط الببسين وهضم البروتين وجود وسط حمضي شديد يوفره حمض HCl بداخل المعدة، ويتوقف عمله بوسط قاعدي.",
-          dose:"الجرعة الثالثة" },
-        { id:"S2-10", set:"sim2", topic:"جهاز الغدد الصم", concept:"هرمون الأنسولين والسكر", skill:"تطبيق", difficulty:"متوسط",
-          question:"بعد تناول شخص لوجبة غنية بالسكريات والكربوهيدرات، ارتفع مستوى الجلوكوز في دمه فجأة. أي الهرمونات التالية يفرزه البنكرياس فوراً ليعيد مستوى السكر لنقطة الاتزان الداخلي؟",
-          A:"هرمون الجلوكاجون", B:"هرمون الأنسولين", C:"هرمون الألدوستيرون", D:"هرمون الكورتيزول",
-          correct:"B", explanation:"يفرز البنكرياس هرمون الأنسولين عند ارتفاع سكر الدم فوراً لتحويل الجلوكوز إلى جلايكوجين بداخل الكبد والعضلات لخفضه.",
-          dose:"الجرعة الرابعة" },
-        { id:"S2-11", set:"sim2", topic:"التكاثر والنمو", concept:"التستوستيرون", skill:"فهم", difficulty:"سهل",
-          question:"ما الهرمون الذكري الرئيسي الذي تفرزه الخلايا البينية في الخصية، والمسؤول عن ظهور الصفات الجنسية الذكرية الثانوية وتنظيم إنتاج الحيوانات المنوية؟",
-          A:"هرمون الأنسولين", B:"هرمون التستوستيرون", C:"هرمون الألدوستيرون", D:"هرمون الكالسيتونين",
-          correct:"B", explanation:"يفرز التستوستيرون من الخلايا البينية بالخصية ومسؤول عن الصفات الجنسية الذكرية الثانوية وتنظيم إنتاج الحيوانات المنوية.",
-          dose:"الجرعة الرابعة" },
-        { id:"S2-12", set:"sim2", topic:"الجهاز المناعي", concept:"المناعة النشطة واللقاحات", skill:"استدلال", difficulty:"صعب",
-          question:"حقن طبيب طفلاً بلقاح يحوي مسبب مرض مضعفاً، مما دفع جسم الطفل لبناء أجسام مضادة ذاتياً وتشكيل خلايا ذاكرة مناعية تدوم سنوات طويلة. كيف تُصنف هذه المناعة؟",
-          A:"مناعة سلبية مؤقتة", B:"مناعة نشطة (إيجابية)", C:"مناعة غير متخصصة تشريحية", D:"مناعة خلية استجابية",
-          correct:"B", explanation:"التطعيم باللقاحات يحفز الجسم لبناء أجسامه المضادة ذاتياً وتشكيل ذاكرة مناعية طويلة المدى بداخل المناعة النشطة.",
-          dose:"الجرعة الرابعة" },
-        { id:"S2-13", set:"sim2", topic:"الوراثة الجزيئية", concept:"قواعد تشارجاف لـ DNA", skill:"حساب", difficulty:"صعب",
-          question:"عينة من حمض DNA المزدوج وُجد أن نسبة قاعدة السيتوسين (C) فيها تساوي 15%. كم تبلغ النسبة المئوية المتوقعة لقاعدة الثايمين (T) بداخل نفس العينة الجزيئية؟",
-          A:"15%", B:"35%", C:"70%", D:"17.5%",
-          correct:"B", explanation:"بحسب قاعدة تشارجاف: [G] = [C] = 15%. مجموع (G + C) = 30%. المتبقي (A + T) = 100% - 30% = 70%. وبما أن [A] = [T]، فإن نسبة الثايمين [T] = 70% ÷ 2 = 35%.",
-          dose:"الجرعة الخامسة" },
-        { id:"S2-14", set:"sim2", topic:"دورة الخلية", concept:"طور بناء الـ DNA (S)", skill:"فهم", difficulty:"سهل",
-          question:"في أي مرحلة من أطوار دورة الخلية يتم بناء وتضاعف المادة الوراثية DNA بشكل كامل بداخل النواة استعداداً للانقسام الخلوي؟",
-          A:"طور النمو الأول (G₁) بداخل الطور البيني", B:"طور بناء وتضاعف الـ DNA (S) بداخل الطور البيني", C:"طور النمو الثاني (G₂) بداخل الطور البيني", D:"الطور الاستوائي بداخل الانقسام المتساوي",
-          correct:"B", explanation:"يتم تضاعف وبناء المادة الوراثية DNA بداخل طور البناء (S) بداخل الطور البيني بدورة الخلية.",
-          dose:"الجرعة الخامسة" },
-        { id:"S2-15", set:"sim2", topic:"الوراثة البشرية", concept:"الوراثة المرتبطة بالجنس", skill:"تحليل", difficulty:"صعب",
-          question:"مرض وراثي مرتبط بالجنس محمول على الكروموسوم X (مثل عمى الألوان). إذا كانت الأم حاملة للصفة (X^B X^b) والأب سليماً (X^B Y)، كم تبلغ نسبة احتمال إصابة الأبناء الذكور حصراً بهذا المرض؟",
-          A:"0%", B:"25%", C:"50%", D:"100%",
-          correct:"C", explanation:"يمنح الأب السليم أبناءه الذكور الكروموسوم Y، بينما تمنحهم الأم الحاملة (X^B X^b) إما X^B (سليم) أو X^b (مصاب) بنسبة 50% للذكور.",
-          dose:"الجرعة الخامسة" },
-        { id:"S2-16", set:"sim2", topic:"مدخل إلى الحيوانات", concept:"الديدان المفلطحة وتجاويف الجسم", skill:"فهم", difficulty:"سهل",
-          question:"أي الكائنات اللافقارية التالية يُصنف تشريحياً على أنه «عديم التجويف الجسمي»، ويمتلك تناظراً جانبياً وخلايا لهبية كعضو للإخراج؟",
-          A:"الإسفنج", B:"قنديل البحر", C:"دودة البلايناريا (الديدان المفلطحة)", D:"دودة الإسكارس (الديدان الأسطوانية)",
-          correct:"C", explanation:"الديدان المفلطحة (كالبلايناريا) عديمة التجويف الجسمي وتمتلك تناظراً جانبياً وخلايا لهبية للإخراج.",
-          dose:"الجرعة السادسة" },
-        { id:"S2-17", set:"sim2", topic:"المفصليات", concept:"عملية الانسلاخ", skill:"تطبيق", difficulty:"سهل",
-          question:"عملية دورية تقوم بها المفصليات (كالسرطانات والحشرات) لطرح هيكلها الخارجي الصلب المكون من مادة الكايتين ليتسنى لجسمها النمو والتمدد. ما الاسم العلمي لهذه العملية؟",
-          A:"التبرعم", B:"الانسلاخ", C:"التجدد", D:"التكيس",
-          correct:"B", explanation:"الانسلاخ هو عملية طرح الهيكل الخارجي الكايتيني القديم واستبداله بجديد ليتسنى لجسم المفصليات النمو.",
-          dose:"الجرعة السادسة" },
-        { id:"S2-18", set:"sim2", topic:"الرخويات", concept:"أنبوب السيفون", skill:"تحليل", difficulty:"صعب",
-          question:"تركيب عضلي أنبوبي بداخل الرخويات رأسية القدم (كالأخطبوط والحبار) ينقبض بقوة لدفع الماء بسرعة خارج تجويف العباءة وتمكين الحيوان من السباحة بالدفع النفاث للهروب من المفترسات. ما اسمه؟",
-          A:"الطاحنة", B:"السيفون", C:"العباءة", D:"النفريديا",
-          correct:"B", explanation:"ينقبض أنبوب السيفون بداخل الرخويات رأسية القدم ليدفع الماء بسرعة خارج تجويف العباءة للسباحة بالدفع النفاث والهروب.",
-          dose:"الجرعة السادسة" }
-    ];
-
-    // ============================================================================
-    //  DOSE METADATA
-    // ============================================================================
-    const DOSE_META = {
-        "الجرعة الأولى": { title: "خريطة تصنيف الحياة والمنهجية العلمية", desc: "الطريقة العلمية، التصنيف، الجدار الخلوي، الأشنات", topics: ["المنهجية العلمية","تصنيف الأحياء","التسمية الثنائية"] },
-        "الجرعة الثانية": { title: "الديناميكية الحركية والتنسيق العصبي", desc: "الهيكل، العضلات، الجهاز العصبي، المفاصل", topics: ["الجهاز الهيكلي","الجهاز العضلي","الجهاز العصبي","الجهاز العصبي الذاتي"] },
-        "الجرعة الثالثة": { title: "الإمداد، النقل، والترشيح الأيضي", desc: "الدم، القلب، الهضم، الإخراج، الإنزيمات", topics: ["جهاز الدوران","القناة الهضمية","الجهاز الإخراجي","التغذية"] },
-        "الجرعة الرابعة": { title: "الاتزان الهرموني وبقاء النوع والدفاع", desc: "الغدد الصم، التكاثر، النمو الجنيني، المناعة", topics: ["جهاز الغدد الصم","التكاثر والنمو","الجهاز المناعي"] },
-        "الجرعة الخامسة": { title: "شفرة الحياة والوراثة الخلوية والميكانيكية", desc: "DNA، الانقسام، الوراثة، الاختلالات", topics: ["الوراثة الجزيئية","الوراثة المندلية","الوراثة البشرية","الانقسام المنصف","دورة الخلية"] },
-        "الجرعة السادسة": { title: "هندسة وتنوع اللافقاريات", desc: "التناظر، التجاويف، الرخويات، المفصليات، أجهزة الإخراج", topics: ["مدخل إلى الحيوانات","المفصليات","أجهزة الإخراج اللافقارية","الرخويات"] }
-    };
-
-    // ============================================================================
-    //  STATE
-    // ============================================================================
-    const STORAGE_KEY = 'bio_adv_state_v1';
-    function defaultState() {
-        return {
-            answers: {}, revealed: {},
-            lastActivity: 'الجرعة الأولى — خريطة تصنيف الحياة',
-            lastScore: null, notificationsDismissed: false,
-            lastTab: 'home', doseProgress: {}, diagRun: false
-        };
-    }
-    function loadState() {
-        try { const r = localStorage.getItem(STORAGE_KEY); if (r) { const p = JSON.parse(r); const d = defaultState(); for (let k in d) if (!(k in p)) p[k]=d[k]; return p; } } catch(e){}
-        return defaultState();
-    }
-    let state = loadState();
-    function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
-
-    // ============================================================================
-    //  DOM
-    // ============================================================================
-    const $ = id => document.getElementById(id);
-    const pages = { home:$('page-home'), training:$('page-training'), questions:$('page-questions'),
-                    mistakes:$('page-mistakes'), analytics:$('page-analytics'), diagnostic:$('page-diagnostic'), resources:$('page-resources') };
-    const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-    const toastEl = $('toast');
-    let toastTimer = null;
-    function showToast(msg, duration=2500) { toastEl.textContent=msg; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toastEl.classList.remove('show'),duration); }
-
-    // ============================================================================
-    //  NAVIGATION
-    // ============================================================================
-    function navigateTo(tabId) {
-        navItems.forEach(b => b.classList.toggle('active', b.dataset.tab===tabId));
-        Object.keys(pages).forEach(k => pages[k].classList.toggle('active', k===tabId));
-        state.lastTab = tabId; saveState();
-        if (tabId==='home') updateHome();
-        if (tabId==='training') renderDoses();
-        if (tabId==='questions') renderQuestionBank();
-        if (tabId==='mistakes') renderMistakes();
-        if (tabId==='analytics') renderAnalytics();
-        if (tabId==='diagnostic') renderDiagnostic();
-        if (tabId==='resources') renderResources();
-        window.scrollTo({ top:0, behavior:'smooth' });
-    }
-    navItems.forEach(b => b.addEventListener('click', () => navigateTo(b.dataset.tab)));
-    $('diagQuickBtn').addEventListener('click', () => navigateTo('diagnostic'));
-    $('doseQuickBtn').addEventListener('click', () => navigateTo('training'));
-    $('resumeBtn').addEventListener('click', () => {
-        const doseName = state.lastActivity || 'الجرعة الأولى';
-        navigateTo('training');
-        setTimeout(() => {
-            const cards = document.querySelectorAll('.dose-card');
-            for (let c of cards) if (c.dataset.dose===doseName) { c.scrollIntoView({behavior:'smooth',block:'center'}); c.style.boxShadow='0 0 0 3px var(--accent)'; setTimeout(()=>c.style.boxShadow='',2000); break; }
-        }, 300);
-        showToast(`▶ استئناف: ${doseName}`, 2000);
-    });
-    $('dismissNotif').addEventListener('click', () => { $('notifBanner').style.display='none'; state.notificationsDismissed=true; saveState(); });
-    if (state.notificationsDismissed) $('notifBanner').style.display='none';
-
-    // ============================================================================
-    //  HELPERS
-    // ============================================================================
-    function getDoseProgress(dose) {
-        const qs = QUESTIONS.filter(q => q.dose===dose);
-        const total = qs.length;
-        const answered = qs.filter(q => state.answers[q.id]).length;
-        const correct = qs.filter(q => state.answers[q.id]===q.correct).length;
-        const pct = total ? Math.round((answered/total)*100) : 0;
-        const completed = total>0 && answered===total;
-        return { total, answered, correct, pct, completed };
-    }
-    function updateHome() {
-        const total = QUESTIONS.length;
-        const answered = Object.keys(state.answers).filter(id => state.answers[id]).length;
-        let correct=0, wrong=0;
-        QUESTIONS.forEach(q => { const a=state.answers[q.id]; if(!a) return; if(a===q.correct) correct++; else wrong++; });
-        const pct = total ? Math.round((correct/total)*100) : 0;
-        const level = pct>=90?'متقدم':pct>=70?'جيد':pct>=50?'متوسط':'يحتاج مراجعة';
-        $('statLevel').textContent = level;
-        $('statSolved').textContent = answered;
-        $('statCorrect').textContent = correct;
-        $('statLastScore').textContent = state.lastScore!==null ? state.lastScore+'%' : '—';
-        $('resumeText').textContent = state.lastActivity || 'الجرعة الأولى — خريطة تصنيف الحياة';
-        const doseNames = Object.keys(DOSE_META);
-        let completed=0, html='';
-        doseNames.forEach((d,i) => {
-            const prog = getDoseProgress(d);
-            if (prog.completed) completed++;
-            const color = prog.completed ? 'var(--success)' : 'var(--gray-300)';
-            html += `<span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:${color};color:#fff;text-align:center;line-height:28px;font-size:12px;font-weight:700;border:2px solid ${prog.completed?'var(--success)':'var(--gray-200)'};">${i+1}</span>`;
-        });
-        $('doseProgressBar').innerHTML = html;
-        $('doseProgressText').textContent = `${completed}/${doseNames.length} مكتملة`;
-    }
-
-    // ============================================================================
-    //  TRAINING DOSES
-    // ============================================================================
-    let currentDetailDose = null;
-    function renderDoses() {
-        const grid = $('doseGrid');
-        let html='', completedCount=0;
-        Object.keys(DOSE_META).forEach((d,i) => {
-            const meta = DOSE_META[d];
-            const prog = getDoseProgress(d);
-            if (prog.completed) completedCount++;
-            const status = prog.completed ? '✅ مكتملة' : prog.answered>0 ? '⏳ قيد المراجعة' : '📖 لم تبدأ';
-            const dotClass = prog.completed ? 'done' : prog.answered>0 ? 'partial' : 'pending';
-            html += `<div class="dose-card" data-dose="${d}">
-                <div class="dose-number">الجرعة ${i+1} / ${Object.keys(DOSE_META).length}</div>
-                <div class="dose-title">${d}: ${meta.title}</div>
-                <div class="dose-meta"><span>${meta.desc}</span><span><span class="progress-dot ${dotClass}"></span> ${status}</span></div>
-                <div class="dose-pct">${prog.pct}%</div>
-                <div class="dose-bar"><div class="fill" style="width:${prog.pct}%;background:${prog.completed?'var(--success)':prog.answered>0?'var(--warning)':'var(--gray-300)'};"></div></div>
-            </div>`;
-        });
-        grid.innerHTML = html;
-        $('trainingProgressLabel').textContent = `${completedCount}/${Object.keys(DOSE_META).length}`;
-        grid.querySelectorAll('.dose-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const dose = this.dataset.dose;
-                state.lastActivity = dose; saveState();
-                showDoseDetail(dose);
-            });
-        });
-        if (currentDetailDose) grid.style.display='none'; else grid.style.display='grid';
-    }
-    function showDoseDetail(dose) {
-        currentDetailDose = dose;
-        const container = $('doseDetailContainer');
-        const meta = DOSE_META[dose];
-        const qs = QUESTIONS.filter(q => q.dose===dose);
-        const prog = getDoseProgress(dose);
-        let concepts = [];
-        qs.forEach(q => { if(q.concept && !concepts.includes(q.concept)) concepts.push(q.concept); });
-        let questionsHtml='';
-        qs.forEach((q,i) => {
-            const ans = state.answers[q.id] || null;
-            const revealed = state.revealed[q.id] || false;
-            const isCorrect = ans && ans===q.correct;
-            const isWrong = ans && ans!==q.correct;
-            let optsHtml='';
-            ['A','B','C','D'].forEach(L => {
-                const val = q[L]; if(!val) return;
-                let cls='opt';
-                if(ans===L) cls+=' selected';
-                if(revealed && L===q.correct) cls+=' correct';
-                if(revealed && isWrong && ans===L) cls+=' wrong';
-                optsHtml += `<div class="${cls}" data-qid="${q.id}" data-letter="${L}"><span style="font-weight:600;min-width:18px;">${L}.</span><span>${val}</span></div>`;
-            });
-            let explainHtml='';
-            if (revealed) {
-                const icon = isCorrect ? '✅' : '❌';
-                const text = isCorrect ? 'صحيح' : 'خاطئ';
-                explainHtml = `<div class="dq-explain show"><strong>${icon} ${text}</strong>${!isCorrect?` (الإجابة الصحيحة: ${q.correct})`:''}<br>${q.explanation||''}</div>`;
-            }
-            questionsHtml += `<div class="dq-item">
-                <div class="dq-q">${i+1}. ${q.question}</div>
-                <div class="dq-opts">${optsHtml}</div>
-                ${explainHtml}
-            </div>`;
-        });
-        container.innerHTML = `<div class="dose-detail-view">
-            <button class="back-btn" id="doseBackBtn">↩ رجوع إلى الجرعات</button>
-            <div class="dose-head">
-                <h2>${dose}: ${meta.title}</h2>
-                <p>${meta.desc}</p>
-                <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:13px;color:var(--gray-700);">
-                    <span>📊 التقدم: ${prog.pct}%</span>
-                    <span>✅ ${prog.correct}/${prog.total} صحيحة</span>
-                    <span>📝 ${prog.answered}/${prog.total} محلولة</span>
-                    ${prog.completed?'🎉 مكتملة!':''}
-                </div>
+          <div class="ms-grid2">
+            <div class="ms-card" style="margin-bottom:0;">
+              <h4>🎯 التشخيصي</h4>
+              <p>تحديد نقاط الضعف</p>
+              <div style="background:#0d9488;color:#fff;border-radius:20px;padding:3px 8px;font-size:5.5px;font-weight:600;text-align:center;margin-top:4px;">ابدأ التشخيص</div>
             </div>
-            <div style="margin:10px 0 6px;font-weight:600;font-size:15px;color:var(--primary);">📖 المفاهيم الرئيسية</div>
-            <div class="concept-grid">${concepts.map(c=>`<div class="c-item"><span class="dot">•</span> ${c}</div>`).join('')}</div>
-            <div class="dose-questions"><h4>🧪 أسئلة الجرعة (${qs.length})</h4>${questionsHtml}</div>
-        </div>`;
-        $('doseBackBtn').addEventListener('click', () => {
-            container.innerHTML=''; currentDetailDose=null; renderDoses();
-            document.querySelector('#page-training .dose-grid').scrollIntoView({behavior:'smooth'});
-        });
-        container.querySelectorAll('.dq-item .opt').forEach(el => {
-            el.addEventListener('click', function() {
-                const qid = this.dataset.qid, letter = this.dataset.letter;
-                if (state.revealed[qid]) return;
-                state.answers[qid]=letter; state.revealed[qid]=true;
-                const q = QUESTIONS.find(qq => qq.id===qid);
-                if (q) {
-                    const p = getDoseProgress(q.dose);
-                    if (p.completed) { if(!state.doseProgress[q.dose]) state.doseProgress[q.dose]={}; state.doseProgress[q.dose].completed=true; }
-                    state.lastActivity = q.dose;
-                }
-                saveState(); showDoseDetail(q.dose); updateHome();
-            });
-        });
-        container.scrollIntoView({ behavior:'smooth', block:'start' });
-        const grid = $('doseGrid'); if (grid) grid.style.display='none';
-    }
-
-    // ============================================================================
-    //  QUESTION BANK
-    // ============================================================================
-    let qbPage=0; const QB_PAGE_SIZE=6;
-    function getFilteredQuestions() {
-        const topic = $('qbFilterTopic').value;
-        const dose = $('qbFilterDose').value;
-        const diff = $('qbFilterDiff').value;
-        const status = $('qbFilterStatus').value;
-        return QUESTIONS.filter(q => {
-            if (topic!=='all' && q.topic!==topic) return false;
-            if (dose!=='all' && q.dose!==dose) return false;
-            if (diff!=='all' && q.difficulty!==diff) return false;
-            const ans = state.answers[q.id];
-            if (status==='answered' && !ans) return false;
-            if (status==='unanswered' && ans) return false;
-            if (status==='correct' && ans!==q.correct) return false;
-            if (status==='wrong' && (ans!==q.correct || !ans)) return false;
-            return true;
-        });
-    }
-    function renderQuestionBank() {
-        const filtered = getFilteredQuestions();
-        const total = filtered.length;
-        const maxPage = Math.max(0, Math.ceil(total/QB_PAGE_SIZE)-1);
-        if (qbPage>maxPage) qbPage=maxPage;
-        const start = qbPage*QB_PAGE_SIZE, end = Math.min(start+QB_PAGE_SIZE, total);
-        const pageItems = filtered.slice(start,end);
-        const container = $('qbList');
-        if (total===0) container.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><p>لا توجد أسئلة تطابق الفلتر.</p></div>`;
-        else {
-            let html='';
-            pageItems.forEach(q => {
-                const ans = state.answers[q.id]||null;
-                const revealed = state.revealed[q.id]||false;
-                const isCorrect = ans && ans===q.correct;
-                const isWrong = ans && ans!==q.correct;
-                let optsHtml='';
-                ['A','B','C','D'].forEach(L => {
-                    const val = q[L]; if(!val) return;
-                    let cls='opt';
-                    if(ans===L) cls+=' selected';
-                    if(revealed && L===q.correct) cls+=' correct';
-                    if(revealed && isWrong && ans===L) cls+=' wrong';
-                    optsHtml += `<div class="${cls}" data-qid="${q.id}" data-letter="${L}"><span style="font-weight:600;min-width:20px;">${L}.</span><span>${val}</span></div>`;
-                });
-                let explainHtml='';
-                if (revealed) {
-                    const icon = isCorrect ? '✅' : '❌';
-                    const text = isCorrect ? 'صحيح' : 'خاطئ';
-                    explainHtml = `<div class="q-explain show"><strong>${icon} ${text}</strong>${!isCorrect?` (الإجابة الصحيحة: ${q.correct})`:''}<br>${q.explanation||''}</div>`;
-                }
-                html += `<div class="qb-question">
-                    <div class="q-head">
-                        <span class="qid">${q.id}</span>
-                        <span class="tag">${q.topic}</span>
-                        <span class="tag dose-tag">${q.dose}</span>
-                        <span class="tag" style="background:#f1f5f9;">${q.difficulty}</span>
-                        ${ans?`<span class="tag" style="background:#dbeafe;color:var(--primary);">✔ تمّت</span>`:''}
-                    </div>
-                    <div class="q-text">${q.question}</div>
-                    <div class="q-options">${optsHtml}</div>
-                    ${explainHtml}
-                </div>`;
-            });
-            container.innerHTML = html;
-            container.querySelectorAll('.opt').forEach(el => {
-                el.addEventListener('click', function() {
-                    const qid = this.dataset.qid, letter = this.dataset.letter;
-                    if (state.revealed[qid]) return;
-                    state.answers[qid]=letter; state.revealed[qid]=true;
-                    const q = QUESTIONS.find(qq => qq.id===qid);
-                    if (q) {
-                        const p = getDoseProgress(q.dose);
-                        if (p.completed) { if(!state.doseProgress[q.dose]) state.doseProgress[q.dose]={}; state.doseProgress[q.dose].completed=true; }
-                        state.lastActivity = q.dose;
-                    }
-                    saveState(); renderQuestionBank(); updateHome();
-                });
-            });
-        }
-        $('qbPageInfo').textContent = total ? `${qbPage+1} / ${maxPage+1}` : '0 / 0';
-        $('qbPrev').disabled = qbPage===0;
-        $('qbNext').disabled = qbPage>=maxPage;
-    }
-    (function initQBFilters() {
-        const topics = new Set(), doses = new Set();
-        QUESTIONS.forEach(q => { topics.add(q.topic); doses.add(q.dose); });
-        const tSel = $('qbFilterTopic'); tSel.innerHTML='<option value="all">جميع الموضوعات</option>';
-        [...topics].sort().forEach(t => tSel.innerHTML += `<option value="${t}">${t}</option>`);
-        const dSel = $('qbFilterDose'); dSel.innerHTML='<option value="all">جميع الجرعات</option>';
-        Object.keys(DOSE_META).forEach(d => dSel.innerHTML += `<option value="${d}">${d}</option>`);
-    })();
-    $('qbFilterTopic').addEventListener('change', () => { qbPage=0; renderQuestionBank(); });
-    $('qbFilterDose').addEventListener('change', () => { qbPage=0; renderQuestionBank(); });
-    $('qbFilterDiff').addEventListener('change', () => { qbPage=0; renderQuestionBank(); });
-    $('qbFilterStatus').addEventListener('change', () => { qbPage=0; renderQuestionBank(); });
-    $('qbResetFilters').addEventListener('click', () => {
-        $('qbFilterTopic').value='all'; $('qbFilterDose').value='all';
-        $('qbFilterDiff').value='all'; $('qbFilterStatus').value='all';
-        qbPage=0; renderQuestionBank();
-    });
-    $('qbPrev').addEventListener('click', () => { if (qbPage>0) { qbPage--; renderQuestionBank(); } });
-    $('qbNext').addEventListener('click', () => {
-        const total = getFilteredQuestions().length;
-        const maxPage = Math.max(0, Math.ceil(total/QB_PAGE_SIZE)-1);
-        if (qbPage<maxPage) { qbPage++; renderQuestionBank(); }
-    });
-
-    // ============================================================================
-    //  MISTAKES
-    // ============================================================================
-    function renderMistakes() {
-        const wrong = QUESTIONS.filter(q => { const a=state.answers[q.id]; return a && a!==q.correct; });
-        const container = $('mistakesList');
-        $('mistakeCountBottom').textContent = wrong.length;
-        $('mistakesCountLabel').textContent = `${wrong.length} سؤال خاطئ`;
-        if (wrong.length===0) { container.innerHTML = `<div class="empty-state"><div class="icon">🎉</div><p>ممتاز! لا توجد أخطاء. استمر بنفس المستوى!</p></div>`; return; }
-        let html='';
-        wrong.forEach(q => {
-            const userAns = state.answers[q.id] || '—';
-            html += `<div class="mistake-item">
-                <div class="m-q">${q.id}: ${q.question}</div>
-                <div class="m-detail">
-                    <span class="wrong-ans">✘ إجابتك: ${userAns}</span> &nbsp;|&nbsp;
-                    <span class="correct-ans">✔ الإجابة الصحيحة: ${q.correct}</span>
-                    <br><span style="font-size:12px;color:var(--gray-500);">${q.dose} · ${q.topic}</span>
-                    <button class="review-mistake" data-qid="${q.id}">مراجعة</button>
-                </div>
-            </div>`;
-        });
-        container.innerHTML = html;
-        container.querySelectorAll('.review-mistake').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const qid = this.dataset.qid;
-                $('qbFilterTopic').value='all'; $('qbFilterDose').value='all';
-                $('qbFilterDiff').value='all'; $('qbFilterStatus').value='all';
-                qbPage=0; navigateTo('questions');
-                showToast(`🔍 مراجعة السؤال ${qid}`, 1500);
-            });
-        });
-    }
-
-    // ============================================================================
-    //  ANALYTICS
-    // ============================================================================
-    function renderAnalytics() {
-        const total = QUESTIONS.length;
-        const answered = Object.keys(state.answers).filter(id => state.answers[id]).length;
-        let correct=0, wrong=0;
-        QUESTIONS.forEach(q => { const a=state.answers[q.id]; if(!a) return; if(a===q.correct) correct++; else wrong++; });
-        const pct = total ? Math.round((correct/total)*100) : 0;
-        const avgDose = Object.keys(DOSE_META).reduce((acc,d) => acc + getDoseProgress(d).pct, 0) / Object.keys(DOSE_META).length;
-        const topicStats = {};
-        QUESTIONS.forEach(q => {
-            const a=state.answers[q.id]; if(!a) return;
-            if(!topicStats[q.topic]) topicStats[q.topic]={total:0,correct:0};
-            topicStats[q.topic].total++;
-            if(a===q.correct) topicStats[q.topic].correct++;
-        });
-        const weaknesses = Object.keys(topicStats).filter(t => { const s=topicStats[t]; return s.total>0 && (s.correct/s.total)<0.5; });
-        const strengths = Object.keys(topicStats).filter(t => { const s=topicStats[t]; return s.total>0 && (s.correct/s.total)>=0.7; });
-        const achievements = [];
-        if (answered>=30) achievements.push('⚡ 30+ سؤال');
-        if (answered>=50) achievements.push('⚡ 50+ سؤال');
-        if (pct>=70) achievements.push('🎯 دقة 70%+');
-        if (pct>=90) achievements.push('🏆 دقة 90%+');
-        const doseDone = Object.keys(DOSE_META).filter(d => getDoseProgress(d).completed).length;
-        if (doseDone>=3) achievements.push(`📚 ${doseDone} جرعات مكتملة`);
-
-        $('analyticsFullContainer').innerHTML = `<div class="analytics-full">
-            <div class="an-top">
-                <div><div class="an-accuracy">${pct}% <span>الدقة الإجمالية</span></div>
-                <div style="font-size:13px;color:var(--gray-500);margin-top:2px;">متوسط تقدم الجرعات: ${Math.round(avgDose)}%</div></div>
-                <div class="an-stats">
-                    <div class="as-item"><div class="as-num">${answered}</div><div class="as-label">محاولات</div></div>
-                    <div class="as-item"><div class="as-num green">${correct}</div><div class="as-label">صحيحة</div></div>
-                    <div class="as-item"><div class="as-num red">${wrong}</div><div class="as-label">خاطئة</div></div>
-                </div>
+            <div class="ms-card" style="margin-bottom:0;">
+              <h4>⚡ الجرعات</h4>
+              <p>6 جرعات مركزة</p>
+              <div style="background:#0b2b4a;color:#fff;border-radius:20px;padding:3px 8px;font-size:5.5px;font-weight:600;text-align:center;margin-top:4px;">استعراض الجرعات</div>
             </div>
-            <h4 style="font-size:15px;color:var(--primary);margin-bottom:6px;">📈 تقدم الجرعات</h4>
-            ${Object.keys(DOSE_META).map((d,i) => {
-                const prog = getDoseProgress(d);
-                const colors = ['#0b2b4a','#1a4a6e','#0d9488','#14b8a6','#5eead4','#99f6e4'];
-                return `<div class="ad-item"><span class="ad-name">${d}</span><div class="ad-bar"><div class="fill" style="width:${prog.pct}%;background:${colors[i%colors.length]};"></div></div><span class="ad-pct">${prog.pct}%</span></div>`;
-            }).join('')}
-            <div style="margin-top:14px;border-top:2px solid var(--gray-200);padding-top:14px;">
-                <h4 style="font-size:15px;color:var(--primary);margin-bottom:6px;">💪 نقاط القوة</h4>
-                <div class="aw-tags">${strengths.length>0 ? strengths.map(s=>`<span class="tag green">✅ ${s}</span>`).join('') : `<span class="tag">أكمل المزيد لظهور نقاط القوة</span>`}</div>
-            </div>
-            <div style="margin-top:14px;border-top:2px solid var(--gray-200);padding-top:14px;">
-                <h4 style="font-size:15px;color:var(--primary);margin-bottom:6px;">⚠️ تحتاج إلى مراجعة</h4>
-                <div class="aw-tags">${weaknesses.length>0 ? weaknesses.map(w=>`<span class="tag">🔥 ${w}</span>`).join('') : `<span class="tag green">✅ لا توجد نقاط ضعف واضحة</span>`}</div>
-            </div>
-            <div style="margin-top:14px;border-top:2px solid var(--gray-200);padding-top:14px;">
-                <h4 style="font-size:15px;color:var(--primary);margin-bottom:6px;">🏆 الإنجازات</h4>
-                <div class="ach-tags">${achievements.length>0 ? achievements.map(a=>`<span class="tag done">${a}</span>`).join('') : '<span class="tag">أكمل المزيد لفتح الإنجازات</span>'}</div>
-            </div>
-        </div>`;
-    }
+          </div>
 
-    // ============================================================================
-    //  DIAGNOSTIC
-    // ============================================================================
-    function renderDiagnostic() {
-        const btn = $('diagStartBtn');
-        if (state.diagRun) { runDiagnostic(); return; }
-        $('diagResults').innerHTML = `
-            <p style="color:var(--gray-700);font-size:14px;">سيقوم التشخيص بتحليل أدائك في جميع الأسئلة وتحديد نقاط القوة والضعف لديك.</p>
-            <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;">
-                <span style="background:var(--gray-100);padding:4px 16px;border-radius:30px;font-size:13px;">📊 ${QUESTIONS.length} سؤال</span>
-                <span style="background:var(--gray-100);padding:4px 16px;border-radius:30px;font-size:13px;">✅ ${Object.keys(state.answers).filter(id => state.answers[id]).length} محلول</span>
-            </div>`;
-        btn.disabled=false; btn.textContent='🔄 تشغيل التشخيص';
-        btn.onclick = function() { state.diagRun=true; saveState(); runDiagnostic(); };
-    }
-    function runDiagnostic() {
-        const btn = $('diagStartBtn');
-        btn.disabled=true; btn.textContent='⏳ جارٍ التحليل...';
-        const total = QUESTIONS.length;
-        const correct = QUESTIONS.filter(q => state.answers[q.id]===q.correct).length;
-        const wrong = QUESTIONS.filter(q => { const a=state.answers[q.id]; return a && a!==q.correct; }).length;
-        const unanswered = total-correct-wrong;
-        const pct = total ? Math.round((correct/total)*100) : 0;
-        let doseHtml='';
-        Object.keys(DOSE_META).forEach(d => {
-            const prog = getDoseProgress(d);
-            const status = prog.completed ? '✅' : prog.answered>0 ? '⏳' : '⬜';
-            doseHtml += `<div class="dr-item"><span style="color:var(--gray-700);">${d}</span><span style="font-weight:600;">${status} ${prog.correct}/${prog.total} (${prog.pct}%)</span></div>`;
-        });
-        const topicStats = {};
-        QUESTIONS.forEach(q => {
-            const a=state.answers[q.id]; if(!a) return;
-            if(!topicStats[q.topic]) topicStats[q.topic]={total:0,correct:0};
-            topicStats[q.topic].total++;
-            if(a===q.correct) topicStats[q.topic].correct++;
-        });
-        const weakTopics = Object.keys(topicStats).filter(t => { const s=topicStats[t]; return s.total>0 && (s.correct/s.total)<0.5; });
-        const strongTopics = Object.keys(topicStats).filter(t => { const s=topicStats[t]; return s.total>0 && (s.correct/s.total)>=0.7; });
-        $('diagResults').innerHTML = `<div class="diag-results">
-            <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;border-bottom:2px solid var(--gray-200);padding-bottom:12px;margin-bottom:12px;">
-                <div><span style="font-weight:700;font-size:22px;color:var(--primary);">${pct}%</span> <span style="color:var(--gray-500);">الدقة الإجمالية</span></div>
-                <div style="display:flex;gap:16px;flex-wrap:wrap;">
-                    <span>✅ ${correct} صحيح</span><span>❌ ${wrong} خاطئ</span><span>⬜ ${unanswered} لم تُجب</span>
-                </div>
+          <div class="ms-card" style="margin-top:6px;">
+            <h4>📈 تقدمك في الجرعات</h4>
+            <div style="display:flex;gap:3px;margin-top:4px;">
+              <span style="width:14px;height:14px;border-radius:50%;background:#e9edf2;color:#94a3b8;text-align:center;line-height:14px;font-size:5px;font-weight:700;">1</span>
+              <span style="width:14px;height:14px;border-radius:50%;background:#e9edf2;color:#94a3b8;text-align:center;line-height:14px;font-size:5px;font-weight:700;">2</span>
+              <span style="width:14px;height:14px;border-radius:50%;background:#e9edf2;color:#94a3b8;text-align:center;line-height:14px;font-size:5px;font-weight:700;">3</span>
+              <span style="width:14px;height:14px;border-radius:50%;background:#e9edf2;color:#94a3b8;text-align:center;line-height:14px;font-size:5px;font-weight:700;">4</span>
+              <span style="width:14px;height:14px;border-radius:50%;background:#e9edf2;color:#94a3b8;text-align:center;line-height:14px;font-size:5px;font-weight:700;">5</span>
+              <span style="width:14px;height:14px;border-radius:50%;background:#e9edf2;color:#94a3b8;text-align:center;line-height:14px;font-size:5px;font-weight:700;">6</span>
             </div>
-            <div style="margin-bottom:10px;font-weight:600;color:var(--primary);">📊 الأداء حسب الجرعة</div>
-            ${doseHtml}
-            <div style="margin-top:12px;border-top:2px solid var(--gray-200);padding-top:12px;">
-                <div style="display:flex;flex-wrap:wrap;gap:16px;">
-                    <div><span style="font-weight:600;">💪 نقاط القوة:</span> ${strongTopics.length>0 ? strongTopics.slice(0,3).map(t=>`<span style="background:#dcfce7;padding:2px 12px;border-radius:30px;font-size:13px;margin:2px;">${t}</span>`).join('') : 'لا توجد بيانات كافية'}</div>
-                    <div><span style="font-weight:600;">⚠️ نقاط الضعف:</span> ${weakTopics.length>0 ? weakTopics.map(t=>`<span style="background:#fee2e2;padding:2px 12px;border-radius:30px;font-size:13px;margin:2px;">${t}</span>`).join('') : '✅ ممتاز! لا توجد نقاط ضعف واضحة'}</div>
-                </div>
-            </div>
-            <div style="margin-top:12px;padding:12px;background:var(--gray-50);border-radius:var(--radius-sm);font-size:13px;color:var(--gray-700);">
-                <strong>📝 توصيات:</strong> ${weakTopics.length>0 ? `ركز على مراجعة: ${weakTopics.slice(0,3).join('، ')}.` : 'استمر بنفس المستوى الممتاز!'}
-                ${unanswered>0 ? ` هناك ${unanswered} سؤال لم تُجب عليها.` : ''}
-            </div>
-        </div>`;
-        btn.textContent='✅ تم التشخيص'; btn.disabled=false;
-        btn.onclick = function() { state.diagRun=false; saveState(); renderDiagnostic(); };
-    }
+            <div style="font-size:5.5px;color:#94a3b8;margin-top:3px;">0/6 مكتملة</div>
+          </div>
+        </div>
+        <div class="ms-nav">
+          <div class="on"><span>🏠</span>الرئيسية</div>
+          <div><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
 
-    // ============================================================================
-    //  RESOURCES
-    // ============================================================================
-    const RESOURCES = [
-        { icon:'📄', title:'ورقة الإنقاذ', desc:'مراجعة صفحة واحدة' },
-        { icon:'⚡', title:'مراجعة ليلة الاختبار', desc:'أهم المفاهيم والقوانين' },
-        { icon:'🎯', title:'مصفوفة التشخيص', desc:'ربط الأسئلة بالجرعات' },
-        { icon:'🧪', title:'نموذجا المحاكاة', desc:'36 سؤالاً أصلياً' },
-        { icon:'📊', title:'تحليل الأداء', desc:'نقاط القوة والضعف' },
-        { icon:'📚', title:'بنك الأسئلة الكامل', desc:'54 سؤالاً' }
-    ];
-    function renderResources() {
-        const grid = $('resourcesGrid');
-        grid.innerHTML = RESOURCES.map(r => `<div class="resource-card" onclick="showToast('📖 ${r.title} — متاح الآن')">
-            <div class="r-icon">${r.icon}</div>
-            <div class="r-title">${r.title}</div>
-            <div class="r-desc">${r.desc}</div>
-        </div>`).join('');
-        // Rescue Sheet
-        $('rescueSheetContainer').innerHTML = `<div style="background:#fff;border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
-            <h3 style="color:var(--primary);margin-bottom:12px;">📄 ورقة الإنقاذ - الأحياء (مراجعة صفحة واحدة)</h3>
-            <h4 style="color:var(--accent);margin:10px 0 6px;font-size:14px;">1. القوانين والعلاقات الحسابية</h4>
-            <ul style="font-size:13px;line-height:1.8;color:var(--gray-700);padding-right:20px;">
-                <li><strong>التسمية الثنائية:</strong> الجنس (Capital) + النوع (small) بخط مائل</li>
-                <li><strong>قواعد تشارجاف:</strong> [A]=[T] و [G]=[C] والمجموع = 100%</li>
-                <li><strong>الأمشاج الوراثية:</strong> عدد الأمشاج = 2^n (n = عدد أزواج الصفات الهجينة فقط)</li>
-                <li><strong>قانون الكل أو العدم:</strong> السيال العصبي ثابت الشدة بعد العتبة (-55mV)</li>
-                <li><strong>تحويل السعرات:</strong> 1 Calorie (كبير) = 1000 cal (صغير)</li>
-            </ul>
-            <h4 style="color:var(--accent);margin:12px 0 6px;font-size:14px;">2. الفروق الحاسمة</h4>
-            <ul style="font-size:13px;line-height:1.8;color:var(--gray-700);padding-right:20px;">
-                <li><strong>الأربطة</strong> (عظم↔عظم) | <strong>الأوتار</strong> (عضلة↔عظم)</li>
-                <li><strong>الأنسولين</strong> (خفض السكر) | <strong>الجلوكاجون</strong> (رفع السكر)</li>
-                <li><strong>المخ</strong> (تفكير وذاكرة) | <strong>المخيخ</strong> (اتزان وتنسيق)</li>
-                <li><strong>السمبثاوي</strong> (طوارئ) | <strong>جار السمبثاوي</strong> (راحة)</li>
-                <li><strong>مناعة نشطة</strong> (لقاح/ذاكرة) | <strong>سلبية</strong> (أجسام جاهزة)</li>
-                <li><strong>البربخ</strong> (نضج وتخزين الحيوانات المنوية) | <strong>قناة فالوب</strong> (الإخصاب)</li>
-            </ul>
-            <h4 style="color:var(--accent);margin:12px 0 6px;font-size:14px;">3. الأخطاء الشائعة</h4>
-            <ul style="font-size:13px;line-height:1.8;color:var(--gray-700);padding-right:20px;">
-                <li>❌ كتابة النوع بحرف كبير | ✅ اسم الجنس Capital واسم النوع small</li>
-                <li>❌ مضاعفة شدة السيال بزيادة المنبه | ✅ قانون الكل أو العدم</li>
-                <li>❌ احتساب الأزواج النقية في 2^n | ✅ فقط الأزواج الهجينة (Aa)</li>
-                <li>❌ نقل دم Rh⁺ لشخص Rh⁻ | ✅ السالب يستقبل من السالب فقط</li>
-                <li>❌ ببتيدوجلايكان في البدائيات | ✅ فقط في البكتيريا الحقيقية</li>
-            </ul>
-            <h4 style="color:var(--accent);margin:12px 0 6px;font-size:14px;">4. تذكيرات سريعة</h4>
-            <ul style="font-size:13px;line-height:1.8;color:var(--gray-700);padding-right:20px;">
-                <li>🧬 تضاعف DNA في طور S فقط</li>
-                <li>🦴 الببسين يعمل في وسط حمضي شديد (pH 1.5-2) بالمعدة</li>
-                <li>🧪 متلازمة داون (47 كروموسوم) | تيرنر (XO/45) | كلينفلتر (XXY/47)</li>
-                <li>🕷️ العنكبيات: بلا قرون استشعار، رئات كتابية، مغازل</li>
-                <li>🪱 الإخراج: خلايا لهبية (مفلطحة) | نفريديا (حلقية) | أنابيب ملبيجي (مفصليات)</li>
-            </ul>
-        </div>`;
-    }
+    <div class="notes">
+      <h2>🏠 لوحة القيادة</h2>
+      <p class="lead">الشاشة الرئيسية تلخّص مستواك في لمحة، وتوجّهك مباشرة إلى الخطوة التالية.</p>
 
-    // ============================================================================
-    //  INIT
-    // ============================================================================
-    navigateTo(state.lastTab || 'home');
-    updateHome();
-    console.log(`🧬 تطبيق الأحياء التحصيلي جاهز! ${QUESTIONS.length} سؤال, ✅ ${Object.keys(state.answers).filter(id => state.answers[id]).length} محلولة`);
-    </script>
+      <div class="note-item">
+        <div class="ni-ico">▶</div>
+        <div class="ni-body">
+          <b>بطاقة «تابع من حيث توقفت»</b>
+          <p>تحفظ آخر جرعة درستها، وتعيدك إليها بضغطة واحدة — دون الحاجة للبحث اليدوي عن موضع التوقف.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📊</div>
+        <div class="ni-body">
+          <b>أربع بطاقات إحصائية</b>
+          <p>مستواك الحالي، آخر اختبار، عدد الأسئلة المحلولة، وعدد الإجابات الصحيحة — كلها في أعلى الشاشة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">🎯</div>
+        <div class="ni-body">
+          <b>اختصاران سريعان</b>
+          <p>زر «التشخيصي» للكشف الفوري عن نقاط الضعف، وزر «الجرعات» للانتقال المباشر إلى التدريب المركز.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📈</div>
+        <div class="ni-body">
+          <b>شريط تقدم الجرعات</b>
+          <p>دوائر مرقّمة (1 إلى 6) تتحول للأخضر عند اكتمال كل جرعة، فترى تقدمك البصري في لحظة.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag">7 أقسام</span>
+        <span class="tag teal">6 جرعات</span>
+        <span class="tag gold">54 سؤالاً</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 3 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 4 — الجرعات المركزة
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">04</span><span class="ph-title">الجرعات المركزة الست</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-sec"><h3>⚡ الجرعات المركزة</h3><span>0/6</span></div>
+
+          <div class="ms-dose">
+            <div class="num">الجرعة 1 / 6</div>
+            <div class="ttl">الجرعة الأولى: خريطة تصنيف الحياة والمنهجية العلمية</div>
+            <div class="mt">الطريقة العلمية، التصنيف، الجدار الخلوي</div>
+            <div class="pct">0%</div>
+            <div class="bar"><div class="fill" style="width:0%;background:#cbd5e1;"></div></div>
+          </div>
+
+          <div class="ms-dose">
+            <div class="num">الجرعة 2 / 6</div>
+            <div class="ttl">الجرعة الثانية: الديناميكية الحركية والتنسيق العصبي</div>
+            <div class="mt">الهيكل، العضلات، الجهاز العصبي، المفاصل</div>
+            <div class="pct">0%</div>
+            <div class="bar"><div class="fill" style="width:0%;background:#cbd5e1;"></div></div>
+          </div>
+
+          <div class="ms-dose">
+            <div class="num">الجرعة 3 / 6</div>
+            <div class="ttl">الجرعة الثالثة: الإمداد، النقل، والترشيح الأيضي</div>
+            <div class="mt">الدم، القلب، الهضم، الإخراج، الإنزيمات</div>
+            <div class="pct">0%</div>
+            <div class="bar"><div class="fill" style="width:0%;background:#cbd5e1;"></div></div>
+          </div>
+
+          <div class="ms-dose">
+            <div class="num">الجرعة 4 / 6</div>
+            <div class="ttl">الجرعة الرابعة: الاتزان الهرموني وبقاء النوع والدفاع</div>
+            <div class="mt">الغدد الصم، التكاثر، المناعة</div>
+            <div class="pct">0%</div>
+            <div class="bar"><div class="fill" style="width:0%;background:#cbd5e1;"></div></div>
+          </div>
+
+          <div class="ms-dose">
+            <div class="num">الجرعة 5 / 6</div>
+            <div class="ttl">الجرعة الخامسة: شفرة الحياة والوراثة الخلوية</div>
+            <div class="mt">DNA، الانقسام، الوراثة، الاختلالات</div>
+            <div class="pct">0%</div>
+            <div class="bar"><div class="fill" style="width:0%;background:#cbd5e1;"></div></div>
+          </div>
+
+          <div class="ms-dose">
+            <div class="num">الجرعة 6 / 6</div>
+            <div class="ttl">الجرعة السادسة: هندسة وتنوع اللافقاريات</div>
+            <div class="mt">التناظر، التجاويف، الرخويات، المفصليات</div>
+            <div class="pct">0%</div>
+            <div class="bar"><div class="fill" style="width:0%;background:#cbd5e1;"></div></div>
+          </div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div class="on"><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>⚡ نظام الجرعات</h2>
+      <p class="lead">المنهج مقسّم إلى ست جرعات متسلسلة، كل واحدة تبني على ما قبلها وتغطي وحدة كاملة.</p>
+
+      <div class="note-item">
+        <div class="ni-ico teal">1</div>
+        <div class="ni-body">
+          <b>الجرعة الأولى</b>
+          <p>المنهجية العلمية، تصنيف الكائنات، الجدار الخلوي، والتسمية الثنائية — أساس كل ما يليها.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">2</div>
+        <div class="ni-body">
+          <b>الجرعة الثانية</b>
+          <p>الهيكل العظمي، المفاصل، الألياف العضلية، والجهاز العصبي — ديناميكية الحركة والتنسيق.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">3</div>
+        <div class="ni-body">
+          <b>الجرعة الثالثة</b>
+          <p>الدم والقلب، القناة الهضمية، الإنزيمات، والترشيح الكلوي — منظومة الإمداد والتخليص.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">4</div>
+        <div class="ni-body">
+          <b>الجرعة الرابعة</b>
+          <p>الغدد الصم وهرموناتها، التكاثر والنمو الجنيني، والمناعة بفرعيها — الاتزان والدفاع.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">5</div>
+        <div class="ni-body">
+          <b>الجرعة الخامسة</b>
+          <p>DNA، قوانين تشارجاف، الانقسام المنصف والعبور الجيني، والاختلالات الكروموسومية.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">6</div>
+        <div class="ni-body">
+          <b>الجرعة السادسة</b>
+          <p>تصنيف اللافقاريات، الرخويات، المفصليات، وأجهزة الإخراج المتخصصة كأنابيب ملبيجي.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag teal">6 جرعات</span>
+        <span class="tag">تسلسل منطقي</span>
+        <span class="tag gold">شريط تقدم مرئي</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 4 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 5 — تفصيل الجرعة والأسئلة
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">05</span><span class="ph-title">تفصيل الجرعة والأسئلة</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-card">
+            <h4>↩ رجوع إلى الجرعات</h4>
+          </div>
+
+          <div class="ms-sec"><h3>الجرعة الأولى: خريطة تصنيف الحياة</h3></div>
+          <div style="font-size:5.5px;color:#94a3b8;margin-bottom:5px;">📊 التقدم: 0% · ✅ 0/3 صحيحة · 📝 0/3 محلولة</div>
+
+          <div class="ms-card">
+            <h4>📖 المفاهيم الرئيسية</h4>
+            <div style="font-size:5.5px;color:#44586e;line-height:1.7;">
+              • عناصر التجربة المنضبطة<br>
+              • التركيب الكيميائي للجدار الخلوي<br>
+              • قواعد التسمية الثنائية لينيوس
+            </div>
+          </div>
+
+          <div class="ms-card">
+            <h4>🧪 أسئلة الجرعة (3)</h4>
+            <div class="ms-q" style="margin-bottom:4px;">
+              <b>1. أجرى باحث تجربة لمعرفة أثر تركيزات مختلفة من مادة مضادة للبكتيريا على قطر التثبيط. ما المتغير المستقل؟</b>
+              <span class="opt">A. نوع البكتيريا ونوع الوسط</span>
+              <span class="opt">B. قطر منطقة التثبيط</span>
+              <span class="opt correct">C. تركيز المادة الكيميائية</span>
+              <span class="opt">D. الطبق الرابع الخالي</span>
+            </div>
+            <div class="ms-note">✅ صحيح — المتغير المستقل هو ما يغيره الباحث عمداً.</div>
+          </div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div class="on"><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>🧪 داخل الجرعة</h2>
+      <p class="lead">عند فتح أي جرعة، تظهر شاشة تفصيلية تجمع المفاهيم وأسئلتها في صفحة واحدة.</p>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📖</div>
+        <div class="ni-body">
+          <b>صندوق المفاهيم الرئيسية</b>
+          <p>يعرض المفاهيم التي تغطيها الجرعة، قبل الانطلاق في حل الأسئلة — لتهيئة ذهنك للموضوع.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico">📊</div>
+        <div class="ni-body">
+          <b>ملخّص التقدم</b>
+          <p>يعرض نسبة إتمام الجرعة، عدد الإجابات الصحيحة، وعدد الأسئلة المحلولة — قبل الدخول للأسئلة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">🧪</div>
+        <div class="ni-body">
+          <b>أسئلة الجرعة التفاعلية</b>
+          <p>بعد اختيار الإجابة، تُلوّن باللون الأخضر إن كانت صحيحة، وتظهر معها التوضيح المرتبط بالمعيار.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">💬</div>
+        <div class="ni-body">
+          <b>التفسير العلمي بعد كل سؤال</b>
+          <p>لا يُكتفى بالإجابة، بل يشرح سبب صحتها ويربطها بالمفهوم الأساسي، لتثبيت المعلومة.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag teal">مفاهيم مركزة</span>
+        <span class="tag">تفسير فوري</span>
+        <span class="tag gold">تتبع تلقائي للتقدم</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 5 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 6 — بنك الأسئلة
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">06</span><span class="ph-title">بنك الأسئلة الشامل</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-sec"><h3>🧠 بنك الأسئلة</h3><span>54 سؤالاً</span></div>
+
+          <div class="ms-chiprow">
+            <span class="ms-chip active">جميع الموضوعات</span>
+            <span class="ms-chip">الوراثة</span>
+            <span class="ms-chip">الجهاز العصبي</span>
+            <span class="ms-chip">المفصليات</span>
+          </div>
+          <div class="ms-chiprow">
+            <span class="ms-chip">جميع الجرعات</span>
+            <span class="ms-chip">جميع المستويات</span>
+            <span class="ms-chip">الكل</span>
+            <span class="ms-chip">↺</span>
+          </div>
+
+          <div class="ms-q">
+            <div class="qh"><span>Q01</span><span>المنهجية العلمية</span><span class="teal">الجرعة الأولى</span><span>متوسط</span></div>
+            <b>أجرى باحث تجربة لمعرفة أثر تركيزات مختلفة من مادة مضادة للبكتيريا على قطر التثبيط. ما المتغير المستقل؟</b>
+            <span class="opt">A. نوع البكتيريا والوسط</span>
+            <span class="opt correct">C. تركيز المادة الكيميائية</span>
+          </div>
+
+          <div class="ms-q">
+            <div class="qh"><span>Q02</span><span>تصنيف الأحياء</span><span class="teal">الجرعة الأولى</span><span>صعب</span></div>
+            <b>عينة X جدارها ببتيدوجلايكان، وعينة Y جدارها كايتين، وعينة Z جدارها سيليكا. ما التصنيف؟</b>
+            <span class="opt correct">A. X: بكتيريا حقيقية، Y: فطريات، Z: دياتومات</span>
+          </div>
+
+          <div class="ms-q">
+            <div class="qh"><span>Q13</span><span>الوراثة الجزيئية</span><span class="teal">الجرعة الخامسة</span><span>متوسط</span></div>
+            <b>إذا كانت نسبة الجوانين 22%، فما نسبة الثايمين؟</b>
+            <span class="opt">A. 22%</span>
+            <span class="opt correct">B. 28%</span>
+          </div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div><span>⚡</span>التدريب</div>
+          <div class="on"><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>🧠 كل الأسئلة في مكان واحد</h2>
+      <p class="lead">بنك الأسئلة يجمع 54 سؤالاً أصلياً موزّعة على الجرعات الست، مع أدوات فلترة دقيقة.</p>
+
+      <div class="note-item">
+        <div class="ni-ico">🎛️</div>
+        <div class="ni-body">
+          <b>فلترة متعددة المستويات</b>
+          <p>يمكنك التصفية حسب: الموضوع، الجرعة، مستوى الصعوبة (سهل/متوسط/صعب)، وحالة الإجابة (صحيحة/خاطئة/لم تُجب).</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">🏷️</div>
+        <div class="ni-body">
+          <b>وسوم توضيحية على كل سؤال</b>
+          <p>كل بطاقة سؤال تحمل رقمه، موضوعه، الجرعة التي ينتمي إليها، ومستوى الصعوبة — في نظرة واحدة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">✅</div>
+        <div class="ni-body">
+          <b>الاختيار والتفسير الفوري</b>
+          <p>بعد الاختيار، يتلوّن الخيار الصحيح بالأخضر، ويُظهر صندوق التفسير سبب الإجابة بالتفصيل.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📄</div>
+        <div class="ni-body">
+          <b>ترقيم الصفحات</b>
+          <p>الأسئلة مقسّمة على صفحات (6 في كل صفحة)، مع أزرار التالي/السابق وعدّاد الصفحة الحالية.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag">54 سؤالاً</span>
+        <span class="tag teal">فلترة متقدمة</span>
+        <span class="tag gold">تفسير مرتبط بالمعيار</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 6 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 7 — أخطائي
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">07</span><span class="ph-title">أخطائي</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-sec"><h3>🔥 أخطائي</h3><span>3 أسئلة خاطئة</span></div>
+
+          <div class="ms-mist">
+            <b>Q06: قانون الكل أو العدم في السيال العصبي</b>
+            <div class="de">
+              <span class="wr">✘ إجابتك: A</span> · <span class="co">✔ الصحيحة: C</span>
+              <br><span style="color:#94a3b8;">الجرعة الثانية · الجهاز العصبي</span>
+            </div>
+          </div>
+
+          <div class="ms-mist">
+            <b>Q08: هضم البروتينات بالببسين وأثر pH</b>
+            <div class="de">
+              <span class="wr">✘ إجابتك: A</span> · <span class="co">✔ الصحيحة: B</span>
+              <br><span style="color:#94a3b8;">الجرعة الثالثة · القناة الهضمية</span>
+            </div>
+          </div>
+
+          <div class="ms-mist">
+            <b>Q14: حساب عدد الأمشاج 2^n</b>
+            <div class="de">
+              <span class="wr">✘ إجابتك: B</span> · <span class="co">✔ الصحيحة: C</span>
+              <br><span style="color:#94a3b8;">الجرعة الخامسة · الوراثة المندلية</span>
+            </div>
+          </div>
+
+          <div class="ms-note red">🎯 راجع أخطاءك دورياً — التكرار يثبّت المفهوم.</div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div class="on"><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>🔥 صندوق الأخطاء الذكي</h2>
+      <p class="lead">يُجمّع كل سؤال أخطأت فيه تلقائياً، ويُظهر إجابتك والصحيحة في بطاقة واحدة.</p>
+
+      <div class="note-item">
+        <div class="ni-ico">📋</div>
+        <div class="ni-body">
+          <b>تفاصيل الخطأ كاملة</b>
+          <p>لكل سؤال خاطئ: نصّه، إجابتك الخاطئة بالأحمر، الإجابة الصحيحة بالأخضر، وبيانات الجرعة والموضوع.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">🔁</div>
+        <div class="ni-body">
+          <b>زر «مراجعة»</b>
+          <p>ينقلك مباشرة إلى السؤال في بنك الأسئلة مع إعادة عرض التفسير العلمي الكامل.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">🔢</div>
+        <div class="ni-body">
+          <b>عدّاد الأخطاء في الشريط السفلي</b>
+          <p>يعرض الشريط السفلي شارة حمراء بعدد الأخطاء الحالية، لتعرف دائمًا حجم ما يحتاج مراجعة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📈</div>
+        <div class="ni-body">
+          <b>يتراجع تلقائياً</b>
+          <p>عند إعادة حل السؤال بنجاح من بنك الأسئلة، يُزال من قائمة الأخطاء فوراً، لتتابع تحسّنك.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag">مراجعة مركزة</span>
+        <span class="tag teal">إزالة تلقائية</span>
+        <span class="tag gold">شارة حمراء</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 7 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 8 — تحليلي
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">08</span><span class="ph-title">تحليلي</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-sec"><h3>📊 تحليلي</h3><span>الدقة</span></div>
+
+          <div style="background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px;margin-bottom:6px;text-align:center;">
+            <div class="ms-acc">0%<span>الدقة الإجمالية</span></div>
+            <div style="font-size:5.5px;color:#94a3b8;margin-top:3px;">متوسط تقدم الجرعات: 0%</div>
+          </div>
+
+          <div class="ms-card">
+            <h4>📈 تقدم الجرعات</h4>
+            <div class="ms-ad"><span class="nm">الجرعة 1</span><div class="br"><div class="fl" style="width:0%;background:#0b2b4a;"></div></div><span class="pc">0%</span></div>
+            <div class="ms-ad"><span class="nm">الجرعة 2</span><div class="br"><div class="fl" style="width:0%;background:#1a4a6e;"></div></div><span class="pc">0%</span></div>
+            <div class="ms-ad"><span class="nm">الجرعة 3</span><div class="br"><div class="fl" style="width:0%;background:#0d9488;"></div></div><span class="pc">0%</span></div>
+            <div class="ms-ad"><span class="nm">الجرعة 4</span><div class="br"><div class="fl" style="width:0%;background:#14b8a6;"></div></div><span class="pc">0%</span></div>
+            <div class="ms-ad"><span class="nm">الجرعة 5</span><div class="br"><div class="fl" style="width:0%;background:#5eead4;"></div></div><span class="pc">0%</span></div>
+            <div class="ms-ad"><span class="nm">الجرعة 6</span><div class="br"><div class="fl" style="width:0%;background:#99f6e4;"></div></div><span class="pc">0%</span></div>
+          </div>
+
+          <div class="ms-card">
+            <h4>💪 نقاط القوة</h4>
+            <div class="ms-tagrow"><span class="ms-tag gr">✅ أكمل المزيد لظهورها</span></div>
+          </div>
+
+          <div class="ms-card">
+            <h4>⚠️ تحتاج إلى مراجعة</h4>
+            <div class="ms-tagrow"><span class="ms-tag">🔥 لا توجد بيانات</span></div>
+          </div>
+
+          <div class="ms-card">
+            <h4>🏆 الإنجازات</h4>
+            <div class="ms-tagrow"><span class="ms-tag gd">ابدأ التدريب لفتحها</span></div>
+          </div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div class="on"><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>📊 تشريح أدائك</h2>
+      <p class="lead">لوحة تحليلات كاملة تعرض الدقة الإجمالية، التقدم في كل جرعة، ونقاط القوة والضعف.</p>
+
+      <div class="note-item">
+        <div class="ni-ico">🎯</div>
+        <div class="ni-body">
+          <b>الدقة الإجمالية</b>
+          <p>النسبة المئوية للإجابات الصحيحة من إجمالي الأسئلة، مع متوسط تقدم الجرعات في سطر واحد.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📈</div>
+        <div class="ni-body">
+          <b>أشرطة الجرعات</b>
+          <p>شريط لكل جرعة بتدرّج لوني مختلف (من الأزرق الداكن إلى التركواز) يعرض نسبة إتمامها.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">💪</div>
+        <div class="ni-body">
+          <b>نقاط القوة</b>
+          <p>المواضيع التي حققت فيها دقة 70% أو أكثر تظهر تلقائياً في وسوم خضراء.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico">🔥</div>
+        <div class="ni-body">
+          <b>نقاط الضعف</b>
+          <p>المواضيع التي تقل دقتها عن 50% تظهر في وسوم حمراء، لتركّز عليها في المراجعة القادمة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">🏆</div>
+        <div class="ni-body">
+          <b>الإنجازات</b>
+          <p>شارات تُفتح تلقائياً: 30+ سؤالاً، 50+ سؤالاً، دقة 70%+، دقة 90%+، و3 جرعات مكتملة.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag">دقة إجمالية</span>
+        <span class="tag teal">أشرطة الجرعات</span>
+        <span class="tag gold">إنجازات تلقائية</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 8 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 9 — التشخيصي
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">09</span><span class="ph-title">التشخيصي الشامل</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-sec"><h3>🎯 التشخيصي الشامل</h3><span>تحليل</span></div>
+
+          <div class="ms-card">
+            <p style="font-size:6px;color:#44586e;">سيقوم التشخيص بتحليل أدائك في جميع الأسئلة وتحديد نقاط القوة والضعف لديك.</p>
+            <div style="background:#0d9488;color:#fff;border-radius:20px;padding:4px 10px;font-size:6px;font-weight:700;text-align:center;margin-top:6px;">🔄 تشغيل التشخيص</div>
+          </div>
+
+          <div class="ms-card">
+            <h4>📊 الأداء حسب الجرعة</h4>
+            <div class="ms-dr"><span>الجرعة الأولى</span><b>⬜ 0/3 (0%)</b></div>
+            <div class="ms-dr"><span>الجرعة الثانية</span><b>⬜ 0/3 (0%)</b></div>
+            <div class="ms-dr"><span>الجرعة الثالثة</span><b>⬜ 0/3 (0%)</b></div>
+            <div class="ms-dr"><span>الجرعة الرابعة</span><b>⬜ 0/3 (0%)</b></div>
+            <div class="ms-dr"><span>الجرعة الخامسة</span><b>⬜ 0/3 (0%)</b></div>
+            <div class="ms-dr"><span>الجرعة السادسة</span><b>⬜ 0/3 (0%)</b></div>
+          </div>
+
+          <div class="ms-card">
+            <h4>💪 نقاط القوة</h4>
+            <div style="font-size:5.5px;color:#94a3b8;">لا توجد بيانات كافية بعد.</div>
+          </div>
+
+          <div class="ms-card">
+            <h4>⚠️ نقاط الضعف</h4>
+            <div style="font-size:5.5px;color:#94a3b8;">ابدأ التشخيص لعرض النتائج.</div>
+          </div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div class="on"><span>🎯</span>تشخيصي</div>
+          <div><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>🎯 تشخيص ذكي بنقرة</h2>
+      <p class="lead">أداة تحليلية تحوّل أرقامك إلى خطة مراجعة واضحة، وتوصيات مخصصة.</p>
+
+      <div class="note-item">
+        <div class="ni-ico teal">🔄</div>
+        <div class="ni-body">
+          <b>زر «تشغيل التشخيص»</b>
+          <p>بضغطة واحدة، يحلّل التطبيق كل إجاباتك السابقة ويستخرج الخلاصة في ثوانٍ.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico">📊</div>
+        <div class="ni-body">
+          <b>الأداء حسب الجرعة</b>
+          <p>جدول يعرض كل جرعة مع نسبة إتمامها وعدد الصحيح من الإجمالي، لترى أين تركّز جهدك.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">💪</div>
+        <div class="ni-body">
+          <b>نقاط القوة والضعف</b>
+          <p>يُظهر تلقائياً المواضيع التي تتقنها (دقة 70%+) والمواضيع التي تحتاج مراجعة (دقة أقل من 50%).</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">📝</div>
+        <div class="ni-body">
+          <b>توصيات مخصّصة</b>
+          <p>في نهاية التحليل، يعرض التطبيق توصيات مباشرة: راجع هذه المواضيع، لديك أسئلة لم تُجب عليها، إلخ.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag teal">تحليل فوري</span>
+        <span class="tag">توصيات مباشرة</span>
+        <span class="tag gold">كشف نقاط الضعف</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 9 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 10 — الموارد وورقة الإنقاذ
+     ============================================================ -->
+<section class="page">
+  <div class="page-head">
+    <div class="ph-right"><span class="ph-num">10</span><span class="ph-title">الموارد وورقة الإنقاذ</span></div>
+    <span class="ph-brand">هيرو أكاديمي</span>
+  </div>
+
+  <div class="page-body">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="ms-head">
+          <b>🧬 الأحياء التحصيلي<small>المتقدّم</small></b>
+          <div class="ms-actions"><span class="gold">📘</span></div>
+        </div>
+        <div class="ms-pad">
+          <div class="ms-sec"><h3>📚 الموارد</h3><span>مراجعة نهائية</span></div>
+
+          <div class="ms-grid3">
+            <div class="ms-res"><div class="ic">📄</div><div class="tt">ورقة الإنقاذ</div></div>
+            <div class="ms-res"><div class="ic">⚡</div><div class="tt">ليلة الاختبار</div></div>
+            <div class="ms-res"><div class="ic">🎯</div><div class="tt">مصفوفة</div></div>
+            <div class="ms-res"><div class="ic">🧪</div><div class="tt">المحاكاة</div></div>
+            <div class="ms-res"><div class="ic">📊</div><div class="tt">التحليل</div></div>
+            <div class="ms-res"><div class="ic">📚</div><div class="tt">البنك</div></div>
+          </div>
+
+          <div class="ms-card">
+            <h4>📄 ورقة الإنقاذ — مراجعة صفحة واحدة</h4>
+            <p><b>القوانين:</b> تشارجاف، 2^n للأمشاج، الكل أو العدم، تحويل السعرات.</p>
+            <p style="margin-top:3px;"><b>الفروق:</b> أربطة/أوتار، أنسولين/جلوكاجون، سمبثاوي/جار سمبثاوي.</p>
+            <p style="margin-top:3px;"><b>الأخطاء الشائعة:</b> كتابة النوع بحرف كبير، مضاعفة السيال.</p>
+          </div>
+
+          <div class="ms-note gold">🎯 راجع ورقة الإنقاذ ليلة الاختبار — صفحة واحدة تغنيك.</div>
+        </div>
+        <div class="ms-nav">
+          <div><span>🏠</span>الرئيسية</div>
+          <div><span>⚡</span>التدريب</div>
+          <div><span>🧠</span>الأسئلة</div>
+          <div><span>🔥</span>أخطائي</div>
+          <div><span>📊</span>تحليلي</div>
+          <div><span>🎯</span>تشخيصي</div>
+          <div class="on"><span>📚</span>الموارد</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <h2>📚 غرفة الإنقاذ</h2>
+      <p class="lead">قسم الموارد يجمع أقوى أدوات المراجعة السريعة، وخاصة قبل الاختبار بيوم واحد.</p>
+
+      <div class="note-item">
+        <div class="ni-ico">📄</div>
+        <div class="ni-body">
+          <b>ورقة الإنقاذ</b>
+          <p>صفحة واحدة مختصرة تجمع القوانين والعلاقات الحسابية، والفروق الحاسمة، والأخطاء الشائعة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico gold">⚡</div>
+        <div class="ni-body">
+          <b>مراجعة ليلة الاختبار</b>
+          <p>أهم المفاهيم والقوانين المكثفة التي يحتاجها الطالب في الساعات الأخيرة قبل الاختبار.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico teal">🎯</div>
+        <div class="ni-body">
+          <b>مصفوفة التشخيص</b>
+          <p>ربط مباشر بين الأسئلة والجرعات، لترى توزيع الأسئلة على المحاور قبل البدء بالمراجعة.</p>
+        </div>
+      </div>
+
+      <div class="note-item">
+        <div class="ni-ico">🧪</div>
+        <div class="ni-body">
+          <b>نموذجا المحاكاة</b>
+          <p>36 سؤالاً أصلياً إضافياً (محاكاة 1 ومحاكاة 2) مطابقة لنمط أسئلة الاختبار الحقيقي.</p>
+        </div>
+      </div>
+
+      <div class="tag-list">
+        <span class="tag">6 موارد</span>
+        <span class="tag teal">ورقة الإنقاذ</span>
+        <span class="tag gold">مراجعة مكثفة</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-foot">
+    <span>الأحياء التحصيلي المتقدم — إعداد: إبراهيم الدسوقي</span>
+    <span>صفحة 10 من 11</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     صفحة 11 — الخاتمة CTA
+     ============================================================ -->
+<section class="page cta-page">
+  <div class="cta-inner">
+    <div class="cta-emoji">🎓 🧬 🏆</div>
+
+    <h2>أعجبتك طريقة <em>Hero</em>؟</h2>
+
+    <p>
+      انضم إلى آلاف طلاب التحصيلي الذين راجعوا الأحياء بطريقة منظمة، تفاعلية،
+      ومبنية على التحليل الذكي لأدائهم.
+    </p>
+
+    <div class="cta-features">
+      <span>⚡ 6 جرعات مركزة</span>
+      <span>🧠 54 سؤالاً</span>
+      <span>🎯 تشخيصي ذكي</span>
+      <span>📊 تحليلات</span>
+      <span>📄 ورقة إنقاذ</span>
+    </div>
+
+    <a class="cta-btn" href="https://app.hero1.vip/#about" target="_blank" rel="noopener">🛒 اشترِ الآن</a>
+
+    <a class="cta-link" href="https://app.hero1.vip/#about" target="_blank" rel="noopener">https://app.hero1.vip/#about</a>
+
+    <div class="cta-rule"></div>
+
+    <p class="cta-copy">© 2026-2027 — جميع الحقوق محفوظة · هيرو أكاديمي</p>
+  </div>
+</section>
+
 </body>
 </html>

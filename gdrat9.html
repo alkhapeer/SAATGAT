@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
-<meta name="referrer" content="strict-origin-when-cross-origin">  ← أضف هذا السطر هنا
 <title>🎯 القدرات العامة — كمي / لفظي</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -1346,7 +1345,6 @@ updateHome();
 console.log(`🎯 تطبيق القدرات العامة v2 جاهز! ${Q.length} سؤال، ${Object.keys(SKILLS).length} مهارة، ${FLASHCARDS.length} بطاقة، ${RES_LIST.length} موارد تفاعلية`);
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/nacl.min.js"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 (function(){
@@ -1355,19 +1353,13 @@ console.log(`🎯 تطبيق القدرات العامة v2 جاهز! ${Q.length
 var COURSE_ID="9";
 var APPS_URL="https://script.google.com/macros/s/AKfycbwCFqtOlOTelywXQ4Ja1zftLIcAsqLzlri9ynIj9435wILiWnfrAx7zAQ1wi3Wqh6dg/exec";
 var CLIENT_ID="99138672450-fsi9nj2qpu13njt6rqdbhko3m4iu283c.apps.googleusercontent.com";
-var TRIAL_DAYS=1;
 var WA="249915886600";
 var TG="https://t.me/Herocourses";
 
 var K_DEV_ID="hero_dev_id_"+COURSE_ID;
 var K_DEV_SEC="hero_dev_sec_"+COURSE_ID;
-var K_LIC="hero_lic_"+COURSE_ID;
-var K_TRIAL="hero_trial_"+COURSE_ID;
 
-document.documentElement.style.visibility='hidden';
-
-var _pendingDOM=[];
-var _allowDOM=false;
+var _pendingDOM=[],_allowDOM=false;
 var _origAdd=document.addEventListener.bind(document);
 document.addEventListener=function(t,f,o){
   if(t==='DOMContentLoaded'&&!_allowDOM){_pendingDOM.push({fn:f,opts:o});return;}
@@ -1375,40 +1367,16 @@ document.addEventListener=function(t,f,o){
 };
 function _releaseDOM(){
   _allowDOM=true;
-  _pendingDOM.forEach(function(p){
-    try{p.fn.call(document,new Event('DOMContentLoaded'));}
-    catch(e){console.error(e);}
-  });
+  _pendingDOM.forEach(function(p){try{p.fn.call(document,new Event('DOMContentLoaded'));}catch(e){}});
   _pendingDOM=[];
 }
 
-function b64ToBytes(b){var bin=atob(b),a=new Uint8Array(bin.length),i=0;for(;i<bin.length;i++)a[i]=bin.charCodeAt(i);return a;}
+document.documentElement.style.visibility='hidden';
+
+var _checking=false;
+var _gisInitialized=false;
+
 function bytesToB64(b){var s='',i=0;for(;i<b.length;i++)s+=String.fromCharCode(b[i]);return btoa(s);}
-
-function encryptTicket(ticket,deviceSecretB64){
-  try{
-    var key=b64ToBytes(deviceSecretB64);
-    var nonce=nacl.randomBytes(24);
-    var plain=new TextEncoder().encode(JSON.stringify(ticket));
-    var cipher=nacl.secretbox(plain,nonce,key);
-    var combined=new Uint8Array(nonce.length+cipher.length);
-    combined.set(nonce,0);
-    combined.set(cipher,nonce.length);
-    return bytesToB64(combined);
-  }catch(e){return null;}
-}
-
-function decryptTicket(encB64,deviceSecretB64){
-  try{
-    var key=b64ToBytes(deviceSecretB64);
-    var blob=b64ToBytes(encB64);
-    var nonce=blob.slice(0,24);
-    var cipher=blob.slice(24);
-    var plain=nacl.secretbox.open(cipher,nonce,key);
-    if(!plain)return null;
-    return JSON.parse(new TextDecoder().decode(plain));
-  }catch(e){return null;}
-}
 
 function getOrCreateDevice(){
   var id=localStorage.getItem(K_DEV_ID);
@@ -1422,11 +1390,6 @@ function getOrCreateDevice(){
   return {id:id,secret:sec};
 }
 
-function showBlock(msg){
-  document.documentElement.style.visibility='visible';
-  document.body.innerHTML='<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#0f172a;color:#fca5a5;font-family:Arial;font-size:20px;text-align:center;padding:24px;direction:rtl;line-height:1.8"><div><div style="font-size:56px;margin-bottom:16px">⛔</div>'+msg+'</div></div>';
-}
-
 function addWatermark(lic){
   var o=document.getElementById('hero-wm');if(o)o.remove();
   if(!lic)return;
@@ -1436,14 +1399,105 @@ function addWatermark(lic){
   document.body.appendChild(w);
 }
 
-function showLoginOverlay(message){
-  var old=document.getElementById('hero-login-overlay');if(old)old.remove();
-  var ov=document.createElement('div');ov.id='hero-login-overlay';
-  ov.style.cssText='position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;font-family:Segoe UI,Tahoma;padding:16px;direction:rtl';
-  var bx=document.createElement('div');
-  bx.style.cssText='background:#fff;border-radius:24px;padding:32px 28px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4)';
-  bx.innerHTML='<h2 style="margin:0 0 10px;font-size:24px;color:#1a2634">🔐 تفعيل الدورة</h2>'+
-    '<p style="color:#475569;margin-bottom:24px;font-size:15px">'+(message||'سجّل دخولك بحساب Google للتفعيل')+'</p>'+
+function showLoading(msg){
+  var old=document.getElementById('hero-loading');if(old)old.remove();
+  var d=document.createElement('div');d.id='hero-loading';
+  d.style.cssText='position:fixed;inset:0;z-index:999999;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#facc15;font-family:Segoe UI;direction:rtl';
+  d.innerHTML='<div style="font-size:48px;margin-bottom:16px">⏳</div><div style="font-size:16px">'+(msg||'جاري التحقق...')+'</div>';
+  document.body.appendChild(d);
+}
+function hideLoading(){
+  var d=document.getElementById('hero-loading');if(d)d.remove();
+}
+
+function showBlockScreen(title,msg,showContact){
+  hideLoading();
+  var old=document.getElementById('hero-block');if(old)old.remove();
+  var d=document.createElement('div');d.id='hero-block';
+  d.style.cssText='position:fixed;inset:0;z-index:999998;background:#0f172a;display:flex;align-items:center;justify-content:center;font-family:Segoe UI,Tahoma;padding:24px;direction:rtl';
+  var html='<div style="background:#fff;border-radius:24px;padding:32px 28px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5)">';
+  html+='<h2 style="margin:0 0 12px;font-size:22px;color:#1a2634">'+title+'</h2>';
+  html+='<p style="color:#475569;font-size:15px;line-height:1.8;margin-bottom:24px">'+msg+'</p>';
+  if(showContact!==false){
+    html+='<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">';
+    html+='<a href="https://wa.me/'+WA+'" target="_blank" style="background:#25D366;color:#fff;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:700">📱 واتساب</a>';
+    if(TG) html+='<a href="'+TG+'" target="_blank" style="background:#0088cc;color:#fff;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:700">💬 تيليجرام</a>';
+    html+='</div>';
+  }
+  html+='<button id="hero-retry" style="margin-top:20px;background:transparent;border:2px solid #94a3b8;color:#475569;padding:8px 24px;border-radius:30px;font-weight:600;cursor:pointer">🔄 إعادة المحاولة</button>';
+  html+='</div>';
+  d.innerHTML=html;
+  document.body.appendChild(d);
+  var retry=document.getElementById('hero-retry');
+  if(retry) retry.onclick=function(){location.reload();};
+}
+
+var _trialInterval=null;
+function showTrialCard(expiresAt){
+  var old=document.getElementById('hero-trial');if(old)old.remove();
+  if(_trialInterval){clearInterval(_trialInterval);_trialInterval=null;}
+  
+  var c=document.createElement('div');c.id='hero-trial';
+  c.style.cssText='position:fixed;bottom:20px;left:20px;z-index:99999;background:#1e293b;color:#facc15;padding:10px 16px;border-radius:12px;font-size:14px;font-family:Arial;box-shadow:0 4px 15px rgba(0,0,0,0.3);direction:ltr';
+  document.body.appendChild(c);
+  
+  var btn=document.createElement('button');
+  btn.id='hero-buy-btn';
+  btn.textContent='🔑 تفعيل / شراء';
+  btn.style.cssText='position:fixed;bottom:20px;right:20px;z-index:99999;background:#facc15;color:#0f172a;border:none;padding:12px 24px;border-radius:40px;font-weight:700;font-size:16px;box-shadow:0 4px 20px rgba(0,0,0,0.2);cursor:pointer';
+  btn.onclick=function(){showBlockScreen('💬 للشراء','تواصل معنا عبر واتساب أو تيليجرام للحصول على كود تفعيل.',true);};
+  document.body.appendChild(btn);
+  
+  function tick(){
+    var r=Math.max(0,(new Date(expiresAt).getTime()-Date.now())/1000);
+    if(r<=0){
+      c.textContent='⏰ انتهت التجربة';
+      c.style.background='#b00020';
+      clearInterval(_trialInterval);
+      setTimeout(function(){location.reload();},2000);
+      return;
+    }
+    var d=Math.floor(r/86400),h=Math.floor((r%86400)/3600),m=Math.floor((r%3600)/60),s=Math.floor(r%60);
+    c.textContent='⏳ التجربة المتبقية: '+d+'يوم '+h+'س '+m+'د '+s+'ث';
+  }
+  tick();
+  _trialInterval=setInterval(tick,1000);
+}
+
+function ensureGisReady(callback){
+  var attempts=0;
+  function wait(){
+    if(typeof google==='undefined'||!google.accounts||!google.accounts.id){
+      attempts++;
+      if(attempts<50)return setTimeout(wait,200);
+      hideLoading();
+      document.documentElement.style.visibility='visible';
+      _releaseDOM();
+      showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google. تحقق من الإنترنت.',true);
+      return;
+    }
+    if(!_gisInitialized){
+      google.accounts.id.initialize({
+        client_id:CLIENT_ID,
+        callback:onCredential,
+        auto_select:false,
+        cancel_on_tap_outside:false
+      });
+      _gisInitialized=true;
+    }
+    callback();
+  }
+  wait();
+}
+
+function showSignInScreen(){
+  hideLoading();
+  var old=document.getElementById('hero-signin');if(old)old.remove();
+  var d=document.createElement('div');d.id='hero-signin';
+  d.style.cssText='position:fixed;inset:0;z-index:999998;background:rgba(15,23,42,0.95);display:flex;align-items:center;justify-content:center;font-family:Segoe UI,Tahoma;padding:16px;direction:rtl';
+  d.innerHTML='<div style="background:#fff;border-radius:24px;padding:32px 28px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4)">'+
+    '<h2 style="margin:0 0 10px;font-size:24px;color:#1a2634">🔐 تفعيل الدورة</h2>'+
+    '<p style="color:#475569;margin-bottom:24px;font-size:15px">سجّل دخولك بحساب Google للتحقق من ترخيصك</p>'+
     '<div id="hero-gbtn" style="display:flex;justify-content:center;margin-bottom:16px"></div>'+
     '<div id="hero-login-msg" style="color:#b00020;font-size:14px;min-height:20px"></div>'+
     '<hr style="margin:20px 0;border:0;border-top:1px solid #e2e8f0">'+
@@ -1451,41 +1505,24 @@ function showLoginOverlay(message){
     '<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+
     '<a href="https://wa.me/'+WA+'" target="_blank" style="background:#25D366;color:#fff;padding:10px 20px;border-radius:30px;text-decoration:none;font-weight:600">📱 واتساب</a>'+
     (TG?'<a href="'+TG+'" target="_blank" style="background:#0088cc;color:#fff;padding:10px 20px;border-radius:30px;text-decoration:none;font-weight:600">💬 تيليجرام</a>':'')+
-    '</div>';
-  ov.appendChild(bx);document.body.appendChild(ov);
+    '</div></div>';
+  document.body.appendChild(d);
   
-  var attempts=0;
-  function initGoogle(){
-    if(typeof google==='undefined'||!google.accounts||!google.accounts.id){
-      attempts++;
-      if(attempts<40)return setTimeout(initGoogle,300);
-      document.getElementById('hero-login-msg').textContent='❌ فشل تحميل Google. تحقق من الإنترنت.';
-      return;
-    }
-    google.accounts.id.initialize({client_id:CLIENT_ID,callback:handleCredential});
+  ensureGisReady(function(){
     google.accounts.id.renderButton(
       document.getElementById('hero-gbtn'),
       {theme:'filled_blue',size:'large',text:'signin_with',locale:'ar',width:280}
     );
-  }
-  initGoogle();
+  });
 }
 
-function handleCredential(response){
+function onCredential(response){
+  if(_checking)return;
+  if(!response||!response.credential)return;
+  _checking=true;
+  
   var msg=document.getElementById('hero-login-msg');
-  if(!response||!response.credential){msg.textContent='❌ فشل تسجيل الدخول';return;}
-  msg.style.color='#3b82f6';msg.textContent='⏳ جاري التحقق...';
-  
-  var payload;
-  try{
-    var parts=response.credential.split('.');
-    var b64=parts[1].replace(/-/g,'+').replace(/_/g,'/');
-    while(b64.length%4)b64+='=';
-    payload=JSON.parse(atob(b64));
-  }catch(e){msg.style.color='#b00020';msg.textContent='❌ رمز غير صالح';return;}
-  
-  var email=(payload.email||'').toLowerCase();
-  if(!email){msg.style.color='#b00020';msg.textContent='❌ لم يتم الحصول على البريد';return;}
+  if(msg){msg.style.color='#3b82f6';msg.textContent='⏳ جاري التحقق...';}
   
   var dev=getOrCreateDevice();
   
@@ -1493,8 +1530,7 @@ function handleCredential(response){
     method:'POST',
     headers:{'Content-Type':'text/plain;charset=utf-8'},
     body:JSON.stringify({
-      action:'activate',
-      email:email,
+      action:'check',
       id_token:response.credential,
       device_id:dev.id,
       device_secret:dev.secret,
@@ -1503,112 +1539,71 @@ function handleCredential(response){
   })
   .then(function(r){return r.json();})
   .then(function(data){
+    _checking=false;
     if(!data.ok){
-      msg.style.color='#b00020';
-      var errMap={
-        'not_licensed':'هذا البريد غير مسجل. تواصل مع الإدارة.',
-        'not_active':'الترخيص موقوف.',
-        'expired':'انتهت صلاحية الترخيص.',
-        'course_not_allowed':'هذه الدورة غير مشمولة في ترخيصك.',
-        'device_limit':'وصلت للحد الأقصى ('+(data.limit||3)+' أجهزة).',
-        'invalid_token':'فشل التحقق من الحساب.'
-      };
-      msg.textContent='❌ '+(errMap[data.error]||data.message||'خطأ غير معروف');
+      var errMap={'invalid_token':'فشل التحقق من الحساب.','missing_params':'بيانات ناقصة.'};
+      if(msg){msg.style.color='#b00020';msg.textContent='❌ '+(errMap[data.error]||data.message||'خطأ');}
       return;
     }
-    
-    var encrypted=encryptTicket(data.license,dev.secret);
-    if(!encrypted){
-      msg.style.color='#b00020';
-      msg.textContent='❌ فشل تشفير التذكرة محلياً.';
-      return;
-    }
-    
-    try{
-      localStorage.setItem(K_LIC,encrypted);
-      localStorage.removeItem(K_TRIAL);
-    }catch(e){}
-    
-    var ov=document.getElementById('hero-login-overlay');
-    if(ov)ov.remove();
-    
-    bootWithLicense(data.license);
+    var signIn=document.getElementById('hero-signin');
+    if(signIn)signIn.remove();
+    applyStatus(data);
   })
   .catch(function(err){
-    msg.style.color='#b00020';
-    msg.textContent='❌ فشل الاتصال بالخادم: '+err.message;
+    _checking=false;
+    if(msg){msg.style.color='#b00020';msg.textContent='❌ فشل الاتصال: '+err.message;}
   });
 }
 
-function bootWithLicense(lic){
-  addWatermark(lic);
+function applyStatus(data){
+  hideLoading();
+  
+  if(data.status==='licensed'){
+    addWatermark(data.license);
+    document.documentElement.style.visibility='visible';
+    _releaseDOM();
+    return;
+  }
+  if(data.status==='trial'){
+    document.documentElement.style.visibility='visible';
+    _releaseDOM();
+    showTrialCard(data.trial.expires_at);
+    return;
+  }
+  if(data.status==='needs_purchase'){
+    document.documentElement.style.visibility='visible';
+    _releaseDOM();
+    showBlockScreen('💬 للشراء','هذه الدورة تحتاج إلى ترخيص. تواصل معنا للحصول على كود تفعيل.',true);
+    return;
+  }
+  if(data.status==='trial_expired'){
+    document.documentElement.style.visibility='visible';
+    _releaseDOM();
+    showBlockScreen('⏰ انتهت التجربة','انتهت الفترة التجريبية. للاستمرار، تواصل معنا للحصول على ترخيص.',true);
+    return;
+  }
+  if(data.status==='device_limit'){
+    document.documentElement.style.visibility='visible';
+    _releaseDOM();
+    showBlockScreen('📱 حد الأجهزة','وصلت للحد الأقصى من الأجهزة ('+(data.limit||3)+'). تواصل مع الإدارة.',true);
+    return;
+  }
   document.documentElement.style.visibility='visible';
   _releaseDOM();
-}
-
-function tryLoadLocalLicense(){
-  var encRaw=localStorage.getItem(K_LIC);
-  if(!encRaw)return null;
-  var dev=getOrCreateDevice();
-  var ticket=decryptTicket(encRaw,dev.secret);
-  if(!ticket)return null;
-  if(ticket.device_id!==dev.id)return null;
-  if(ticket.expires&&Date.now()>new Date(ticket.expires).getTime())return null;
-  return ticket;
+  showBlockScreen('⚠️ خطأ','حدث خطأ غير متوقع. حاول مرة أخرى.',true);
 }
 
 function boot(){
-  // 1. حاول تحميل ترخيص محلي صالح
-  var lic=tryLoadLocalLicense();
-  if(lic){
-    bootWithLicense(lic);
-    return;
-  }
-  
-  // 2. لا يوجد ترخيص → تحقق من التجربة
-  var trial;
-  try{trial=JSON.parse(localStorage.getItem(K_TRIAL));}catch(e){}
-  if(!trial||typeof trial.ex!=='number'){
-    trial={st:Date.now(),ex:Date.now()+TRIAL_DAYS*86400000};
-    try{localStorage.setItem(K_TRIAL,JSON.stringify(trial));}catch(e){}
-  }
-  
-  if(Date.now()>=trial.ex){
-    showLoginOverlay('انتهت الفترة التجريبية. سجّل دخولك للتفعيل.');
-    return;
-  }
-  
-  // 3. التجربة سارية → اعرض الصفحة
-  document.documentElement.style.visibility='visible';
-  _releaseDOM();
-  showTrialCounter(trial.ex);
-}
-
-function showTrialCounter(ex){
-  var c=document.createElement('div');
-  c.id='hero-trial';
-  c.style.cssText='position:fixed;bottom:20px;left:20px;z-index:99999;background:#1e293b;color:#facc15;padding:10px 16px;border-radius:12px;font-size:14px;font-family:Arial;box-shadow:0 4px 15px rgba(0,0,0,0.3);direction:ltr';
-  document.body.appendChild(c);
-  
-  var btn=document.createElement('button');
-  btn.textContent='🔑 تفعيل / شراء';
-  btn.style.cssText='position:fixed;bottom:20px;right:20px;z-index:99999;background:#facc15;color:#0f172a;border:none;padding:12px 24px;border-radius:40px;font-weight:700;font-size:16px;box-shadow:0 4px 20px rgba(0,0,0,0.2);cursor:pointer';
-  btn.onclick=function(){showLoginOverlay('سجّل دخولك بحساب Google للتفعيل.');};
-  document.body.appendChild(btn);
-  
-  function tick(){
-    var n=Date.now(),r=Math.max(0,(ex-n)/1000);
-    if(r<=0){
-      c.textContent='⏰ انتهت التجربة';
-      c.style.background='#b00020';
-      setTimeout(function(){location.reload();},2000);
-      return;
-    }
-    var d=Math.floor(r/86400),h=Math.floor((r%86400)/3600),m=Math.floor((r%3600)/60),s=Math.floor(r%60);
-    c.textContent='⏳ التجربة المتبقية: '+d+'يوم '+h+'س '+m+'د '+s+'ث';
-  }
-  tick();
-  setInterval(tick,1000);
+  showLoading('جاري التحقق...');
+  ensureGisReady(function(){
+    google.accounts.id.prompt(function(notification){
+      setTimeout(function(){
+        if(!_checking && document.getElementById('hero-loading')){
+          showSignInScreen();
+        }
+      }, 2000);
+    });
+  });
 }
 
 if(document.readyState==='loading'){

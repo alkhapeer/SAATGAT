@@ -8,6 +8,15 @@
   <meta name="description" content="أكاديمية هيرو للتدريب على التحصيلي والقدرات. مواد التحصيلي والقدرات الكمي واللفظي في واجهة تعليمية سهلة.">
   <meta name="theme-color" content="#2563eb">
 
+  <!-- ===== PWA ===== -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="أكاديمية هيرو">
+
   <style>
     * {
       box-sizing: border-box;
@@ -90,33 +99,34 @@
     .hero-btn:hover {
       transform: translateY(-2px);
     }
+
     header {
-  position: relative;
-  margin-bottom: 65px;
-}
+      position: relative;
+      margin-bottom: 65px;
+    }
 
-.section-badge {
-  position: absolute;
-  bottom: -28px;
-  right: 50%;
-  transform: translateX(50%);
+    .section-badge {
+      position: absolute;
+      bottom: -28px;
+      right: 50%;
+      transform: translateX(50%);
 
-  background: white;
-  color: #2563eb;
+      background: white;
+      color: #2563eb;
 
-  padding: 10px 32px;
-  border-radius: 16px;
+      padding: 10px 32px;
+      border-radius: 16px;
 
-  font-size: 22px;
-  font-weight: 800;
+      font-size: 22px;
+      font-weight: 800;
 
-  border: 3px solid #2563eb;
+      border: 3px solid #2563eb;
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
 
-  white-space: nowrap;
-  z-index: 10;
-}
+      white-space: nowrap;
+      z-index: 10;
+    }
 
     /* ===== Main ===== */
 
@@ -339,6 +349,97 @@
       font-weight: bold;
     }
 
+    /* ===== Install Button ===== */
+
+    .install-btn {
+      position: fixed;
+      bottom: 88px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1100;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      background: linear-gradient(135deg, #173b8f, #2563eb);
+      color: #fff;
+      border: none;
+      padding: 13px 26px;
+      border-radius: 999px;
+
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: bold;
+      cursor: pointer;
+
+      box-shadow: 0 10px 26px rgba(37, 99, 235, .38);
+      animation: installPulse 2.4s ease-in-out infinite;
+      transition: transform .2s ease;
+    }
+
+    .install-btn[hidden] {
+      display: none;
+    }
+
+    .install-btn:hover {
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    .install-btn:active {
+      transform: translateX(-50%) scale(.97);
+    }
+
+    @keyframes installPulse {
+      0%, 100% { box-shadow: 0 10px 26px rgba(37, 99, 235, .38); }
+      50%      { box-shadow: 0 10px 34px rgba(37, 99, 235, .68); }
+    }
+
+    /* ===== iOS Hint ===== */
+
+    .ios-hint {
+      position: fixed;
+      bottom: 88px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1100;
+
+      width: min(92vw, 420px);
+      background: #ffffff;
+      color: #172033;
+      border: 1px solid #e7ebf3;
+      border-radius: 18px;
+      padding: 14px 16px;
+
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .16);
+    }
+
+    .ios-hint[hidden] {
+      display: none;
+    }
+
+    .ios-hint b {
+      color: #2563eb;
+    }
+
+    .ios-hint button {
+      display: block;
+      margin: 10px auto 0;
+      background: #eff6ff;
+      color: #2563eb;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     /* ===== Responsive ===== */
 
     @media (max-width: 850px) {
@@ -376,6 +477,12 @@
       .nav-item {
         font-size: 10px;
       }
+
+      .install-btn {
+        bottom: 82px;
+        font-size: 13.5px;
+        padding: 12px 22px;
+      }
     }
   </style>
 </head>
@@ -386,24 +493,24 @@
 
   <header id="home">
 
-  <div class="brand">HERO ACADEMY</div>
+    <div class="brand">HERO ACADEMY</div>
 
-  <h1>أكاديمية هيرو</h1>
+    <h1>أكاديمية هيرو</h1>
 
-  <p>
-    طريقك للاستعداد للقدرات والتحصيلي
-    بطريقة منظمة وسهلة تساعدك على التعلم والمراجعة والاستعداد للاختبار.
-  </p>
+    <p>
+      طريقك للاستعداد للقدرات والتحصيلي
+      بطريقة منظمة وسهلة تساعدك على التعلم والمراجعة والاستعداد للاختبار.
+    </p>
 
-  <div class="hero-buttons">
-    <a href="#courses" class="hero-btn">استكشف الدورات</a>
-    <a href="#helper" class="hero-btn secondary">مساعد الطالب</a>
-  </div>
+    <div class="hero-buttons">
+      <a href="#courses" class="hero-btn">استكشف الدورات</a>
+      <a href="#helper" class="hero-btn secondary">مساعد الطالب</a>
+    </div>
 
-  <!-- شارة التحصيلي خارج البانر -->
-  <div class="section-badge">التحصيلي</div>
+    <!-- شارة التحصيلي خارج البانر -->
+    <div class="section-badge">التحصيلي</div>
 
-</header>
+  </header>
 
 
   <main>
@@ -473,6 +580,7 @@
           <p>تدريب على المهارات والأسئلة اللفظية</p>
           <span class="card-button">دخول المادة</span>
         </a>
+
       </div>
     </section>
 
@@ -529,6 +637,22 @@
   </main>
 
 
+  <!-- ===== Install Button ===== -->
+
+  <button id="installBtn" class="install-btn" type="button" hidden>
+    <span>⬇️</span>
+    <span>تثبيت التطبيق</span>
+  </button>
+
+  <!-- ===== iOS Install Hint ===== -->
+
+  <div id="iosHint" class="ios-hint" hidden>
+    لتثبيت التطبيق على جهازك: اضغط على زر <b>المشاركة</b> ⤴️ في متصفح Safari،
+    ثم اختر <b>«إضافة إلى الشاشة الرئيسية»</b>.
+    <button type="button" id="iosHintClose">حسنًا، فهمت</button>
+  </div>
+
+
   <!-- ===== Fixed Bottom Navigation ===== -->
 
   <nav class="bottom-nav">
@@ -561,7 +685,7 @@
 
 
   <script>
-    // تحديث العنصر النشط في القائمة السفلية
+    /* ===== تحديث العنصر النشط في القائمة السفلية ===== */
     const navItems = document.querySelectorAll(".nav-item");
 
     navItems.forEach(item => {
@@ -570,8 +694,81 @@
         item.classList.add("active");
       });
     });
+
+
+    /* ===== تسجيل Service Worker ===== */
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+          .catch(err => console.warn("SW registration failed:", err));
+      });
+    }
+
+
+    /* ===== زر تثبيت التطبيق ===== */
+    const installBtn = document.getElementById("installBtn");
+    const iosHint = document.getElementById("iosHint");
+    const iosHintClose = document.getElementById("iosHintClose");
+
+    let deferredPrompt = null;
+
+    // هل التطبيق مفتوح كتطبيق مثبّت بالفعل؟
+    const isStandalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      window.matchMedia("(display-mode: fullscreen)").matches ||
+      window.navigator.standalone === true;
+
+    // Chrome / Edge / Android: التقاط حدث التثبيت
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredPrompt = event;
+      if (!isStandalone) installBtn.hidden = false;
+    });
+
+    // عند الضغط على الزر
+    installBtn.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+
+      if (outcome === "accepted") {
+        installBtn.hidden = true;
+      }
+      deferredPrompt = null;
+    });
+
+    // بعد نجاح التثبيت
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      installBtn.hidden = true;
+      iosHint.hidden = true;
+    });
+
+    // إذا كان مثبتًا مسبقًا، أخفِ الزر
+    if (isStandalone) {
+      installBtn.hidden = true;
+    }
+
+
+    /* ===== تعليمات التثبيت على iPhone / iPad ===== */
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+                  (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android|crios|fxios|edgios).)*safari/i.test(ua);
+    const hintDismissed = localStorage.getItem("heroIosHintDismissed") === "1";
+
+    if (isIOS && isSafari && !isStandalone && !hintDismissed) {
+      setTimeout(() => { iosHint.hidden = false; }, 2500);
+    }
+
+    if (iosHintClose) {
+      iosHintClose.addEventListener("click", () => {
+        iosHint.hidden = true;
+        localStorage.setItem("heroIosHintDismissed", "1");
+      });
+    }
   </script>
 
 </body>
 </html>
-

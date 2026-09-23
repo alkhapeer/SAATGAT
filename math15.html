@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+<title>📐 الرياضيات التحصيلي المتقدم</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--primary:#1e3a5f;--primary-light:#2c5282;--accent:#7c3aed;--accent-light:#a78bfa;
+--success:#16a34a;--danger:#dc2626;--warning:#f59e0b;
+--gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e9edf2;--gray-300:#cbd5e1;
+--gray-500:#94a3b8;--gray-700:#475569;--gray-900:#1e293b;
+--radius:16px;--radius-sm:10px;--shadow:0 2px 12px rgba(0,0,0,.06);
+--shadow-hover:0 8px 32px rgba(0,0,0,.10);--transition:.2s ease;
+--bottom-nav-height:66px;
+}
+body{font-family:'Segoe UI','Tahoma',system-ui,sans-serif;background:#f0f4f8;color:var(--gray-900);min-height:100vh;padding-bottom:calc(var(--bottom-nav-height) + 16px);-webkit-font-smoothing:antialiased}
+.app-shell{max-width:1200px;margin:0 auto;padding:10px 14px 0}
+
+/* HEADER */
+.app-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 18px;background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:14px}
+.app-header .brand{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;color:var(--primary)}
+.app-header .brand small{font-size:12px;font-weight:400;color:var(--gray-500)}
+.app-header .badge-header{font-size:12px;background:var(--gray-100);padding:4px 14px;border-radius:40px;color:var(--gray-700)}
+
+/* NOTIFICATION */
+.notification-banner{background:#fff;border-radius:var(--radius);padding:8px 16px;margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;border-right:4px solid var(--accent);box-shadow:var(--shadow);font-size:13px}
+.notification-banner .icon{font-size:20px}
+.notification-banner .msg{flex:1}
+.notification-banner .dismiss{background:none;border:none;font-size:16px;cursor:pointer;color:var(--gray-500);padding:0 4px}
+
+/* RESUME */
+.resume-card{background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius);padding:14px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;box-shadow:0 6px 24px rgba(30,58,95,.25);cursor:pointer;transition:var(--transition)}
+.resume-card:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(30,58,95,.35)}
+.resume-card .info{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.resume-card .info .label{font-size:13px;opacity:.8}
+.resume-card .info .value{font-weight:700;font-size:16px}
+.resume-card .btn-resume{background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.3);color:#fff;padding:6px 20px;border-radius:40px;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit}
+.resume-card .btn-resume:hover{background:rgba(255,255,255,.30)}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:14px}
+.stats-grid .stat-box{background:#fff;border-radius:var(--radius-sm);padding:12px;text-align:center;box-shadow:var(--shadow);border:1px solid var(--gray-200)}
+.stats-grid .stat-box .num{font-size:22px;font-weight:800;color:var(--primary);line-height:1.2}
+.stats-grid .stat-box .num.green{color:var(--success)}
+.stats-grid .stat-box .num.red{color:var(--danger)}
+.stats-grid .stat-box .num.gold{color:var(--warning)}
+.stats-grid .stat-box .lbl{font-size:11px;color:var(--gray-500);margin-top:2px}
+
+/* PAGES */
+.page{display:none;animation:fadeUp .3s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* DOSE CARDS */
+.dose-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.dose-card{background:#fff;border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);border:1px solid var(--gray-200);transition:var(--transition);cursor:pointer;position:relative}
+.dose-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-3px)}
+.dose-card .dose-number{font-size:11px;color:var(--gray-500);font-weight:600}
+.dose-card .dose-title{font-size:15px;font-weight:700;margin:4px 0;color:var(--primary)}
+.dose-card .dose-meta{font-size:12px;color:var(--gray-700);display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.dose-card .dose-meta span{background:var(--gray-100);padding:2px 10px;border-radius:30px}
+.dose-card .progress-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:4px}
+.dose-card .progress-dot.done{background:var(--success)}
+.dose-card .progress-dot.partial{background:var(--warning)}
+.dose-card .progress-dot.pending{background:var(--gray-300)}
+.dose-card .dose-pct{font-size:13px;font-weight:700;color:var(--primary);margin-top:6px}
+.dose-card .dose-bar{height:4px;background:var(--gray-200);border-radius:10px;margin-top:6px;overflow:hidden}
+.dose-card .dose-bar .fill{height:100%;border-radius:10px;transition:width .5s ease}
+
+/* DOSE DETAIL */
+.dose-detail-view{background:#fff;border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);margin-bottom:14px;border:1px solid var(--gray-200)}
+.dose-detail-view .back-btn{background:var(--gray-100);border:none;padding:6px 18px;border-radius:40px;font-weight:600;cursor:pointer;font-family:inherit;font-size:13px;margin-bottom:12px}
+.dose-detail-view .back-btn:hover{background:var(--gray-200)}
+.dose-detail-view .dose-head{border-bottom:2px solid var(--gray-200);padding-bottom:10px;margin-bottom:14px}
+.dose-detail-view .dose-head h2{font-size:22px;color:var(--primary)}
+.dose-detail-view .dose-head p{color:var(--gray-700);font-size:14px;margin-top:4px}
+.dose-detail-view .concept-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin:10px 0 14px}
+@media(max-width:550px){.dose-detail-view .concept-grid{grid-template-columns:1fr}}
+.dose-detail-view .concept-grid .c-item{padding:4px 0;font-size:14px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;gap:6px}
+.dose-detail-view .concept-grid .c-item .dot{color:var(--accent);font-weight:700}
+.dose-detail-view .dose-questions{margin-top:14px;border-top:1px solid var(--gray-200);padding-top:14px}
+.dose-detail-view .dose-questions h4{font-size:16px;margin-bottom:10px;color:var(--primary)}
+.dose-detail-view .dq-item{background:var(--gray-50);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;border:1px solid var(--gray-200)}
+.dose-detail-view .dq-item .dq-q{font-weight:500;font-size:14px;line-height:1.6}
+.dose-detail-view .dq-item .dq-opts{display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;margin-top:6px}
+@media(max-width:500px){.dose-detail-view .dq-item .dq-opts{grid-template-columns:1fr}}
+.dose-detail-view .dq-item .dq-opts .opt{font-size:13px;padding:4px 8px;border-radius:6px;cursor:pointer;border:1.5px solid transparent;display:flex;align-items:center;gap:6px;transition:var(--transition)}
+.dose-detail-view .dq-item .dq-opts .opt:hover{background:var(--gray-100)}
+.dose-detail-view .dq-item .dq-opts .opt.selected{background:#dbeafe;border-color:var(--accent)}
+.dose-detail-view .dq-item .dq-opts .opt.correct{background:#dcfce7;border-color:var(--success)}
+.dose-detail-view .dq-item .dq-opts .opt.wrong{background:#fee2e2;border-color:var(--danger)}
+.dose-detail-view .dq-item .dq-explain{margin-top:6px;font-size:13px;padding:6px 12px;background:#fff;border-radius:6px;border-right:3px solid var(--accent);display:none;line-height:1.6}
+.dose-detail-view .dq-item .dq-explain.show{display:block}
+
+/* QUESTION BANK */
+.qb-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;background:#fff;padding:10px 14px;border-radius:var(--radius-sm);box-shadow:var(--shadow);align-items:center}
+.qb-filters select,.qb-filters button{padding:5px 12px;border-radius:30px;border:1px solid var(--gray-200);background:#fff;font-family:inherit;font-size:12px;flex:1;min-width:80px;cursor:pointer}
+.qb-filters button{flex:0 0 auto;background:var(--gray-100)}
+.qb-filters button:hover{background:var(--gray-200)}
+.qb-question{background:#fff;border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);border:1px solid var(--gray-200)}
+.qb-question .q-head{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-bottom:8px}
+.qb-question .q-head .qid{font-weight:600;color:var(--gray-500);font-size:12px}
+.qb-question .q-head .tag{font-size:11px;padding:2px 12px;border-radius:30px;background:var(--gray-100)}
+.qb-question .q-head .tag.dose-tag{background:#ede9fe;color:var(--accent)}
+.qb-question .q-text{font-size:15px;font-weight:500;margin-bottom:10px;line-height:1.7}
+.qb-question .q-options{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
+@media(max-width:550px){.qb-question .q-options{grid-template-columns:1fr}}
+.qb-question .q-options .opt{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;cursor:pointer;font-size:14px;border:1.5px solid transparent;transition:var(--transition)}
+.qb-question .q-options .opt:hover{background:var(--gray-100)}
+.qb-question .q-options .opt.selected{background:#dbeafe;border-color:var(--accent)}
+.qb-question .q-options .opt.correct{background:#dcfce7;border-color:var(--success)}
+.qb-question .q-options .opt.wrong{background:#fee2e2;border-color:var(--danger)}
+.qb-question .q-explain{margin-top:10px;padding:10px 14px;background:var(--gray-50);border-radius:var(--radius-sm);font-size:13px;border-right:3px solid var(--accent);display:none;line-height:1.7}
+.qb-question .q-explain.show{display:block}
+.qb-pagination{display:flex;justify-content:center;align-items:center;gap:10px;padding:10px 0}
+.qb-pagination button{padding:4px 18px;border-radius:30px;border:1px solid var(--gray-200);background:#fff;font-family:inherit;cursor:pointer;font-size:13px}
+.qb-pagination button:disabled{opacity:.4;cursor:not-allowed}
+
+/* MISTAKES */
+.mistake-item{background:#fff;border-radius:var(--radius-sm);padding:12px 16px;margin-bottom:8px;border-right:4px solid var(--danger);box-shadow:var(--shadow)}
+.mistake-item .m-q{font-weight:500;font-size:14px;line-height:1.6}
+.mistake-item .m-detail{font-size:13px;color:var(--gray-700);margin-top:4px}
+.mistake-item .m-detail .wrong-ans{color:var(--danger);font-weight:600}
+.mistake-item .m-detail .correct-ans{color:var(--success);font-weight:600}
+.mistake-item .review-mistake{background:var(--accent);color:#fff;border:none;padding:2px 16px;border-radius:30px;font-size:12px;cursor:pointer;font-family:inherit;margin-right:8px}
+
+/* ANALYTICS */
+.analytics-full{background:#fff;border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);border:1px solid var(--gray-200)}
+.analytics-full .an-top{display:flex;flex-wrap:wrap;gap:16px 32px;justify-content:space-between;align-items:center;border-bottom:2px solid var(--gray-200);padding-bottom:14px;margin-bottom:16px}
+.analytics-full .an-accuracy{font-size:38px;font-weight:800;color:var(--primary)}
+.analytics-full .an-accuracy span{font-size:16px;font-weight:400;color:var(--gray-500)}
+.analytics-full .an-stats{display:flex;gap:20px;flex-wrap:wrap}
+.analytics-full .an-stats .as-item{text-align:center}
+.analytics-full .an-stats .as-item .as-num{font-size:22px;font-weight:700}
+.analytics-full .an-stats .as-item .as-num.green{color:var(--success)}
+.analytics-full .an-stats .as-item .as-num.red{color:var(--danger)}
+.analytics-full .an-stats .as-item .as-label{font-size:12px;color:var(--gray-500)}
+.analytics-full .ad-item{display:flex;align-items:center;gap:10px;padding:4px 0;border-bottom:1px solid var(--gray-100);font-size:13px}
+.analytics-full .ad-item .ad-name{min-width:140px;font-weight:500}
+.analytics-full .ad-item .ad-bar{flex:1;height:6px;background:var(--gray-200);border-radius:10px;overflow:hidden}
+.analytics-full .ad-item .ad-bar .fill{height:100%;border-radius:10px;transition:width .6s ease}
+.analytics-full .ad-item .ad-pct{min-width:40px;font-weight:600}
+.analytics-full .aw-tags{display:flex;flex-wrap:wrap;gap:6px}
+.analytics-full .aw-tags .tag{background:#fee2e2;color:var(--danger);padding:4px 14px;border-radius:30px;font-size:13px;font-weight:600}
+.analytics-full .aw-tags .tag.green{background:#dcfce7;color:var(--success)}
+.analytics-full .ach-tags .tag{background:#fef9c3;color:#854d0e;padding:4px 14px;border-radius:30px;font-size:13px;font-weight:600}
+.analytics-full .ach-tags .tag.done{background:#dcfce7;color:var(--success)}
+
+/* DIAGNOSTIC */
+.diag-container{background:#fff;border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);border:1px solid var(--gray-200)}
+.diag-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.diag-header h3{font-size:20px;color:var(--primary)}
+.diag-start-btn{padding:8px 28px;border-radius:40px;border:none;background:var(--primary);color:#fff;font-weight:700;cursor:pointer;font-family:inherit;font-size:14px}
+.diag-start-btn:hover{background:var(--primary-light)}
+.diag-results .dr-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--gray-100);font-size:14px}
+
+/* RESOURCES */
+.resources-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.resource-card{background:#fff;border-radius:var(--radius-sm);padding:14px;box-shadow:var(--shadow);border:1px solid var(--gray-200);text-align:center;transition:var(--transition);cursor:pointer}
+.resource-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+.resource-card .r-icon{font-size:28px}
+.resource-card .r-title{font-weight:600;font-size:13px;margin:4px 0 2px}
+.resource-card .r-desc{font-size:11px;color:var(--gray-500)}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:30px 16px;color:var(--gray-500)}
+.empty-state .icon{font-size:40px;margin-bottom:8px}
+
+/* TOAST */
+.toast-container{position:fixed;bottom:calc(var(--bottom-nav-height) + 20px);left:50%;transform:translateX(-50%);z-index:999;background:var(--primary);color:#fff;padding:8px 22px;border-radius:40px;font-size:13px;font-weight:500;box-shadow:0 8px 30px rgba(0,0,0,.2);opacity:0;transition:opacity .3s ease,transform .3s ease;transform:translateX(-50%) translateY(20px);pointer-events:none;max-width:90%}
+.toast-container.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--gray-200);display:flex;justify-content:space-around;align-items:center;padding:4px 0 env(safe-area-inset-bottom);height:var(--bottom-nav-height);z-index:100;box-shadow:0 -4px 20px rgba(0,0,0,.06);overflow-x:auto}
+.bottom-nav::-webkit-scrollbar{height:0}
+.bottom-nav .nav-item{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;color:var(--gray-500);cursor:pointer;padding:4px 10px;border:none;background:transparent;font-family:inherit;transition:var(--transition);flex:0 0 auto;min-width:50px;gap:2px;border-radius:8px;position:relative}
+.bottom-nav .nav-item .nav-icon{font-size:20px;line-height:1.2}
+.bottom-nav .nav-item .nav-label{font-size:9px;font-weight:600}
+.bottom-nav .nav-item.active{color:var(--primary)}
+.bottom-nav .nav-item .badge-nav{background:var(--danger);color:#fff;font-size:9px;border-radius:30px;padding:0 6px;font-weight:700;margin-right:2px;position:absolute;top:2px;left:8px}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+.app-shell{padding:6px 6px 0}
+.app-header .brand{font-size:15px}
+.app-header .brand small{font-size:10px}
+.stats-grid{grid-template-columns:repeat(2,1fr);gap:6px}
+.stats-grid .stat-box .num{font-size:18px}
+.dose-grid{grid-template-columns:1fr}
+.dose-detail-view{padding:14px 12px}
+.dose-detail-view .concept-grid{grid-template-columns:1fr}
+.analytics-full .an-top{flex-direction:column;align-items:stretch;text-align:center}
+.analytics-full .an-stats{justify-content:center}
+.analytics-full .ad-item{flex-wrap:wrap}
+.analytics-full .ad-item .ad-name{min-width:80px;font-size:12px}
+.resume-card{flex-direction:column;align-items:stretch;text-align:center}
+.resume-card .btn-resume{align-self:center}
+.resources-grid{grid-template-columns:1fr 1fr}
+.diag-header{flex-direction:column;align-items:stretch}
+.qb-filters{flex-direction:column;align-items:stretch}
+.qb-filters select,.qb-filters button{width:100%}
+.bottom-nav .nav-item{min-width:40px;padding:2px 6px}
+.bottom-nav .nav-item .nav-icon{font-size:18px}
+.bottom-nav .nav-item .nav-label{font-size:8px}
+}
+@media(max-width:400px){
+.resources-grid{grid-template-columns:1fr}
+.bottom-nav .nav-item{min-width:34px;padding:1px 4px}
+.bottom-nav .nav-item .nav-icon{font-size:16px}
+.bottom-nav .nav-item .nav-label{font-size:7px}
+}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--gray-100)}
+::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:10px}
+</style>
+</head>
+<body>
+<div class="app-shell" id="app">
+<div class="toast-container" id="toast"></div>
+
+<header class="app-header">
+<div class="brand">📐 الرياضيات التحصيلي <small>المتقدّم</small></div>
+<div class="badge-header">📘 إعداد: إبراهيم الدسوقي</div>
+</header>
+
+<div class="notification-banner" id="notifBanner">
+<span class="icon">📢</span>
+<span class="msg" id="notifMsg">👋 مرحباً! أكمل مراجعة الوحدات السبع لتعزيز مستواك في التحصيلي.</span>
+<button class="dismiss" id="dismissNotif">✕</button>
+</div>
+
+<div class="resume-card" id="resumeCard">
+<div class="info"><span>▶</span><div><div class="label">تابع من حيث توقفت</div><div class="value" id="resumeText">الوحدة الأولى — الهندسة والمنطق</div></div></div>
+<button class="btn-resume" id="resumeBtn">استئناف</button>
+</div>
+
+<div class="stats-grid">
+<div class="stat-box"><div class="num" id="statLevel">0%</div><div class="lbl">📊 مستواك</div></div>
+<div class="stat-box"><div class="num gold" id="statLastScore">—</div><div class="lbl">📝 آخر اختبار</div></div>
+<div class="stat-box"><div class="num" id="statSolved">0</div><div class="lbl">✅ محلولة</div></div>
+<div class="stat-box"><div class="num green" id="statCorrect">0</div><div class="lbl">🎯 صحيحة</div></div>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+<div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
+<div style="font-size:12px;color:var(--gray-500);">🎯 التشخيصي</div>
+<div style="font-size:17px;font-weight:700;color:var(--primary);margin:4px 0;">تحديد نقاط الضعف</div>
+<button class="btn-resume" style="background:var(--accent);color:#fff;border:none;padding:5px 18px;border-radius:40px;font-weight:600;cursor:pointer;font-family:inherit;" id="diagQuickBtn">ابدأ التشخيص</button>
+</div>
+<div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
+<div style="font-size:12px;color:var(--gray-500);">⚡ الوحدات</div>
+<div style="font-size:17px;font-weight:700;color:var(--primary);margin:4px 0;">7 وحدات مركزة</div>
+<button class="btn-resume" style="background:var(--primary);color:#fff;border:none;padding:5px 18px;border-radius:40px;font-weight:600;cursor:pointer;font-family:inherit;" id="doseQuickBtn">استعراض الوحدات</button>
+</div>
+</div>
+<div style="background:#fff;border-radius:var(--radius-sm);padding:14px 16px;box-shadow:var(--shadow);border:1px solid var(--gray-200);">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:8px;">
+<span style="font-weight:700;font-size:15px;">📈 تقدمك في الوحدات</span>
+<span style="font-size:12px;color:var(--gray-500);" id="doseProgressText">0/7 مكتملة</span>
+</div>
+<div id="doseProgressBar" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+</div>
+</div>
+
+<!-- TRAINING -->
+<div class="page" id="page-training">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+<h3 style="font-size:18px;color:var(--primary);">⚡ الوحدات التعليمية المركزة</h3>
+<span style="font-size:12px;color:var(--gray-500);" id="trainingProgressLabel">0/7</span>
+</div>
+<div id="trainingContent"><div class="dose-grid" id="doseGrid"></div></div>
+<div id="doseDetailContainer"></div>
+</div>
+
+<!-- QUESTIONS -->
+<div class="page" id="page-questions">
+<div class="qb-filters">
+<select id="qbFilterTopic"><option value="all">جميع الموضوعات</option></select>
+<select id="qbFilterDose"><option value="all">جميع الوحدات</option></select>
+<select id="qbFilterDiff"><option value="all">جميع المستويات</option><option value="سهل">سهل</option><option value="متوسط">متوسط</option><option value="صعب">صعب</option></select>
+<select id="qbFilterStatus"><option value="all">الكل</option><option value="answered">تمّت الإجابة</option><option value="unanswered">لم تُجب</option><option value="correct">صحيحة</option><option value="wrong">خاطئة</option></select>
+<button id="qbResetFilters">↺</button>
+</div>
+<div id="qbList"></div>
+<div class="qb-pagination">
+<button id="qbPrev" disabled>‹ السابق</button>
+<span id="qbPageInfo">1 / 1</span>
+<button id="qbNext" disabled>التالي ›</button>
+</div>
+</div>
+
+<!-- MISTAKES -->
+<div class="page" id="page-mistakes">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+<h3 style="font-size:18px;color:var(--primary);">🔥 أخطائي</h3>
+<span style="font-size:12px;color:var(--gray-500);" id="mistakesCountLabel">0 سؤال خاطئ</span>
+</div>
+<div id="mistakesList"></div>
+</div>
+
+<!-- ANALYTICS -->
+<div class="page" id="page-analytics"><div id="analyticsFullContainer"></div></div>
+
+<!-- DIAGNOSTIC -->
+<div class="page" id="page-diagnostic">
+<div class="diag-container">
+<div class="diag-header">
+<h3>🎯 التشخيصي الشامل</h3>
+<button class="diag-start-btn" id="diagStartBtn">🔄 تشغيل التشخيص</button>
+</div>
+<div id="diagContent">
+<p style="color:var(--gray-700);font-size:14px;">سيقوم التشخيص بتحليل أدائك في جميع الأسئلة وتحديد نقاط القوة والضعف لديك.</p>
+<div id="diagResults" style="margin-top:14px;"></div>
+</div>
+</div>
+</div>
+
+<!-- RESOURCES -->
+<div class="page" id="page-resources">
+<div style="margin-bottom:12px;"><h3 style="font-size:18px;color:var(--primary);">📚 الموارد وورقة الإنقاذ</h3></div>
+<div class="resources-grid" id="resourcesGrid"></div>
+<div id="rescueSheetContainer" style="margin-top:14px;"></div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav">
+<button class="nav-item active" data-tab="home"><span class="nav-icon">🏠</span><span class="nav-label">الرئيسية</span></button>
+<button class="nav-item" data-tab="training"><span class="nav-icon">⚡</span><span class="nav-label">التدريب</span></button>
+<button class="nav-item" data-tab="questions"><span class="nav-icon">🧠</span><span class="nav-label">الأسئلة</span></button>
+<button class="nav-item" data-tab="mistakes"><span class="nav-icon">🔥</span><span class="nav-label">أخطائي</span><span class="badge-nav" id="mistakeCountBottom">0</span></button>
+<button class="nav-item" data-tab="analytics"><span class="nav-icon">📊</span><span class="nav-label">تحليلي</span></button>
+<button class="nav-item" data-tab="diagnostic"><span class="nav-icon">🎯</span><span class="nav-label">تشخيصي</span></button>
+<button class="nav-item" data-tab="resources"><span class="nav-icon">📚</span><span class="nav-label">الموارد</span></button>
+</nav>
+
+<script>
+// ============================================================================
+//  QUESTION DATA — الرياضيات التحصيلي المتقدم
+// ============================================================================
+const Q = [
+// ============ بنك الأسئلة (QST) ============
+{id:"QST-001",topic:"المنطق والعبارات الشرطية",concept:"المعاكس الإيجابي",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"ما المعاكس الإيجابي للعبارة الشرطية: «إذا كان العدد x أكبر من 5، فإن مربعه x² أكبر من 25»؟",
+A:"إذا كان x² > 25، فإن x > 5",B:"إذا كان x ≤ 5، فإن x² ≤ 25",C:"إذا كان x² ≤ 25، فإن x ≤ 5",D:"إذا كان x > 5، فإن x² ≤ 25",
+correct:"C",explanation:"المعاكس الإيجابي (∼q → ∼p) يُصاغ بنفي وتبديل الفرض والنتيجة. الفرض p: x > 5، نفيه ∼p: x ≤ 5. النتيجة q: x² > 25، نفيها ∼q: x² ≤ 25. إذن المعاكس الإيجابي: «إذا كان x² ≤ 25، فإن x ≤ 5»."},
+
+{id:"QST-002",topic:"الدوال النسبية",concept:"نقطة الانفصال (الفجوة)",skill:"حساب",difficulty:"صعب",dose:"الوحدة الثانية",
+question:"حدد الإحداثي x لنقطة الانفصال (الفجوة) في التمثيل البياني للدالة النسبية f(x) = (x² - 4)/(x² + x - 6)؟",
+A:"x = -3",B:"x = 2",C:"x = -2",D:"y = 1",
+correct:"B",explanation:"نحلل البسط والمقام: (x-2)(x+2) / [(x+3)(x-2)]. العامل (x-2) مشترك ويُختزل، فينتج فجوة عند x = 2. بينما x = -3 خط تقارب رأسي."},
+
+{id:"QST-003",topic:"المتطابقات المثلثية",concept:"متطابقة ضعف الزاوية",skill:"تطبيق",difficulty:"صعب",dose:"الوحدة الثالثة",
+question:"إذا كان sin θ = 3/5 حيث θ زاوية حادة في الربع الأول، فما القيمة الدقيقة لـ cos(2θ)؟",
+A:"24/25",B:"7/25",C:"-7/25",D:"12/25",
+correct:"B",explanation:"cos(2θ) = 1 - 2sin²θ = 1 - 2(9/25) = 1 - 18/25 = 7/25."},
+
+{id:"QST-004",topic:"المتسلسلات",concept:"المجموع الجزئي",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الرابعة",
+question:"ما قيمة المجموع ∑_(k=1)^5 (3k - 1)؟",
+A:"14",B:"35",C:"40",D:"45",
+correct:"C",explanation:"المتسلسلة حسابية: a_1 = 2، a_5 = 14. S_5 = 5 × (2+14)/2 = 5 × 8 = 40."},
+
+{id:"QST-005",topic:"القطوع المخروطية",concept:"الاختلاف المركزي للدائرة",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"ما قيمة الاختلاف المركزي e للدائرة؟",
+A:"e = 0",B:"0 < e < 1",C:"e = 1",D:"e > 1",
+correct:"A",explanation:"الدائرة حالة خاصة من القطع الناقص تنطبق فيها البؤرتان على المركز (c = 0)، إذن e = c/a = 0."},
+
+{id:"QST-006",topic:"الإحصاء",concept:"هامش خطأ المعاينة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"في دراسة مسحية شملت عينة عشوائية من 10000 شخص، ما هامش خطأ المعاينة؟",
+A:"± 0.01%",B:"± 1%",C:"± 10%",D:"± 0.1%",
+correct:"B",explanation:"هامش الخطأ = ± 1/√n = ± 1/√10000 = ± 1/100 = ± 0.01 = ± 1%."},
+
+{id:"QST-007",topic:"التفاضل",concept:"مشتقة كثيرات الحدود",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"ما المشتقة الأولى للدالة f(x) = 5x³ - 4x² + 7x - 12؟",
+A:"f'(x) = 15x² - 8x + 7",B:"f'(x) = 15x² - 8x",C:"f'(x) = 5x² - 4x + 7",D:"f'(x) = 15x³ - 8x² + 7x",
+correct:"A",explanation:"نطبق قاعدة القوة: 5x³ ⟹ 15x²، -4x² ⟹ -8x، 7x ⟹ 7، -12 ⟹ 0. إذن f'(x) = 15x² - 8x + 7."},
+
+// ============ الوحدة الأولى: الهندسة والمنطق (10 MCQ + 4 T/F) ============
+{id:"U1-01",topic:"التبرير الاستقرائي",concept:"المثال المضاد",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"أيُّ القيم الآتية تُعد مثالاً مضاداً يثبت بطلان التخمين: «لكل عدد حقيقي x، فإن القيمة المطلقة |x| تكون أكبر تماماً من x»؟",
+A:"x = -5",B:"x = -1",C:"x = 0.5",D:"x = 4",
+correct:"D",explanation:"عند x = 4: |4| = 4، و 4 > 4 خاطئة (متساويان). إذن x = 4 مثال مضاد."},
+
+{id:"U1-02",topic:"العبارات الشرطية",concept:"المعاكس الإيجابي",skill:"تطبيق",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"ما المعاكس الإيجابي للعبارة: «إذا كان الشكل مربعاً، فإنه مستطيل»؟",
+A:"إذا كان مستطيلاً، فإنه مربع",B:"إذا لم يكن مربعاً، فإنه ليس مستطيلاً",C:"إذا لم يكن مستطيلاً، فإنه ليس مربعاً",D:"إذا كان ليس مربعاً، فإنه مستطيل",
+correct:"C",explanation:"المعاكس الإيجابي (∼q → ∼p): إذا لم يكن مستطيلاً، فإنه ليس مربعاً."},
+
+{id:"U1-03",topic:"قانون القياس المنطقي",concept:"الاستنتاج المنطقي",skill:"استدلال",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"من العبارتين: (1) إذا كان المثلث متطابق الأضلاع فإن زواياه متطابقة. (2) إذا كانت الزوايا متطابقة فإن كل زاوية 60°. ما النتيجة؟",
+A:"إذا كانت كل زاوية 60° فإنه متطابق الأضلاع",B:"إذا كان المثلث متطابق الأضلاع فإن كل زاوية 60°",C:"المثلث المتطابق زواياه قائمة",D:"لا نتيجة صائبة",
+correct:"B",explanation:"قانون القياس المنطقي: p→q و q→r يعطي p→r. إذن: إذا كان متطابق الأضلاع فإن كل زاوية 60°."},
+
+{id:"U1-04",topic:"تطابق المثلثات",concept:"مسلمة SAS",skill:"تطبيق",difficulty:"سهل",dose:"الوحدة الأولى",
+question:"إذا كان AB ≅ DE و ∠A ≅ ∠D و AC ≅ DF، فبأي مسلمة يتطابق المثلثان؟",
+A:"SSS",B:"SAS",C:"ASA",D:"AAS",
+correct:"B",explanation:"تطابق ضلعين (AB, AC) مع نظائرهما والزاوية المحصورة (∠A) ⟹ SAS."},
+
+{id:"U1-05",topic:"متوازي الأضلاع",concept:"الزوايا المتحالفة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"في متوازي الأضلاع ABCD، ∠A = (2x+10)° و ∠B = (3x+20)°. ما قيمة x؟",
+A:"30",B:"25",C:"50",D:"150",
+correct:"A",explanation:"الزاويتان المتحالفتان متكاملتان: (2x+10)+(3x+20)=180 ⟹ 5x+30=180 ⟹ 5x=150 ⟹ x=30."},
+
+{id:"U1-06",topic:"شبه المنحرف",concept:"القطعة المتوسطة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"شبه منحرف قاعدتاه a = x+4 و b = 3x-2، وقطعه المتوسطة = 15 cm. ما قيمة x؟",
+A:"5",B:"7",C:"8",D:"14",
+correct:"B",explanation:"m = (a+b)/2 ⟹ 15 = (x+4+3x-2)/2 = (4x+2)/2 = 2x+1 ⟹ 2x=14 ⟹ x=7."},
+
+{id:"U1-07",topic:"المعين",concept:"المعاكس الإيجابي",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الأولى",
+question:"أيُّ العبارات مكافئة منطقياً لـ: «إذا كان الشكل معيناً فإن أقطاره متعامدة»؟",
+A:"إذا لم تكن أقطاره متعامدة فإنه ليس معيناً",B:"إذا كانت أقطاره متعامدة فإنه معين",C:"إذا لم يكن معيناً فأقطاره غير متعامدة",D:"إذا كان معيناً فأقطاره غير متعامدة",
+correct:"A",explanation:"المعاكس الإيجابي (∼q → ∼p) هو المكافئ المنطقي الوحيد: إذا لم تكن الأقطار متعامدة فإنه ليس معيناً."},
+
+{id:"U1-08",topic:"متوازي الأضلاع",concept:"الأضلاع المتقابلة",skill:"حساب",difficulty:"سهل",dose:"الوحدة الأولى",
+question:"في متوازي الأضلاع ABCD، AB = 3y+1 و CD = 16. ما قيمة y؟",
+A:"3",B:"5",C:"7",D:"15",
+correct:"B",explanation:"الأضلاع المتقابلة متطابقة: 3y+1=16 ⟹ 3y=15 ⟹ y=5."},
+
+{id:"U1-09",topic:"المثال المضاد",concept:"الأعداد الأولية",skill:"استدلال",difficulty:"صعب",dose:"الوحدة الأولى",
+question:"أيُّ القيم تُعد مثالاً مضاداً لـ: «لكل عدد صحيح n فإن n²+n+17 أولي»؟",
+A:"n = 1",B:"n = 16",C:"n = 2",D:"n = 4",
+correct:"B",explanation:"عند n=16: 256+16+17=289=17×17، وهو غير أولي."},
+
+{id:"U1-10",topic:"تطابق المثلثات",concept:"مسلمة SSS",skill:"تطبيق",difficulty:"سهل",dose:"الوحدة الأولى",
+question:"في ΔJKM و ΔLKM: JK ≅ LK و JM ≅ LM. بأي مسلمة يتطابقان؟",
+A:"SSS",B:"SAS",C:"ASA",D:"AAS",
+correct:"A",explanation:"KM مشترك، و JK ≅ LK، و JM ≅ LM ⟹ SSS."},
+
+// ============ الوحدة الثانية: الدوال (10 MCQ) ============
+{id:"U2-01",topic:"التحويلات الهندسية",concept:"الانسحاب والانعكاس",skill:"تطبيق",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"ما التحويلات التي تحول f(x)=|x| إلى g(x)=-|x+2|-4؟",
+A:"يمين 2 وأعلى 4 مع انعكاس حول x",B:"يسار 2 وأسفل 4 مع انعكاس حول x",C:"يسار 2 وأعلى 4 دون انعكاس",D:"يمين 2 وأسفل 4 مع انعكاس حول y",
+correct:"B",explanation:"g(x) = -|x+2| - 4: انسحاب لليسار 2 (x+2)، انعكاس حول x (الإشارة -)، انسحاب لأسفل 4 (-4)."},
+
+{id:"U2-02",topic:"مجال الدوال",concept:"الدالة الجذرية",skill:"حساب",difficulty:"سهل",dose:"الوحدة الثانية",
+question:"ما مجال الدالة f(x)=√(2x-6)+1؟",
+A:"x ≥ 3",B:"x ≥ 6",C:"x ≥ 1",D:"جميع الأعداد الحقيقية",
+correct:"A",explanation:"2x-6 ≥ 0 ⟹ 2x ≥ 6 ⟹ x ≥ 3."},
+
+{id:"U2-03",topic:"العبارات النسبية",concept:"غير معرفة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"ما قيم x التي تجعل (x+3)/(x²-5x+6) غير معرّفة؟",
+A:"x=-3 فقط",B:"x=2 أو x=3",C:"x=-2 أو x=-3",D:"x=0 أو x=5",
+correct:"B",explanation:"المقام = 0: x²-5x+6=0 ⟹ (x-2)(x-3)=0 ⟹ x=2 أو x=3."},
+
+{id:"U2-04",topic:"دوال التغير",concept:"التغير العكسي",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"تتغير y عكسياً مع x. إذا كانت y=6 عند x=4، فما y عند x=3؟",
+A:"8",B:"4.5",C:"12",D:"2",
+correct:"A",explanation:"التغير العكسي: x₁y₁ = x₂y₂ ⟹ (4)(6)=(3)(y) ⟹ 24=3y ⟹ y=8."},
+
+{id:"U2-05",topic:"اللوغاريتمات",concept:"الصورة الأسية",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثانية",
+question:"ما الصورة الأسية لـ log₃(81)=4؟",
+A:"4³=81",B:"3⁴=81",C:"81^(1/4)=3",D:"3×4=12",
+correct:"B",explanation:"log_b(x)=y ⟺ b^y=x. إذن 3⁴=81."},
+
+{id:"U2-06",topic:"المعادلات الأسية",concept:"حل معادلة أسية",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"ما قيمة x في 4^(x+1)=64؟",
+A:"1",B:"2",C:"3",D:"16",
+correct:"B",explanation:"64=4³ ⟹ 4^(x+1)=4³ ⟹ x+1=3 ⟹ x=2."},
+
+{id:"U2-07",topic:"خطوط التقارب",concept:"خط التقارب الأفقي",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"ما خط التقارب الأفقي للدالة f(x)=(3x²+1)/(x²-4)؟",
+A:"y=3",B:"y=0",C:"y=1",D:"y=-4",
+correct:"A",explanation:"درجة البسط = درجة المقام (2) ⟹ خط التقارب الأفقي y = 3/1 = 3."},
+
+{id:"U2-08",topic:"اللوغاريتمات",concept:"خصائص اللوغاريتمات",skill:"حساب",difficulty:"سهل",dose:"الوحدة الثانية",
+question:"ما قيمة log₂(8)+log₂(4)؟",
+A:"5",B:"7",C:"12",D:"32",
+correct:"A",explanation:"log₂(8)=3، log₂(4)=2، المجموع=5."},
+
+{id:"U2-09",topic:"التغير المشترك",concept:"ثابت التغير",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"تتغير y مشتركاً مع x و z. إذا كانت y=30 عند x=2 و z=5، فما قيمة y عند x=4 و z=3؟",
+A:"24",B:"36",C:"40",D:"30",
+correct:"B",explanation:"y=kxz ⟹ 30=k(2)(5) ⟹ k=3. إذن y=3(4)(3)=36."},
+
+{id:"U2-10",topic:"الدوال اللوغاريتمية",concept:"المجال والمدى",skill:"فهم",difficulty:"متوسط",dose:"الوحدة الثانية",
+question:"ما مدى الدالة اللوغاريتمية f(x)=log_b(x)؟",
+A:"R⁺ فقط",B:"جميع الأعداد الحقيقية R",C:"R⁻ فقط",D:"الأعداد الصحيحة",
+correct:"B",explanation:"مجال الدالة اللوغاريتمية R⁺، أما مداها فهو جميع الأعداد الحقيقية R."},
+
+// ============ الوحدة الثالثة: المثلثات (10 MCQ) ============
+{id:"U3-01",topic:"المتطابقات المثلثية",concept:"التبسيط",skill:"تطبيق",difficulty:"متوسط",dose:"الوحدة الثالثة",
+question:"تبسيط sin θ · csc θ - cos²θ يعطي:",
+A:"cos²θ",B:"sin²θ",C:"tan²θ",D:"1",
+correct:"B",explanation:"sin θ · csc θ = 1. ثم 1 - cos²θ = sin²θ (فيثاغورس)."},
+
+{id:"U3-02",topic:"متطابقات الفرق",concept:"sin(15°)",skill:"حساب",difficulty:"صعب",dose:"الوحدة الثالثة",
+question:"ما القيمة الدقيقة لـ sin(15°) باستعمال 45°-30°؟",
+A:"(√6+√2)/4",B:"(√6-√2)/4",C:"(√3-1)/2",D:"√2/4",
+correct:"B",explanation:"sin(45°-30°) = sin45 cos30 - cos45 sin30 = (√2/2)(√3/2) - (√2/2)(1/2) = (√6-√2)/4."},
+
+{id:"U3-03",topic:"ضعف الزاوية",concept:"sin(2θ)",skill:"تطبيق",difficulty:"متوسط",dose:"الوحدة الثالثة",
+question:"إذا كان cos θ = 3/5 و θ في الربع الأول، فما sin(2θ)؟",
+A:"7/25",B:"12/25",C:"24/25",D:"18/25",
+correct:"C",explanation:"sin θ = 4/5. sin(2θ) = 2 sinθ cosθ = 2(4/5)(3/5) = 24/25."},
+
+{id:"U3-04",topic:"مساحة المثلث",concept:"قانون المساحة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الثالثة",
+question:"مساحة مثلث بضلعين 8cm و 10cm والزاوية المحصورة 30° تساوي:",
+A:"40 cm²",B:"20 cm²",C:"10 cm²",D:"80 cm²",
+correct:"B",explanation:"A = (1/2)(8)(10)sin30° = 40 × 0.5 = 20 cm²."},
+
+{id:"U3-05",topic:"حل المثلثات",concept:"قانون جيوب التمام",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثالثة",
+question:"ما القانون الأنسب لحل مثلث بمعلومية ضلعين والزاوية المحصورة (SAS)؟",
+A:"قانون الجيوب",B:"قانون جيوب التمام",C:"فيثاغورس",D:"قانون التباديل",
+correct:"B",explanation:"قانون جيوب التمام يُستعمل في حالتي SAS و SSS."},
+
+{id:"U3-06",topic:"حل المعادلات المثلثية",concept:"الحلول الدخيلة",skill:"تحليل",difficulty:"صعب",dose:"الوحدة الثالثة",
+question:"عند حل sin θ = 1 + cos θ في [0°,360°] بالتربيع، أيُّ القيم حل دخيل؟",
+A:"90°",B:"180°",C:"270°",D:"0°",
+correct:"C",explanation:"عند θ=270°: sin270=-1 لكن 1+cos270=1. بما أن -1≠1 فـ 270° حل دخيل."},
+
+{id:"U3-07",topic:"القيم الخاصة",concept:"الحساب المباشر",skill:"سهل",difficulty:"سهل",dose:"الوحدة الثالثة",
+question:"ما قيمة cos(60°) + sin(30°)؟",
+A:"1",B:"0",C:"√3/2",D:"1/2",
+correct:"A",explanation:"cos60=1/2، sin30=1/2، المجموع=1."},
+
+{id:"U3-08",topic:"النسب المثلثية",concept:"cos θ من sin θ",skill:"حساب",difficulty:"سهل",dose:"الوحدة الثالثة",
+question:"إذا كان sin θ=4/5 و θ في الربع الأول، فما cos θ؟",
+A:"3/5",B:"4/5",C:"5/3",D:"1/5",
+correct:"A",explanation:"cos²θ = 1 - 16/25 = 9/25 ⟹ cosθ = 3/5 (موجبة في الربع الأول)."},
+
+{id:"U3-09",topic:"المتطابقات",concept:"التكافؤ",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثالثة",
+question:"ما قيمة sin²(75°) + cos²(75°)؟",
+A:"1",B:"√3/2",C:"1/2",D:"0",
+correct:"A",explanation:"sin²θ + cos²θ = 1 دائماً لكل قيمة θ."},
+
+{id:"U3-10",topic:"المعادلات المثلثية",concept:"الحل العام",skill:"حساب",difficulty:"صعب",dose:"الوحدة الثالثة",
+question:"حل المعادلة 2cos²θ - cos θ - 1 = 0 في [0°,360°] هو:",
+A:"{0°, 120°, 240°, 360°}",B:"{60°, 180°}",C:"{45°, 315°}",D:"{30°, 150°}",
+correct:"A",explanation:"(2cosθ+1)(cosθ-1)=0 ⟹ cosθ=-1/2 (θ=120° أو 240°) أو cosθ=1 (θ=0° أو 360°)."},
+
+// ============ الوحدة الرابعة: المتتابعات (10 MCQ) ============
+{id:"U4-01",topic:"المتتابعة الحسابية",concept:"الحد النوني",skill:"حساب",difficulty:"سهل",dose:"الوحدة الرابعة",
+question:"ما الحد العاشر في المتتابعة 5, 9, 13, 17, ...؟",
+A:"37",B:"41",C:"45",D:"36",
+correct:"B",explanation:"a_1=5, d=4. a_10 = 5 + 9(4) = 41."},
+
+{id:"U4-02",topic:"المتتابعة الهندسية",concept:"الأساس r",skill:"حساب",difficulty:"سهل",dose:"الوحدة الرابعة",
+question:"ما أساس المتتابعة الهندسية 162, 54, 18, 6, ...؟",
+A:"3",B:"1/3",C:"-3",D:"1/2",
+correct:"B",explanation:"r = 54/162 = 1/3."},
+
+{id:"U4-03",topic:"المتسلسلات الهندسية",concept:"التقارب",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الرابعة",
+question:"أيُّ المتسلسلات الآتية متقاربة ولها مجموع؟",
+A:"3+6+12+24+...",B:"8-12+18-27+...",C:"12+4+4/3+4/9+...",D:"5-5+5-5+...",
+correct:"C",explanation:"r=4/12=1/3، و|1/3|<1 ⟹ متقاربة."},
+
+{id:"U4-04",topic:"المتسلسلة الهندسية",concept:"المجموع اللانهائي",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الرابعة",
+question:"ما مجموع 27+9+3+1+...؟",
+A:"36",B:"40.5",C:"54",D:"81",
+correct:"B",explanation:"a_1=27, r=1/3. S = 27/(1-1/3) = 27/(2/3) = 40.5."},
+
+{id:"U4-05",topic:"ذات الحدين",concept:"الحد العام",skill:"حساب",difficulty:"صعب",dose:"الوحدة الرابعة",
+question:"ما الحد الرابع في مفكوك (x-2y)^5؟",
+A:"-80x²y³",B:"80x³y²",C:"-40x²y³",D:"40x³y²",
+correct:"A",explanation:"t_4 = 5C₃ · x² · (-2y)³ = 10·x²·(-8y³) = -80x²y³."},
+
+{id:"U4-06",topic:"الاستقراء الرياضي",concept:"خطوة الأساس",skill:"فهم",difficulty:"سهل",dose:"الوحدة الرابعة",
+question:"ما خطوة الأساس في الاستقراء الرياضي؟",
+A:"إثبات صحة n=k+1",B:"فرض صحة n=k",C:"إثبات صحة n=1",D:"إيجاد مثال مضاد",
+correct:"C",explanation:"خطوة الأساس تبدأ بإثبات صحة العبارة عند n=1."},
+
+{id:"U4-07",topic:"المجاميع",concept:"حساب مجموع",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الرابعة",
+question:"ما قيمة ∑_(k=1)^4 (k²+1)؟",
+A:"34",B:"30",C:"20",D:"24",
+correct:"A",explanation:"(1+1)+(4+1)+(9+1)+(16+1) = 2+5+10+17 = 34."},
+
+{id:"U4-08",topic:"ذات الحدين",concept:"عدد الحدود",skill:"فهم",difficulty:"سهل",dose:"الوحدة الرابعة",
+question:"ما عدد حدود مفكوك (a+b)^8؟",
+A:"8",B:"9",C:"16",D:"10",
+correct:"B",explanation:"عدد الحدود = n+1 = 8+1 = 9."},
+
+{id:"U4-09",topic:"الكسر الدوري",concept:"المتسلسلة الهندسية",skill:"حساب",difficulty:"صعب",dose:"الوحدة الرابعة",
+question:"ما صورة الكسر الاعتيادي للعدد 0.36‾ = 0.363636...؟",
+A:"4/11",B:"36/99",C:"3/8",D:"36/100",
+correct:"A",explanation:"0.36+0.0036+... = (36/100)/(1-1/100) = 36/99 = 4/11."},
+
+{id:"U4-10",topic:"المتسلسلات",concept:"مجموع حسابي",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الرابعة",
+question:"ما قيمة ∑_(k=1)^10 (4k+3)؟",
+A:"250",B:"220",C:"280",D:"130",
+correct:"A",explanation:"a_1=7، a_10=43. S_10 = 10 × (7+43)/2 = 10×25 = 250."},
+
+// ============ الوحدة الخامسة: المتجهات والقطوع (10 MCQ) ============
+{id:"U5-01",topic:"القطوع المخروطية",concept:"المميز",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الخامسة",
+question:"ما نوع القطع لـ 2x²+4xy+5y²-3x+y-7=0؟",
+A:"مكافئ",B:"ناقص",C:"زائد",D:"دائرة",
+correct:"B",explanation:"A=2, B=4, C=5. B²-4AC = 16-40 = -24 < 0 ⟹ قطع ناقص."},
+
+{id:"U5-02",topic:"الدائرة",concept:"المركز ونصف القطر",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"ما مركز ونصف قطر (x-3)²+(y+4)²=25؟",
+A:"(-3,4), r=25",B:"(3,-4), r=5",C:"(-3,-4), r=5",D:"(3,4), r=25",
+correct:"B",explanation:"الصورة (x-h)²+(y-k)²=r² ⟹ المركز (3,-4)، r=√25=5."},
+
+{id:"U5-03",topic:"القطع المكافئ",concept:"الاتجاه",skill:"تحليل",difficulty:"متوسط",dose:"الوحدة الخامسة",
+question:"أيُّ المعادلات تمثل قطعاً مكافئاً مفتوحاً لليمين ورأسه (-1,2)؟",
+A:"(x+1)²=8(y-2)",B:"(y-2)²=-8(x+1)",C:"(y-2)²=8(x+1)",D:"(x-2)²=8(y+1)",
+correct:"C",explanation:"(y-k)²=4p(x-h): الرأس (-1,2)، p>0 يعني فتح لليمين."},
+
+{id:"U5-04",topic:"المتجهات",concept:"طول المتجه",skill:"حساب",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"ما طول المتجه v=⟨2,-3,6⟩؟",
+A:"5",B:"7",C:"√11",D:"49",
+correct:"B",explanation:"|v| = √(4+9+36) = √49 = 7."},
+
+{id:"U5-05",topic:"التعامد",concept:"قيمة k",skill:"حساب",difficulty:"متوسط",dose:"الوحدة الخامسة",
+question:"ما قيمة k التي تجعل u=⟨3,k⟩ و v=⟨4,-6⟩ متعامدين؟",
+A:"2",B:"-2",C:"12",D:"0",
+correct:"A",explanation:"u·v=0 ⟹ 12-6k=0 ⟹ k=2."},
+
+{id:"U5-06",topic:"الضرب الاتجاهي",concept:"مساحة متوازي الأضلاع",skill:"حساب",difficulty:"صعب",dose:"الوحدة الخامسة",
+question:"إذا كان u×v = ⟨3,-4,0⟩، فما مساحة متوازي الأضلاع؟",
+A:"7",B:"5",C:"12",D:"25",
+correct:"B",explanation:"المساحة = |u×v| = √(9+16) = √25 = 5."},
+
+{id:"U5-07",topic:"القطع الناقص",concept:"الاختلاف المركزي",skill:"حساب",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"ما e لقطع ناقص فيه a=5 و c=3؟",
+A:"0.6",B:"1.67",C:"0.8",D:"2",
+correct:"A",explanation:"e = c/a = 3/5 = 0.6."},
+
+{id:"U5-08",topic:"المتجهات",concept:"الصورة الإحداثية",skill:"حساب",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"ما صورة المتجه AB حيث A(1,2) و B(4,6)؟",
+A:"⟨3,4⟩",B:"⟨5,8⟩",C:"⟨-3,-4⟩",D:"⟨4,3⟩",
+correct:"A",explanation:"AB = ⟨4-1, 6-2⟩ = ⟨3,4⟩."},
+
+{id:"U5-09",topic:"القطوع",concept:"الاختلاف المركزي",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"ما قيمة e للقطع الزائد؟",
+A:"e=0",B:"0<e<1",C:"e=1",D:"e>1",
+correct:"D",explanation:"القطع الزائد دائماً e>1."},
+
+{id:"U5-10",topic:"المتجهات",concept:"التعامد",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",
+question:"متى يكون متجهان غير صفريين متعامدين؟",
+A:"u·v=1",B:"u·v=0",C:"u×v=0",D:"|u|=|v|",
+correct:"B",explanation:"شرط التعامد: الضرب الداخلي = صفر."},
+
+// ============ الوحدة السادسة: الاحتمال (10 MCQ) ============
+{id:"U6-01",topic:"التباديل",concept:"ترتيب مناصب",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"بكم طريقة يمكن اختيار رئيس ونائب وأمين سر من 10 أعضاء؟",
+A:"120",B:"720",C:"5040",D:"30",
+correct:"B",explanation:"الترتيب مهم: 10P3 = 10×9×8 = 720."},
+
+{id:"U6-02",topic:"التباديل الدائرية",concept:"الترتيب الدائري",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"بكم طريقة يجلس 6 أصدقاء حول طاولة مستديرة دون نقطة مرجع؟",
+A:"720",B:"120",C:"24",D:"36",
+correct:"B",explanation:"(n-1)! = 5! = 120."},
+
+{id:"U6-03",topic:"الاحتمال",concept:"الحوادث المستقلة",skill:"حساب",difficulty:"سهل",dose:"الوحدة السادسة",
+question:"ما احتمال ظهور الشعار و العدد 5 عند إلقاء قطعة نقد ومكعب معاً؟",
+A:"1/12",B:"1/8",C:"1/6",D:"2/3",
+correct:"A",explanation:"(1/2)×(1/6) = 1/12."},
+
+{id:"U6-04",topic:"الاحتمال المشروط",concept:"P(A|B)",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"إذا كان P(A∩B)=0.2 و P(B)=0.5، فما P(A|B)؟",
+A:"0.1",B:"0.4",C:"0.7",D:"0.25",
+correct:"B",explanation:"P(A|B) = P(A∩B)/P(B) = 0.2/0.5 = 0.4."},
+
+{id:"U6-05",topic:"التوزيع الطبيعي",concept:"القاعدة التجريبية",skill:"تطبيق",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"درجات توزيع طبيعي بمتوسط 80 وانحراف 5. ما نسبة الطلاب بين 75 و 85؟",
+A:"50%",B:"68%",C:"95%",D:"99.7%",
+correct:"B",explanation:"الفترة [μ-σ, μ+σ] = [75,85] تضم 68%."},
+
+{id:"U6-06",topic:"هامش الخطأ",concept:"حجم العينة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"ما هامش خطأ المعاينة لعينة n=2500؟",
+A:"±1%",B:"±2%",C:"±4%",D:"±5%",
+correct:"B",explanation:"± 1/√2500 = ± 1/50 = ± 0.02 = ± 2%."},
+
+{id:"U6-07",topic:"الاحتمال",concept:"الحوادث غير المتنافية",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"ما احتمال سحب بطاقة فردية أو أكبر من 7 من 1-10؟",
+A:"1/2",B:"7/10",C:"4/5",D:"3/10",
+correct:"B",explanation:"P(A∪B) = 5/10 + 3/10 - 1/10 = 7/10."},
+
+{id:"U6-08",topic:"الاحتمال الهندسي",concept:"المساحات",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السادسة",
+question:"قرص مساحته 36π، ودائرة داخله مساحتها 9π. ما احتمال وقوع نقطة داخل الدائرة الصغيرة؟",
+A:"1/4",B:"1/2",C:"1/3",D:"3/4",
+correct:"A",explanation:"9π/36π = 1/4."},
+
+{id:"U6-09",topic:"مبدأ العد",concept:"الحوادث المتنافية",skill:"فهم",difficulty:"سهل",dose:"الوحدة السادسة",
+question:"الحوادث المتنافية هي:",
+A:"يمكن وقوعها معاً",B:"لا يمكن وقوعها معاً",C:"مستقلة دائماً",D:"متساوية الاحتمال",
+correct:"B",explanation:"الحوادث المتنافية لا يمكن وقوعها معاً في نفس الوقت."},
+
+{id:"U6-10",topic:"التوزيع الطبيعي",concept:"التماثل",skill:"فهم",difficulty:"سهل",dose:"الوحدة السادسة",
+question:"في التوزيع الطبيعي، ما العلاقة بين المتوسط والوسيط والمنوال؟",
+A:"مختلفة",B:"متساوية وتقع في المنتصف",C:"الوسيط فقط في المنتصف",D:"لا علاقة",
+correct:"B",explanation:"التوزيع الطبيعي متماثل: المتوسط = الوسيط = المنوال ويقعون في المنتصف."},
+
+// ============ الوحدة السابعة: التفاضل (10 MCQ) ============
+{id:"U7-01",topic:"النهايات",concept:"الصيغة غير المعينة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"ما قيمة lim_(x→3) (x²-9)/(x-3)؟",
+A:"0",B:"3",C:"6",D:"غير موجودة",
+correct:"C",explanation:"تحليل: (x-3)(x+3)/(x-3) = x+3. عند x=3: 6."},
+
+{id:"U7-02",topic:"النهايات عند المالانهاية",concept:"الدوال النسبية",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"ما قيمة lim_(x→∞) (4x²+1)/(2x²-3x)؟",
+A:"2",B:"4",C:"0",D:"∞",
+correct:"A",explanation:"درجة البسط = درجة المقام = 2، النهاية = 4/2 = 2."},
+
+{id:"U7-03",topic:"المشتقات",concept:"قواعد الاشتقاق",skill:"حساب",difficulty:"سهل",dose:"الوحدة السابعة",
+question:"ما f'(x) لـ f(x)=2x³-5x²+4x-7؟",
+A:"6x²-10x+4",B:"6x²-5x+4",C:"2x²-10x+4",D:"6x³-10x²+4x",
+correct:"A",explanation:"قاعدة القوة: 6x² - 10x + 4 + 0."},
+
+{id:"U7-04",topic:"المماس",concept:"ميل المماس",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"ما ميل مماس f(x)=x²+3x عند x=2؟",
+A:"5",B:"7",C:"10",D:"4",
+correct:"B",explanation:"f'(x)=2x+3. عند x=2: 4+3 = 7."},
+
+{id:"U7-05",topic:"التكامل",concept:"التكامل غير المحدد",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"ما ∫(4x³+6x)dx؟",
+A:"12x²+6+C",B:"x⁴+3x²+C",C:"4x⁴+6x²+C",D:"x⁴+6x²+C",
+correct:"B",explanation:"تكامل: x⁴ + 3x² + C."},
+
+{id:"U7-06",topic:"التكامل المحدد",concept:"المساحة",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"ما قيمة ∫_0^2 3x²dx؟",
+A:"6",B:"8",C:"12",D:"24",
+correct:"B",explanation:"F(x)=x³. F(2)-F(0) = 8-0 = 8."},
+
+{id:"U7-07",topic:"الاتصال",concept:"شرط الاتصال",skill:"فهم",difficulty:"سهل",dose:"الوحدة السابعة",
+question:"تكون الدالة متصلة عند x=c إذا:",
+A:"lim(x→c)f(x)=f(c)",B:"lim(x→c)f(x)≠f(c)",C:"f(c)=0",D:"lim=0",
+correct:"A",explanation:"شرط الاتصال: نهاية الدالة = قيمة الدالة عند النقطة."},
+
+{id:"U7-08",topic:"السرعة اللحظية",concept:"مشتقة الموقع",skill:"حساب",difficulty:"متوسط",dose:"الوحدة السابعة",
+question:"إذا كانت s(t)=16t²، فما السرعة عند t=3؟",
+A:"48 m/s",B:"96 m/s",C:"144 m/s",D:"32 m/s",
+correct:"B",explanation:"v(t)=s'(t)=32t. عند t=3: 96 m/s."},
+
+{id:"U7-09",topic:"المشتقات",concept:"مشتقة الثابت",skill:"سهل",difficulty:"سهل",dose:"الوحدة السابعة",
+question:"ما مشتقة f(x)=c (ثابت)؟",
+A:"c",B:"0",C:"1",D:"cx",
+correct:"B",explanation:"مشتقة أي دالة ثابتة = صفر."},
+
+{id:"U7-10",topic:"التكامل",concept:"النظرية الأساسية",skill:"فهم",difficulty:"سهل",dose:"الوحدة السابعة",
+question:"ما ∫_a^b f(x)dx وفق النظرية الأساسية؟",
+A:"f(b)-f(a)",B:"F(b)-F(a)",C:"f(a)-f(b)",D:"F(a)-F(b)",
+correct:"B",explanation:"∫_a^b f(x)dx = F(b)-F(a) حيث F الدالة الأصلية."},
+
+// ============ True/False Questions ============
+{id:"TF-01",topic:"العبارات الشرطية",concept:"التكافؤ المنطقي",skill:"فهم",difficulty:"سهل",dose:"الوحدة الأولى",type:"tf",
+question:"العبارة الشرطية ومعاكسها الإيجابي يمتلكان دائماً نفس قيمة الصواب (متكافئان منطقياً).",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، المعاكس الإيجابي يكافئ العبارة الشرطية منطقياً دائماً."},
+
+{id:"TF-02",topic:"تطابق المثلثات",concept:"حالة AAA",skill:"فهم",difficulty:"سهل",dose:"الوحدة الأولى",type:"tf",
+question:"تطابق الزوايا الثلاث (AAA) كافٍ لإثبات تطابق المثلثين.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"AAA يثبت التشابه فقط وليس التطابق."},
+
+{id:"TF-03",topic:"المعين",concept:"الأقطار",skill:"فهم",difficulty:"سهل",dose:"الوحدة الأولى",type:"tf",
+question:"قطرا المعين متعامدان وينصف كل منهما الآخر.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، هذه من خصائص المعين."},
+
+{id:"TF-04",topic:"المثال المضاد",concept:"إثبات البطلان",skill:"فهم",difficulty:"سهل",dose:"الوحدة الأولى",type:"tf",
+question:"لإثبات بطلان تخمين رياضي يكفي مثال مضاد واحد.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، مثال مضاد واحد يكفي لإثبات بطلان التخمين."},
+
+{id:"TF-05",topic:"الدوال اللوغاريتمية",concept:"المجال والمدى",skill:"فهم",difficulty:"متوسط",dose:"الوحدة الثانية",type:"tf",
+question:"مدى الدالة اللوغاريتمية f(x)=log_b(x) هو R⁺ فقط.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"المجال هو R⁺، أما المدى فهو جميع الأعداد الحقيقية R."},
+
+{id:"TF-06",topic:"الدوال النسبية",concept:"الفجوة",skill:"فهم",difficulty:"متوسط",dose:"الوحدة الثانية",type:"tf",
+question:"نقطة الانفصال (الفجوة) تظهر عند أصفار المقام التي تُختزل مع البسط.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، العوامل المشتركة المختزلة تنتج فجوات."},
+
+{id:"TF-07",topic:"التغير",concept:"التغير المشترك",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثانية",type:"tf",
+question:"التغير المشترك هو تغير طردي مع حاصل ضرب كميتين أو أكثر.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"y = kxz هو التغير المشترك."},
+
+{id:"TF-08",topic:"اللوغاريتمات",concept:"خاصية القسمة",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثانية",type:"tf",
+question:"log_b(m) - log_b(n) = log_b(m/n).",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، خاصية قسمة اللوغاريتمات."},
+
+{id:"TF-09",topic:"المتطابقات",concept:"المتطابقة",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثالثة",type:"tf",
+question:"المتطابقة المثلثية صائبة لجميع القيم الممكنة للمتغير.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"هذا تعريف المتطابقة."},
+
+{id:"TF-10",topic:"حل المثلثات",concept:"قانون الجيوب",skill:"فهم",difficulty:"متوسط",dose:"الوحدة الثالثة",type:"tf",
+question:"يُستعمل قانون الجيوب لحل مثلث بأضلاعه الثلاثة (SSS).",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"SSS يُحل بقانون جيوب التمام."},
+
+{id:"TF-11",topic:"الحلول الدخيلة",concept:"المعادلات المثلثية",skill:"فهم",difficulty:"سهل",dose:"الوحدة الثالثة",type:"tf",
+question:"الحل الدخيل هو حل ينتج عن التربيع ولا يحقق المعادلة الأصلية.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، هذا تعريف الحل الدخيل."},
+
+{id:"TF-12",topic:"فيثاغورس المثلثية",concept:"المتطابقة",skill:"سهل",difficulty:"سهل",dose:"الوحدة الثالثة",type:"tf",
+question:"sin²θ + cos²θ = 1 لجميع قيم θ.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"هذه متطابقة فيثاغورس الأساسية."},
+
+{id:"TF-13",topic:"ذات الحدين",concept:"عدد الحدود",skill:"فهم",difficulty:"سهل",dose:"الوحدة الرابعة",type:"tf",
+question:"عدد حدود مفكوك (a+b)^n يساوي n+1.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، دائماً n+1 حداً."},
+
+{id:"TF-14",topic:"المتسلسلات الهندسية",concept:"التقارب",skill:"فهم",difficulty:"متوسط",dose:"الوحدة الرابعة",type:"tf",
+question:"المتسلسلة الهندسية الالنهائية تكون تباعدية إذا |r|<1.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"|r|<1 تعني تقارب، و|r|≥1 تعني تباعد."},
+
+{id:"TF-15",topic:"المتتابعة الحسابية",concept:"الأساس",skill:"فهم",difficulty:"سهل",dose:"الوحدة الرابعة",type:"tf",
+question:"الأساس d في المتتابعة الحسابية هو الفرق الثابت بين كل حدين متتاليين.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، هذا تعريف الأساس."},
+
+{id:"TF-16",topic:"مفكوك ذات الحدين",concept:"الحد الأول",skill:"فهم",difficulty:"سهل",dose:"الوحدة الرابعة",type:"tf",
+question:"الحد الأول في مفكوك (x+y)^8 (بحسب قوى x التنازلية) هو x^8.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، 8C0·x^8·y^0 = x^8."},
+
+{id:"TF-17",topic:"القطوع",concept:"الاختلاف المركزي",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",type:"tf",
+question:"الاختلاف المركزي للقطع الزائد دائماً أكبر من 1.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، e>1 للقطع الزائد."},
+
+{id:"TF-18",topic:"الضرب الداخلي",concept:"الناتج",skill:"فهم",difficulty:"متوسط",dose:"الوحدة الخامسة",type:"tf",
+question:"الضرب الداخلي ينتج متجهاً ثالثاً عمودياً على المتجهين.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"الضرب الداخلي ينتج عدداً قياسياً. الضرب الاتجاهي هو الذي ينتج متجهاً."},
+
+{id:"TF-19",topic:"القطع الناقص",concept:"البؤرتان",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",type:"tf",
+question:"البؤرتان في القطع الناقص تقعان دائماً على المحور الأكبر.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، هذه من خصائص القطع الناقص."},
+
+{id:"TF-20",topic:"التعامد",concept:"الشرط",skill:"فهم",difficulty:"سهل",dose:"الوحدة الخامسة",type:"tf",
+question:"متجهان غير صفريين متعامدان إذا u·v=0.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، شرط التعامد."},
+
+{id:"TF-21",topic:"التباديل والتوافيق",concept:"الفرق",skill:"فهم",difficulty:"سهل",dose:"الوحدة السادسة",type:"tf",
+question:"التباديل للترتيب المهم، والتوافيق للترتيب غير المهم.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، هذا الفرق الأساسي."},
+
+{id:"TF-22",topic:"الحوادث",concept:"المتنافية",skill:"فهم",difficulty:"سهل",dose:"الوحدة السادسة",type:"tf",
+question:"الحوادث المتنافية يمكن وقوعها معاً.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"المتنافية لا يمكن وقوعها معاً."},
+
+{id:"TF-23",topic:"التوزيع الطبيعي",concept:"التماثل",skill:"فهم",difficulty:"سهل",dose:"الوحدة السادسة",type:"tf",
+question:"التوزيع الطبيعي متماثل والمتوسط=الوسيط=المنوال.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، هذه خصائص التوزيع الطبيعي."},
+
+{id:"TF-24",topic:"هامش الخطأ",concept:"حجم العينة",skill:"فهم",difficulty:"متوسط",dose:"الوحدة السادسة",type:"tf",
+question:"كلما زاد حجم العينة n، زاد هامش خطأ المعاينة.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"كلما زاد n قلّ هامش الخطأ (يوجد n في المقام)."},
+
+{id:"TF-25",topic:"المشتقات",concept:"مشتقة الثابت",skill:"فهم",difficulty:"سهل",dose:"الوحدة السابعة",type:"tf",
+question:"مشتقة الدالة الثابتة تساوي صفر دائماً.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"d/dx(c) = 0."},
+
+{id:"TF-26",topic:"النهايات",concept:"الصيغة غير المعينة",skill:"فهم",difficulty:"متوسط",dose:"الوحدة السابعة",type:"tf",
+question:"ظهور 0/0 يعني حتماً أن النهاية غير موجودة.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"0/0 تعني التبسيط بالتحليل أو المرافق لإيجاد النهاية."},
+
+{id:"TF-27",topic:"التكامل المحدد",concept:"المساحة",skill:"فهم",difficulty:"سهل",dose:"الوحدة السابعة",type:"tf",
+question:"التكامل المحدد يمثل المساحة تحت المنحنى.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"A",explanation:"نعم، ∫_a^b f(x)dx = المساحة تحت المنحنى."},
+
+{id:"TF-28",topic:"معدل التغير",concept:"القاطع والمماس",skill:"فهم",difficulty:"متوسط",dose:"الوحدة السابعة",type:"tf",
+question:"متوسط معدل التغير يمثل ميل مماس المنحنى عند نقطة.",
+A:"صواب",B:"خطأ",C:"",D:"",correct:"B",explanation:"متوسط معدل التغير = ميل القاطع. المماس يمثل المشتقة."}
+];
+
+// ============================================================================
+//  UNIT METADATA
+// ============================================================================
+const UNITS = {
+"الوحدة الأولى":{num:1,title:"الهندسة والمنطق والبرهان الرياضي",desc:"التبرير الاستقرائي، العبارات الشرطية، تطابق المثلثات، الأشكال الرباعية",concepts:["التبرير الاستقرائي والمثال المضاد","العبارات الشرطية والتكافؤ المنطقي","مسلمات تطابق المثلثات","خصائص الأشكال الرباعية وشبه المنحرف"]},
+"الوحدة الثانية":{num:2,title:"الدوال والتحويلات والعلاقات الجبرية المتقدمة",desc:"الدوال، المجال والمدى، الدوال النسبية، الأسية واللوغاريتمية",concepts:["مفهوم الدالة والمجال والمدى","التحويلات الهندسية","الدوال النسبية ودوال التغير","الدوال الأسية واللوغاريتمية"]},
+"الوحدة الثالثة":{num:3,title:"حساب المثلثات والمتطابقات المثلثية",desc:"النسب، المتطابقات، قوانين الجيوب وجيوب التمام، المعادلات",concepts:["النسب المثلثية وقوانين حل المثلثات","المتطابقات الأساسية وفيثاغورس","متطابقات المجموع والفرق وضعف الزاوية","حل المعادلات المثلثية والحلول الدخيلة"]},
+"الوحدة الرابعة":{num:4,title:"المتتابعات والمتسلسلات ونظرية ذات الحدين",desc:"الحسابية، الهندسية، المجاميع، ذات الحدين، الاستقراء",concepts:["المتتابعات الحسابية","المتتابعات الهندسية","المتسلسلات اللانهائية والتقارب","نظرية ذات الحدين والاستقراء الرياضي"]},
+"الوحدة الخامسة":{num:5,title:"الهندسة التحليلية والفضاء والمتجهات",desc:"القطوع المخروطية، المميز، المتجهات، الضرب الداخلي والاتجاهي",concepts:["القطوع المخروطية وتصنيفها بالمميز","معادلات الدوائر والقطوع","المتجهات في المستوى والفضاء","الضرب الداخلي والاتجاهي والتعامد"]},
+"الوحدة السادسة":{num:6,title:"الاحتمال والإحصاء وتحليل البيانات",desc:"التباديل، التوافيق، الاحتمال المشروط، التوزيع الطبيعي، هامش الخطأ",concepts:["مبدأ العد والتباديل والتوافيق","الاحتمال المشروط والحوادث المركبة","التوزيع الطبيعي والقاعدة التجريبية","هامش خطأ المعاينة"]},
+"الوحدة السابعة":{num:7,title:"النهايات وحساب التفاضل والتكامل",desc:"النهايات، الاتصال، المشتقات، السرعة اللحظية، التكامل والمساحة",concepts:["تقدير وحساب النهايات جبرياً","الاتصال وأنواع عدم الاتصال","الاشتقاق وقواعد المشتقات","التكامل والمساحة تحت المنحنى"]}
+};
+
+// ============================================================================
+//  STATE
+// ============================================================================
+const SK='math_adv_state_v1';
+function defState(){return{answers:{},revealed:{},lastActivity:'الوحدة الأولى — الهندسة والمنطق',lastScore:null,notificationsDismissed:false,lastTab:'home',doseProgress:{},diagRun:false}}
+function loadState(){try{const r=localStorage.getItem(SK);if(r){const p=JSON.parse(r);const d=defState();for(let k in d)if(!(k in p))p[k]=d[k];return p}}catch(e){}return defState()}
+let state=loadState();
+function saveState(){try{localStorage.setItem(SK,JSON.stringify(state))}catch(e){}}
+
+const $=id=>document.getElementById(id);
+const pages={home:$('page-home'),training:$('page-training'),questions:$('page-questions'),mistakes:$('page-mistakes'),analytics:$('page-analytics'),diagnostic:$('page-diagnostic'),resources:$('page-resources')};
+const navItems=document.querySelectorAll('.bottom-nav .nav-item');
+const toastEl=$('toast');let toastTimer=null;
+function showToast(m,d=2500){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastEl.classList.remove('show'),d)}
+
+function navigateTo(tab){navItems.forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));Object.keys(pages).forEach(k=>pages[k].classList.toggle('active',k===tab));state.lastTab=tab;saveState();if(tab==='home')updateHome();if(tab==='training')renderDoses();if(tab==='questions')renderQB();if(tab==='mistakes')renderMistakes();if(tab==='analytics')renderAnalytics();if(tab==='diagnostic')renderDiag();if(tab==='resources')renderResources();window.scrollTo({top:0,behavior:'smooth'})}
+navItems.forEach(b=>b.addEventListener('click',()=>navigateTo(b.dataset.tab)));
+
+// ============================================================================
+//  HELPERS
+// ============================================================================
+function getDoseProgress(dose){const qs=Q.filter(q=>q.dose===dose);const total=qs.length;const answered=qs.filter(q=>state.answers[q.id]).length;const correct=qs.filter(q=>state.answers[q.id]===q.correct).length;const pct=total?Math.round((answered/total)*100):0;return{total,answered,correct,pct,completed:total>0&&answered===total}}
+
+function updateHome(){
+const total=Q.length;const answered=Object.keys(state.answers).filter(id=>state.answers[id]).length;
+let correct=0;Q.forEach(q=>{const a=state.answers[q.id];if(a&&a===q.correct)correct++});
+const pct=total?Math.round((correct/total)*100):0;
+$('statLevel').textContent=pct>=90?'متقدم':pct>=70?'جيد':pct>=50?'متوسط':'يحتاج مراجعة';
+$('statSolved').textContent=answered;$('statCorrect').textContent=correct;
+$('statLastScore').textContent=state.lastScore!==null?state.lastScore+'%':'—';
+$('resumeText').textContent=state.lastActivity||'الوحدة الأولى — الهندسة والمنطق';
+const dns=Object.keys(UNITS);let comp=0,html='';
+dns.forEach((d,i)=>{const p=getDoseProgress(d);if(p.completed)comp++;const c=p.completed?'var(--success)':'var(--gray-300)';html+=`<span style="display:inline-block;width:28px;height:28px;border-radius:50%;background:${c};color:#fff;text-align:center;line-height:28px;font-size:12px;font-weight:700;border:2px solid ${p.completed?'var(--success)':'var(--gray-200)'}">${i+1}</span>`});
+$('doseProgressBar').innerHTML=html;$('doseProgressText').textContent=`${comp}/${dns.length} مكتملة`;
+}
+
+// ============================================================================
+//  TRAINING DOSES
+// ============================================================================
+let currentDetailDose=null;
+function renderDoses(){
+const grid=$('doseGrid');let html='',cc=0;
+Object.keys(UNITS).forEach((d,i)=>{const m=UNITS[d];const p=getDoseProgress(d);if(p.completed)cc++;
+const status=p.completed?'✅ مكتملة':p.answered>0?'⏳ قيد المراجعة':'📖 لم تبدأ';
+const dc=p.completed?'done':p.answered>0?'partial':'pending';
+html+=`<div class="dose-card" data-dose="${d}">
+<div class="dose-number">الوحدة ${i+1} / 7</div>
+<div class="dose-title">${d}: ${m.title}</div>
+<div class="dose-meta"><span>${m.desc}</span><span><span class="progress-dot ${dc}"></span> ${status}</span></div>
+<div class="dose-pct">${p.pct}%</div>
+<div class="dose-bar"><div class="fill" style="width:${p.pct}%;background:${p.completed?'var(--success)':p.answered>0?'var(--warning)':'var(--gray-300)'}"></div></div>
+</div>`});
+grid.innerHTML=html;$('trainingProgressLabel').textContent=`${cc}/7`;
+grid.querySelectorAll('.dose-card').forEach(c=>c.addEventListener('click',function(){const d=this.dataset.dose;state.lastActivity=d;saveState();showDetail(d)}));
+if(currentDetailDose)grid.style.display='none';else grid.style.display='grid';
+}
+
+function showDetail(dose){
+currentDetailDose=dose;
+const container=$('doseDetailContainer');const m=UNITS[dose];
+const qs=Q.filter(q=>q.dose===dose);const p=getDoseProgress(dose);
+let qh='';
+qs.forEach((q,i)=>{
+const ans=state.answers[q.id]||null;const rev=state.revealed[q.id]||false;
+const ic=ans&&ans===q.correct;const iw=ans&&ans!==q.correct;
+let oh='';
+['A','B','C','D'].forEach(L=>{const v=q[L];if(!v)return;let c='opt';if(ans===L)c+=' selected';if(rev&&L===q.correct)c+=' correct';if(rev&&iw&&ans===L)c+=' wrong';oh+=`<div class="${c}" data-qid="${q.id}" data-letter="${L}"><span style="font-weight:600;min-width:18px">${L}.</span><span>${v}</span></div>`});
+let eh='';if(rev){eh=`<div class="dq-explain show"><strong>${ic?'✅ صحيح':'❌ خاطئ'}${!ic?` (الإجابة: ${q.correct})`:''}</strong><br>${q.explanation}</div>`}
+qh+=`<div class="dq-item"><div class="dq-q">${i+1}. ${q.question}</div><div class="dq-opts">${oh}</div>${eh}</div>`});
+
+container.innerHTML=`<div class="dose-detail-view">
+<button class="back-btn" id="doseBackBtn">↩ رجوع إلى الوحدات</button>
+<div class="dose-head"><h2>${dose}: ${m.title}</h2><p>${m.desc}</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;font-size:13px;color:var(--gray-700);">
+<span>📊 التقدم: ${p.pct}%</span><span>✅ ${p.correct}/${p.total} صحيحة</span><span>📝 ${p.answered}/${p.total} محلولة</span>${p.completed?'🎉 مكتملة!':''}</div></div>
+<div style="margin:10px 0 6px;font-weight:600;font-size:15px;color:var(--primary);">📖 المفاهيم الرئيسية</div>
+<div class="concept-grid">${m.concepts.map(c=>`<div class="c-item"><span class="dot">•</span> ${c}</div>`).join('')}</div>
+<div class="dose-questions"><h4>🧪 أسئلة الوحدة (${qs.length})</h4>${qh}</div></div>`;
+
+$('doseBackBtn').addEventListener('click',()=>{container.innerHTML='';currentDetailDose=null;renderDoses();document.querySelector('#page-training .dose-grid').scrollIntoView({behavior:'smooth'})});
+
+container.querySelectorAll('.dq-item .opt').forEach(el=>el.addEventListener('click',function(){
+const qid=this.dataset.qid,L=this.dataset.letter;
+if(state.revealed[qid])return;
+state.answers[qid]=L;state.revealed[qid]=true;
+const q=Q.find(x=>x.id===qid);if(q){const pp=getDoseProgress(q.dose);if(pp.completed){if(!state.doseProgress[q.dose])state.doseProgress[q.dose]={};state.doseProgress[q.dose].completed=true}state.lastActivity=q.dose}
+saveState();showDetail(q.dose);updateHome();
+}));
+container.scrollIntoView({behavior:'smooth',block:'start'});
+const g=$('doseGrid');if(g)g.style.display='none';
+}
+
+// ============================================================================
+//  QUESTION BANK
+// ============================================================================
+let qbPage=0;const QPS=6;
+function getFiltered(){
+const t=$('qbFilterTopic').value,d=$('qbFilterDose').value,df=$('qbFilterDiff').value,s=$('qbFilterStatus').value;
+return Q.filter(q=>{
+if(t!=='all'&&q.topic!==t)return false;
+if(d!=='all'&&q.dose!==d)return false;
+if(df!=='all'&&q.difficulty!==df)return false;
+const a=state.answers[q.id];
+if(s==='answered'&&!a)return false;
+if(s==='unanswered'&&a)return false;
+if(s==='correct'&&a!==q.correct)return false;
+if(s==='wrong'&&(a!==q.correct||!a))return false;
+return true})}
+
+function renderQB(){
+const f=getFiltered();const total=f.length;const mp=Math.max(0,Math.ceil(total/QPS)-1);
+if(qbPage>mp)qbPage=mp;
+const st=qbPage*QPS,en=Math.min(st+QPS,total);const items=f.slice(st,en);
+const c=$('qbList');
+if(total===0)c.innerHTML=`<div class="empty-state"><div class="icon">🔍</div><p>لا توجد أسئلة تطابق الفلتر.</p></div>`;
+else{
+let html='';
+items.forEach(q=>{
+const a=state.answers[q.id]||null;const rev=state.revealed[q.id]||false;
+const ic=a&&a===q.correct;const iw=a&&a!==q.correct;
+let oh='';
+['A','B','C','D'].forEach(L=>{const v=q[L];if(!v)return;let cl='opt';if(a===L)cl+=' selected';if(rev&&L===q.correct)cl+=' correct';if(rev&&iw&&a===L)cl+=' wrong';oh+=`<div class="${cl}" data-qid="${q.id}" data-letter="${L}"><span style="font-weight:600;min-width:20px">${L}.</span><span>${v}</span></div>`});
+let eh='';if(rev){eh=`<div class="q-explain show"><strong>${ic?'✅ صحيح':'❌ خاطئ'}${!ic?` (الإجابة: ${q.correct})`:''}</strong><br>${q.explanation}</div>`}
+html+=`<div class="qb-question"><div class="q-head"><span class="qid">${q.id}</span><span class="tag">${q.topic}</span><span class="tag dose-tag">${q.dose}</span><span class="tag" style="background:#f1f5f9">${q.difficulty}</span>${a?'<span class="tag" style="background:#dbeafe;color:var(--primary)">✔ تمّت</span>':''}</div>
+<div class="q-text">${q.question}</div><div class="q-options">${oh}</div>${eh}</div>`});
+c.innerHTML=html;
+c.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',function(){
+const qid=this.dataset.qid,L=this.dataset.letter;
+if(state.revealed[qid])return;
+state.answers[qid]=L;state.revealed[qid]=true;
+const q=Q.find(x=>x.id===qid);if(q){const pp=getDoseProgress(q.dose);if(pp.completed){if(!state.doseProgress[q.dose])state.doseProgress[q.dose]={};state.doseProgress[q.dose].completed=true}state.lastActivity=q.dose}
+saveState();renderQB();updateHome()}))
+}
+$('qbPageInfo').textContent=total?`${qbPage+1} / ${mp+1}`:'0 / 0';
+$('qbPrev').disabled=qbPage===0;$('qbNext').disabled=qbPage>=mp;
+}
+
+(function initFilters(){
+const topics=new Set(),doses=new Set();
+Q.forEach(q=>{topics.add(q.topic);doses.add(q.dose)});
+const ts=$('qbFilterTopic');ts.innerHTML='<option value="all">جميع الموضوعات</option>';
+[...topics].sort().forEach(t=>ts.innerHTML+=`<option value="${t}">${t}</option>`);
+const ds=$('qbFilterDose');ds.innerHTML='<option value="all">جميع الوحدات</option>';
+Object.keys(UNITS).forEach(d=>ds.innerHTML+=`<option value="${d}">${d}</option>`);
+})();
+
+$('qbFilterTopic').addEventListener('change',()=>{qbPage=0;renderQB()});
+$('qbFilterDose').addEventListener('change',()=>{qbPage=0;renderQB()});
+$('qbFilterDiff').addEventListener('change',()=>{qbPage=0;renderQB()});
+$('qbFilterStatus').addEventListener('change',()=>{qbPage=0;renderQB()});
+$('qbResetFilters').addEventListener('click',()=>{$('qbFilterTopic').value='all';$('qbFilterDose').value='all';$('qbFilterDiff').value='all';$('qbFilterStatus').value='all';qbPage=0;renderQB()});
+$('qbPrev').addEventListener('click',()=>{if(qbPage>0){qbPage--;renderQB()}});
+$('qbNext').addEventListener('click',()=>{const t=getFiltered().length;const mp=Math.max(0,Math.ceil(t/QPS)-1);if(qbPage<mp){qbPage++;renderQB()}});
+
+// ============================================================================
+//  MISTAKES
+// ============================================================================
+function renderMistakes(){
+const wrong=Q.filter(q=>{const a=state.answers[q.id];return a&&a!==q.correct});
+const c=$('mistakesList');
+$('mistakeCountBottom').textContent=wrong.length;
+$('mistakesCountLabel').textContent=`${wrong.length} سؤال خاطئ`;
+if(wrong.length===0){c.innerHTML=`<div class="empty-state"><div class="icon">🎉</div><p>ممتاز! لا توجد أخطاء. استمر بنفس المستوى!</p></div>`;return}
+let html='';
+wrong.forEach(q=>{const ua=state.answers[q.id]||'—';html+=`<div class="mistake-item"><div class="m-q">${q.id}: ${q.question}</div><div class="m-detail"><span class="wrong-ans">✘ إجابتك: ${ua}</span> &nbsp;|&nbsp; <span class="correct-ans">✔ الإجابة: ${q.correct}</span><br><span style="font-size:12px;color:var(--gray-500)">${q.dose} · ${q.topic}</span><button class="review-mistake" data-qid="${q.id}">مراجعة</button></div></div>`});
+c.innerHTML=html;
+c.querySelectorAll('.review-mistake').forEach(b=>b.addEventListener('click',function(){$('qbFilterTopic').value='all';$('qbFilterDose').value='all';$('qbFilterDiff').value='all';$('qbFilterStatus').value='all';qbPage=0;navigateTo('questions');showToast(`🔍 مراجعة السؤال ${this.dataset.qid}`,1500)}));
+}
+
+// ============================================================================
+//  ANALYTICS
+// ============================================================================
+function renderAnalytics(){
+const total=Q.length;const answered=Object.keys(state.answers).filter(id=>state.answers[id]).length;
+let correct=0,wrong=0;
+Q.forEach(q=>{const a=state.answers[q.id];if(!a)return;if(a===q.correct)correct++;else wrong++});
+const pct=total?Math.round((correct/total)*100):0;
+const avgDose=Object.keys(UNITS).reduce((a,d)=>a+getDoseProgress(d).pct,0)/7;
+const topicStats={};
+Q.forEach(q=>{const a=state.answers[q.id];if(!a)return;if(!topicStats[q.topic])topicStats[q.topic]={total:0,correct:0};topicStats[q.topic].total++;if(a===q.correct)topicStats[q.topic].correct++});
+const weak=Object.keys(topicStats).filter(t=>{const s=topicStats[t];return s.total>0&&(s.correct/s.total)<0.5});
+const strong=Object.keys(topicStats).filter(t=>{const s=topicStats[t];return s.total>0&&(s.correct/s.total)>=0.7});
+const ach=[];if(answered>=30)ach.push('⚡ 30+ سؤال');if(answered>=60)ach.push('⚡ 60+ سؤال');if(pct>=70)ach.push('🎯 دقة 70%+');if(pct>=90)ach.push('🏆 دقة 90%+');
+const dd=Object.keys(UNITS).filter(d=>getDoseProgress(d).completed).length;if(dd>=3)ach.push(`📚 ${dd} وحدات مكتملة`);
+
+$('analyticsFullContainer').innerHTML=`<div class="analytics-full">
+<div class="an-top"><div><div class="an-accuracy">${pct}% <span>الدقة الإجمالية</span></div>
+<div style="font-size:13px;color:var(--gray-500);margin-top:2px">متوسط تقدم الوحدات: ${Math.round(avgDose)}%</div></div>
+<div class="an-stats"><div class="as-item"><div class="as-num">${answered}</div><div class="as-label">محاولات</div></div>
+<div class="as-item"><div class="as-num green">${correct}</div><div class="as-label">صحيحة</div></div>
+<div class="as-item"><div class="as-num red">${wrong}</div><div class="as-label">خاطئة</div></div></div></div>
+<h4 style="font-size:15px;color:var(--primary);margin-bottom:6px">📈 تقدم الوحدات</h4>
+${Object.keys(UNITS).map((d,i)=>{const p=getDoseProgress(d);const cl=['#1e3a5f','#2c5282','#7c3aed','#a78bfa','#c4b5fd','#ddd6fe','#ede9fe'];return`<div class="ad-item"><span class="ad-name">${d}</span><div class="ad-bar"><div class="fill" style="width:${p.pct}%;background:${cl[i%cl.length]}"></div></div><span class="ad-pct">${p.pct}%</span></div>`}).join('')}
+<div style="margin-top:14px;border-top:2px solid var(--gray-200);padding-top:14px">
+<h4 style="font-size:15px;color:var(--primary);margin-bottom:6px">💪 نقاط القوة</h4>
+<div class="aw-tags">${strong.length>0?strong.map(s=>`<span class="tag green">✅ ${s}</span>`).join(''):'<span class="tag">أكمل المزيد لظهور نقاط القوة</span>'}</div></div>
+<div style="margin-top:14px;border-top:2px solid var(--gray-200);padding-top:14px">
+<h4 style="font-size:15px;color:var(--primary);margin-bottom:6px">⚠️ تحتاج إلى مراجعة</h4>
+<div class="aw-tags">${weak.length>0?weak.map(w=>`<span class="tag">🔥 ${w}</span>`).join(''):'<span class="tag green">✅ لا توجد نقاط ضعف واضحة</span>'}</div></div>
+<div style="margin-top:14px;border-top:2px solid var(--gray-200);padding-top:14px">
+<h4 style="font-size:15px;color:var(--primary);margin-bottom:6px">🏆 الإنجازات</h4>
+<div class="ach-tags">${ach.length>0?ach.map(a=>`<span class="tag done">${a}</span>`).join(''):'<span class="tag">أكمل المزيد لفتح الإنجازات</span>'}</div></div></div>`;
+}
+
+// ============================================================================
+//  DIAGNOSTIC
+// ============================================================================
+function renderDiag(){
+const btn=$('diagStartBtn');
+if(state.diagRun){runDiag();return}
+$('diagResults').innerHTML=`<p style="color:var(--gray-700);font-size:14px">سيقوم التشخيص بتحليل أدائك في جميع الأسئلة وتحديد نقاط القوة والضعف لديك.</p>
+<div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap">
+<span style="background:var(--gray-100);padding:4px 16px;border-radius:30px;font-size:13px">📊 ${Q.length} سؤال</span>
+<span style="background:var(--gray-100);padding:4px 16px;border-radius:30px;font-size:13px">✅ ${Object.keys(state.answers).filter(id=>state.answers[id]).length} محلول</span></div>`;
+btn.disabled=false;btn.textContent='🔄 تشغيل التشخيص';
+btn.onclick=function(){state.diagRun=true;saveState();runDiag()};
+}
+function runDiag(){
+const btn=$('diagStartBtn');btn.disabled=true;btn.textContent='⏳ جارٍ التحليل...';
+const total=Q.length;const correct=Q.filter(q=>state.answers[q.id]===q.correct).length;
+const wrong=Q.filter(q=>{const a=state.answers[q.id];return a&&a!==q.correct}).length;
+const unans=total-correct-wrong;const pct=total?Math.round((correct/total)*100):0;
+let dh='';
+Object.keys(UNITS).forEach(d=>{const p=getDoseProgress(d);const s=p.completed?'✅':p.answered>0?'⏳':'⬜';dh+=`<div class="dr-item"><span style="color:var(--gray-700)">${d}</span><span style="font-weight:600">${s} ${p.correct}/${p.total} (${p.pct}%)</span></div>`});
+const ts={};Q.forEach(q=>{const a=state.answers[q.id];if(!a)return;if(!ts[q.topic])ts[q.topic]={total:0,correct:0};ts[q.topic].total++;if(a===q.correct)ts[q.topic].correct++});
+const wk=Object.keys(ts).filter(t=>{const s=ts[t];return s.total>0&&(s.correct/s.total)<0.5});
+const st=Object.keys(ts).filter(t=>{const s=ts[t];return s.total>0&&(s.correct/s.total)>=0.7});
+$('diagResults').innerHTML=`<div class="diag-results">
+<div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;border-bottom:2px solid var(--gray-200);padding-bottom:12px;margin-bottom:12px">
+<div><span style="font-weight:700;font-size:22px;color:var(--primary)">${pct}%</span> <span style="color:var(--gray-500)">الدقة الإجمالية</span></div>
+<div style="display:flex;gap:16px;flex-wrap:wrap"><span>✅ ${correct} صحيح</span><span>❌ ${wrong} خاطئ</span><span>⬜ ${unans} لم تُجب</span></div></div>
+<div style="margin-bottom:10px;font-weight:600;color:var(--primary)">📊 الأداء حسب الوحدة</div>${dh}
+<div style="margin-top:12px;border-top:2px solid var(--gray-200);padding-top:12px">
+<div style="display:flex;flex-wrap:wrap;gap:16px">
+<div><span style="font-weight:600">💪 نقاط القوة:</span> ${st.length>0?st.slice(0,3).map(t=>`<span style="background:#dcfce7;padding:2px 12px;border-radius:30px;font-size:13px;margin:2px">${t}</span>`).join(''):'لا توجد بيانات'}</div>
+<div><span style="font-weight:600">⚠️ نقاط الضعف:</span> ${wk.length>0?wk.map(t=>`<span style="background:#fee2e2;padding:2px 12px;border-radius:30px;font-size:13px;margin:2px">${t}</span>`).join(''):'✅ ممتاز!'}</div></div></div>
+<div style="margin-top:12px;padding:12px;background:var(--gray-50);border-radius:var(--radius-sm);font-size:13px;color:var(--gray-700)">
+<strong>📝 توصيات:</strong> ${wk.length>0?`ركز على: ${wk.slice(0,3).join('، ')}.`:'استمر بنفس المستوى!'}${unans>0?` هناك ${unans} سؤال لم تُجب.`:''}</div></div>`;
+btn.textContent='✅ تم التشخيص';btn.disabled=false;
+btn.onclick=function(){state.diagRun=false;saveState();renderDiag()};
+}
+
+// ============================================================================
+//  RESOURCES
+// ============================================================================
+const RES=[{icon:'📄',title:'ورقة الإنقاذ',desc:'مراجعة صفحة واحدة'},{icon:'⚡',title:'المراجعة النهائية',desc:'أهم المفاهيم والقوانين'},{icon:'🎯',title:'مصفوفة التشخيص',desc:'ربط الأسئلة بالوحدات'},{icon:'🧪',title:'اختبارات الإتقان',desc:'7 اختبارات وحدة'},{icon:'📊',title:'تحليل الأداء',desc:'نقاط القوة والضعف'},{icon:'📚',title:'بنك الأسئلة',desc:'105+ سؤالاً أصلياً'}];
+function renderResources(){
+$('resourcesGrid').innerHTML=RES.map(r=>`<div class="resource-card" onclick="showToast('📖 ${r.title} — متاح')"><div class="r-icon">${r.icon}</div><div class="r-title">${r.title}</div><div class="r-desc">${r.desc}</div></div>`).join('');
+$('rescueSheetContainer').innerHTML=`<div style="background:#fff;border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow);border:1px solid var(--gray-200)">
+<h3 style="color:var(--primary);margin-bottom:12px">📄 ورقة الإنقاذ - الرياضيات</h3>
+<h4 style="color:var(--accent);margin:10px 0 6px;font-size:14px">1. أهم القوانين</h4>
+<ul style="font-size:13px;line-height:1.9;color:var(--gray-700);padding-right:20px">
+<li><strong>التغير:</strong> طردي y=kx | عكسي xy=k | مشترك y=kxz</li>
+<li><strong>اللوغاريتم:</strong> log_b(x)=y ⟺ b^y=x | log(xy)=log x + log y</li>
+<li><strong>المتتابعات:</strong> a_n=a_1+(n-1)d | a_n=a_1·r^(n-1) | S=a_1/(1-r) بشرط |r|<1</li>
+<li><strong>عدد حدود المفكوك:</strong> n+1</li>
+<li><strong>فيثاغورس المثلثية:</strong> sin²θ+cos²θ=1 | sin(2θ)=2sinθcosθ</li>
+<li><strong>قانون الجيوب:</strong> sinA/a = sinB/b = sinC/c</li>
+<li><strong>قانون جيوب التمام:</strong> a²=b²+c²-2bc·cosA</li>
+<li><strong>مميز القطوع:</strong> B²-4AC</li>
+<li><strong>طول المتجه:</strong> |v|=√(v₁²+v₂²+v₃²)</li>
+<li><strong>شرط التعامد:</strong> u·v=0</li>
+<li><strong>التباديل والتوافيق:</strong> nPr=n!/(n-r)! | nCr=n!/(r!(n-r)!)</li>
+<li><strong>هامش الخطأ:</strong> ±1/√n</li>
+<li><strong>مشتقة القوة:</strong> d/dx(x^n)=n·x^(n-1) | مشتقة الثابت=0</li>
+<li><strong>التكامل المحدد:</strong> ∫_a^b f(x)dx = F(b)-F(a)</li></ul>
+<h4 style="color:var(--accent);margin:12px 0 6px;font-size:14px">2. الفروق الحاسمة</h4>
+<ul style="font-size:13px;line-height:1.9;color:var(--gray-700);padding-right:20px">
+<li>العبارة الشرطية تكافئ <strong>المعاكس الإيجابي</strong> (∼q→∼p) منطقياً</li>
+<li><strong>الفجوة</strong> عند اختزال عامل مشترك | <strong>خط التقارب</strong> عند أصفار المقام المتبقية</li>
+<li>AAA يثبت <strong>التشابه</strong> فقط | SSS, SAS, ASA, AAS تثبت التطابق</li>
+<li>التباديل للترتيب المهم | التوافيق للترتيب غير المهم</li>
+<li>الضرب الداخلي ينتج <strong>عدداً</strong> | الضرب الاتجاهي ينتج <strong>متجهاً</strong></li></ul>
+<h4 style="color:var(--accent);margin:12px 0 6px;font-size:14px">3. الأخطاء الشائعة</h4>
+<ul style="font-size:13px;line-height:1.9;color:var(--gray-700);padding-right:20px">
+<li>❌ قبول الحلول الدخيلة في المعادلات اللوغاريتمية | ✅ افحص المجال</li>
+<li>❌ تطبيق S=a_1/(1-r) بدون التحقق من |r|<1</li>
+<li>❌ عكس إشارة cos(A+B)=cosAcosB-sinAsinB</li>
+<li>❌ الخطأ في ترتيب التكامل: F(b)-F(a) وليس F(a)-F(b)</li>
+<li>❌ الاعتقاد بأن 0/0 تعني عدم وجود نهاية | ✅ بسّط بالتحليل</li></ul>
+<h4 style="color:var(--accent);margin:12px 0 6px;font-size:14px">4. تذكيرات سريعة</h4>
+<ul style="font-size:13px;line-height:1.9;color:var(--gray-700);padding-right:20px">
+<li>مشتقة الثابت = صفر دائماً</li>
+<li>الدالة الزوجية متماثلة حول y | الفردية حول نقطة الأصل</li>
+<li>القطعة المتوسطة لشبه المنحرف = (a+b)/2</li>
+<li>هامش الخطأ يقل بزيادة حجم العينة n</li>
+<li>القطع الناقص: e<1 | القطع المكافئ: e=1 | القطع الزائد: e>1</li></ul></div>`;
+}
+
+// ============================================================================
+//  INIT
+// ============================================================================
+$('diagQuickBtn').addEventListener('click',()=>navigateTo('diagnostic'));
+$('doseQuickBtn').addEventListener('click',()=>navigateTo('training'));
+$('resumeBtn').addEventListener('click',()=>{
+const d=state.lastActivity||'الوحدة الأولى';navigateTo('training');
+setTimeout(()=>{document.querySelectorAll('.dose-card').forEach(c=>{if(c.dataset.dose===d){c.scrollIntoView({behavior:'smooth',block:'center'});c.style.boxShadow='0 0 0 3px var(--accent)';setTimeout(()=>c.style.boxShadow='',2000)}})},300);
+showToast(`▶ استئناف: ${d}`,2000)});
+$('dismissNotif').addEventListener('click',()=>{$('notifBanner').style.display='none';state.notificationsDismissed=true;saveState()});
+if(state.notificationsDismissed)$('notifBanner').style.display='none';
+
+navigateTo(state.lastTab||'home');
+updateHome();
+console.log(`📐 تطبيق الرياضيات التحصيلي جاهز! ${Q.length} سؤال، ✅ ${Object.keys(state.answers).filter(id=>state.answers[id]).length} محلولة`);
+</script>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script>
+(function(){
+"use strict";
+
+var COURSE_ID="15";
+var APPS_URL="https://script.google.com/macros/s/AKfycbwCFqtOlOTelywXQ4Ja1zftLIcAsqLzlri9ynIj9435wILiWnfrAx7zAQ1wi3Wqh6dg/exec";
+var CLIENT_ID="99138672450-fsi9nj2qpu13njt6rqdbhko3m4iu283c.apps.googleusercontent.com";
+var WA="249915886600";
+var TG="https://t.me/Herocourses";
+
+var K_DEV_ID="hero_dev_id_"+COURSE_ID;
+var K_DEV_SEC="hero_dev_sec_"+COURSE_ID;
+var K_LICENSE_CACHE = "hero_lic_cache_" + COURSE_ID;
+var K_TRIAL_CACHE   = "hero_trial_cache_" + COURSE_ID;
+var _pendingDOM=[],_allowDOM=false;
+var _origAdd=document.addEventListener.bind(document);
+document.addEventListener=function(t,f,o){
+  if(t==='DOMContentLoaded'&&!_allowDOM){_pendingDOM.push({fn:f,opts:o});return;}
+  return _origAdd(t,f,o);
+};
+function isNotExpiredClient(raw) {
+  if (!raw) return true;
+  var str = String(raw).trim();
+  if (str === '') return true;
+
+  var m = str.match(/^(\d{4})[-.\/](\d{1,2})[-.\/](\d{1,2})/);
+  if (m) return new Date(+m[1], +m[2]-1, +m[3], 23, 59, 59).getTime() >= Date.now();
+
+  m = str.match(/^(\d{1,2})[-.\/](\d{1,2})[-.\/](\d{4})/);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1], 23, 59, 59).getTime() >= Date.now();
+
+  var fb = new Date(str);
+  if (!isNaN(fb.getTime())) return fb.getTime() >= Date.now();
+  return false;
+}
+
+function getCachedLicense() {
+  try {
+    var raw = localStorage.getItem(K_LICENSE_CACHE);
+    if (!raw) return null;
+    var lic = JSON.parse(raw);
+    if (!lic) return null;
+
+    // 1. الانتهاء الحقيقي للترخيص
+    if (lic.expires && !isNotExpiredClient(lic.expires)) return null;
+
+    // 2. موعد إعادة التحقق الدورية
+    if (lic.next_check) {
+      var nc = new Date(lic.next_check).getTime();
+      if (!isNaN(nc) && nc < Date.now()) return null;
+    }
+
+    return lic;
+  } catch(e) { return null; }
+}
+
+function saveLicenseCache(lic) {
+  try { localStorage.setItem(K_LICENSE_CACHE, JSON.stringify(lic)); } catch(e) {}
+}
+
+function clearLicenseCache() {
+  try { localStorage.removeItem(K_LICENSE_CACHE); } catch(e) {}
+}
+
+function getCachedTrial() {
+  try {
+    var raw = localStorage.getItem(K_TRIAL_CACHE);
+    if (!raw) return null;
+    var tr = JSON.parse(raw);
+    if (!tr || !tr.expires_at) return null;
+    if (new Date(tr.expires_at).getTime() > Date.now()) return tr;
+    return null;
+  } catch(e) { return null; }
+}
+
+function saveTrialCache(tr) {
+  try { localStorage.setItem(K_TRIAL_CACHE, JSON.stringify(tr)); } catch(e) {}
+}
+function _releaseDOM(){
+  _allowDOM=true;
+  _pendingDOM.forEach(function(p){try{p.fn.call(document,new Event('DOMContentLoaded'));}catch(e){}});
+  _pendingDOM=[];
+}
+
+var _checking=false;
+var _gisInitialized=false;
+
+function bytesToB64(b){var s='',i=0;for(;i<b.length;i++)s+=String.fromCharCode(b[i]);return btoa(s);}
+
+function getOrCreateDevice(){
+  var id=localStorage.getItem(K_DEV_ID);
+  var sec=localStorage.getItem(K_DEV_SEC);
+  if(!id||!sec){
+    id=(crypto.randomUUID?crypto.randomUUID():'d-'+Date.now()+'-'+Math.random().toString(36).slice(2));
+    var rnd=new Uint8Array(32);crypto.getRandomValues(rnd);
+    sec=bytesToB64(rnd);
+    try{localStorage.setItem(K_DEV_ID,id);localStorage.setItem(K_DEV_SEC,sec);}catch(e){}
+  }
+  return {id:id,secret:sec};
+}
+
+function addWatermark(lic){
+  var o=document.getElementById('hero-wm');if(o)o.remove();
+  if(!lic)return;
+  var w=document.createElement('div');w.id='hero-wm';
+  w.style.cssText='position:fixed;bottom:10px;right:20px;z-index:99999;background:rgba(0,0,0,0.55);color:#facc15;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;font-family:Arial;direction:rtl;backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,0.1);pointer-events:none;opacity:0.75';
+  w.textContent='🔐 مرخص لـ: '+(lic.customer||'عميل')+' | '+(lic.phone||'')+' | '+(lic.email||'');
+  document.body.appendChild(w);
+}
+
+function showLoading(msg){
+  var old=document.getElementById('hero-loading');if(old)old.remove();
+  var d=document.createElement('div');d.id='hero-loading';
+  d.style.cssText='position:fixed;inset:0;z-index:999999;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#facc15;font-family:Segoe UI;direction:rtl';
+  d.innerHTML='<div style="font-size:48px;margin-bottom:16px">⏳</div><div style="font-size:16px">'+(msg||'جاري التحقق...')+'</div>';
+  document.body.appendChild(d);
+}
+function hideLoading(){
+  var d=document.getElementById('hero-loading');if(d)d.remove();
+}
+
+function showBlockScreen(title,msg,showContact){
+  hideLoading();
+  var old=document.getElementById('hero-block');if(old)old.remove();
+  var d=document.createElement('div');d.id='hero-block';
+  d.style.cssText='position:fixed;inset:0;z-index:999998;background:#0f172a;display:flex;align-items:center;justify-content:center;font-family:Segoe UI,Tahoma;padding:24px;direction:rtl';
+  var html='<div style="background:#fff;border-radius:24px;padding:32px 28px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.5)">';
+  html+='<h2 style="margin:0 0 12px;font-size:22px;color:#1a2634">'+title+'</h2>';
+  html+='<p style="color:#475569;font-size:15px;line-height:1.8;margin-bottom:24px">'+msg+'</p>';
+  if(showContact!==false){
+    html+='<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">';
+    html+='<a href="https://wa.me/'+WA+'" target="_blank" style="background:#25D366;color:#fff;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:700">📱 واتساب</a>';
+    if(TG) html+='<a href="'+TG+'" target="_blank" style="background:#0088cc;color:#fff;padding:12px 24px;border-radius:30px;text-decoration:none;font-weight:700">💬 تيليجرام</a>';
+    html+='</div>';
+  }
+  html+='<button id="hero-retry" style="margin-top:20px;background:transparent;border:2px solid #94a3b8;color:#475569;padding:8px 24px;border-radius:30px;font-weight:600;cursor:pointer">🔄 إعادة المحاولة</button>';
+  html+='</div>';
+  d.innerHTML=html;
+  document.body.appendChild(d);
+  var retry=document.getElementById('hero-retry');
+  if(retry) retry.onclick=function(){location.reload();};
+}
+
+var _trialInterval=null;
+function showTrialCard(expiresAt){
+  var old=document.getElementById('hero-trial');if(old)old.remove();
+  if(_trialInterval){clearInterval(_trialInterval);_trialInterval=null;}
+  
+  var c=document.createElement('div');c.id='hero-trial';
+  c.style.cssText='position:fixed;bottom:20px;left:20px;z-index:99999;background:#1e293b;color:#facc15;padding:10px 16px;border-radius:12px;font-size:14px;font-family:Arial;box-shadow:0 4px 15px rgba(0,0,0,0.3);direction:ltr';
+  document.body.appendChild(c);
+  
+  var btn=document.createElement('button');
+  btn.id='hero-buy-btn';
+  btn.textContent='🔑 تفعيل / شراء';
+  btn.style.cssText='position:fixed;bottom:20px;right:20px;z-index:99999;background:#facc15;color:#0f172a;border:none;padding:12px 24px;border-radius:40px;font-weight:700;font-size:16px;box-shadow:0 4px 20px rgba(0,0,0,0.2);cursor:pointer';
+  btn.onclick=function(){showBlockScreen('💬 للشراء','تواصل معنا عبر واتساب أو تيليجرام للحصول على كود تفعيل.',true);};
+  document.body.appendChild(btn);
+  
+  function tick(){
+    var r=Math.max(0,(new Date(expiresAt).getTime()-Date.now())/1000);
+    if(r<=0){
+      c.textContent='⏰ انتهت التجربة';
+      c.style.background='#b00020';
+      clearInterval(_trialInterval);
+      setTimeout(function(){location.reload();},2000);
+      return;
+    }
+    var d=Math.floor(r/86400),h=Math.floor((r%86400)/3600),m=Math.floor((r%3600)/60),s=Math.floor(r%60);
+    c.textContent='⏳ التجربة المتبقية: '+d+'يوم '+h+'س '+m+'د '+s+'ث';
+  }
+  tick();
+  _trialInterval=setInterval(tick,1000);
+}
+
+var _gisCallback = null;
+
+function ensureGisReady(callback, credentialHandler){
+  _gisCallback = credentialHandler || onCredential;
+  var attempts=0;
+  function wait(){
+    if(typeof google==='undefined'||!google.accounts||!google.accounts.id){
+      attempts++;
+      if(attempts<50)return setTimeout(wait,200);
+      hideLoading();
+      _releaseDOM();
+      showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google.',false);
+      return;
+    }
+    if(!_gisInitialized){
+      google.accounts.id.initialize({
+        client_id:CLIENT_ID,
+        callback:function(r){ if(_gisCallback)_gisCallback(r); },
+        auto_select:false,
+        cancel_on_tap_outside:false
+      });
+      _gisInitialized=true;
+    }
+    callback();
+  }
+  wait();
+}
+
+function showSignInScreen(){
+  hideLoading();
+  var old=document.getElementById('hero-signin');if(old)old.remove();
+  var d=document.createElement('div');d.id='hero-signin';
+  d.style.cssText='position:fixed;inset:0;z-index:999998;background:rgba(15,23,42,0.95);display:flex;align-items:center;justify-content:center;font-family:Segoe UI,Tahoma;padding:16px;direction:rtl';
+  d.innerHTML='<div style="background:#fff;border-radius:24px;padding:32px 28px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.4)">'+
+    '<h2 style="margin:0 0 10px;font-size:24px;color:#1a2634">🔐 تفعيل الدورة</h2>'+
+    '<p style="color:#475569;margin-bottom:24px;font-size:15px">سجّل دخولك بحساب Google للتحقق من ترخيصك</p>'+
+    '<div id="hero-gbtn" style="display:flex;justify-content:center;margin-bottom:16px"></div>'+
+    '<div id="hero-login-msg" style="color:#b00020;font-size:14px;min-height:20px"></div>'+
+    '<hr style="margin:20px 0;border:0;border-top:1px solid #e2e8f0">'+
+    '<p style="font-size:14px;color:#64748b;margin-bottom:10px">لم تشترِ بعد؟ تواصل معنا:</p>'+
+    '<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">'+
+    '<a href="https://wa.me/'+WA+'" target="_blank" style="background:#25D366;color:#fff;padding:10px 20px;border-radius:30px;text-decoration:none;font-weight:600">📱 واتساب</a>'+
+    (TG?'<a href="'+TG+'" target="_blank" style="background:#0088cc;color:#fff;padding:10px 20px;border-radius:30px;text-decoration:none;font-weight:600">💬 تيليجرام</a>':'')+
+    '</div></div>';
+  document.body.appendChild(d);
+  
+  ensureGisReady(function(){
+    google.accounts.id.renderButton(
+      document.getElementById('hero-gbtn'),
+      {theme:'filled_blue',size:'large',text:'signin_with',locale:'ar',width:280}
+    );
+  });
+}
+
+function onCredential(response){
+  if(_checking)return;
+  if(!response||!response.credential)return;
+  _checking=true;
+  
+  var msg=document.getElementById('hero-login-msg');
+  if(msg){msg.style.color='#3b82f6';msg.textContent='⏳ جاري التحقق...';}
+  
+  var dev=getOrCreateDevice();
+  
+  fetch(APPS_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({
+      action:'check',
+      id_token:response.credential,
+      device_id:dev.id,
+      device_secret:dev.secret,
+      course_id:COURSE_ID
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    _checking=false;
+    if(!data.ok){
+      var errMap={'invalid_token':'فشل التحقق من الحساب.','missing_params':'بيانات ناقصة.'};
+      if(msg){msg.style.color='#b00020';msg.textContent='❌ '+(errMap[data.error]||data.message||'خطأ');}
+      return;
+    }
+    var signIn=document.getElementById('hero-signin');
+    if(signIn)signIn.remove();
+    applyStatus(data);
+  })
+  .catch(function(err){
+    _checking=false;
+    if(msg){msg.style.color='#b00020';msg.textContent='❌ فشل الاتصال: '+err.message;}
+  });
+}
+
+function applyStatus(data) {
+  hideLoading();
+
+  if (data.status === 'licensed') {
+    saveLicenseCache(data.license);
+    addWatermark(data.license);
+    _releaseDOM();
+    return;
+  }
+  if (data.status === 'trial') {
+    saveTrialCache(data.trial);
+    _releaseDOM();
+    showTrialCard(data.trial.expires_at);
+    return;
+  }
+  if (data.status === 'needs_purchase') {
+    _releaseDOM();
+    showBlockScreen('💬 للشراء','هذه الدورة تحتاج إلى ترخيص...',true);
+    return;
+  }
+  if (data.status === 'trial_expired') {
+    try { localStorage.removeItem(K_TRIAL_CACHE); } catch(e){}
+    _releaseDOM();
+    showBlockScreen('⏰ انتهت التجربة','انتهت الفترة التجريبية. للاستمرار، تواصل معنا للحصول على ترخيص.',true);
+    return;
+  }
+  if (data.status === 'device_limit') {
+    _releaseDOM();
+    showBlockScreen('📱 حد الأجهزة','وصلت للحد الأقصى من الأجهزة ('+(data.limit||3)+'). تواصل مع الإدارة.',true);
+    return;
+  }
+  _releaseDOM();
+  showBlockScreen('⚠️ خطأ','حدث خطأ غير متوقع. حاول مرة أخرى.',true);
+}
+
+function quickRecheck(oldLic){
+  var dev = getOrCreateDevice();
+  showLoading('جاري التحقق من الترخيص...');
+  fetch(APPS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action: 'quick_check',
+      device_id: dev.id,
+      device_secret: dev.secret,
+      course_id: COURSE_ID
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if (data.ok && data.status === 'licensed') {
+      saveLicenseCache(data.license);
+      hideLoading();
+      addWatermark(data.license);
+      _releaseDOM();
+      return;
+    }
+    clearLicenseCache();
+    _fullSignInFlow();
+  })
+  .catch(function(err){
+    console.warn('quick_check failed, using cached:', err.message);
+    hideLoading();
+    addWatermark(oldLic);
+    _releaseDOM();
+  });
+}
+
+function boot(){
+  // ============ 1. ترخيص مخزّن ساري؟ ============
+  var lic = getCachedLicense();
+  if (lic) {
+    console.log('✅ ترخيص مخزّن — وضع Offline');
+    addWatermark(lic);
+    _releaseDOM();
+    return;
+  }
+
+  // ============ 2. تجربة سارية مخزّنة؟ ============
+  var cachedTrial = getCachedTrial();
+  if (cachedTrial) {
+    console.log('✅ تجربة سارية — وضع Offline');
+    _releaseDOM();
+    showTrialCard(cachedTrial.expires_at);
+    return;
+  }
+
+  // ============ 3. سبق التفعيل؟ → quick_check ============
+  var hasDevice = !!localStorage.getItem(K_DEV_ID) && !!localStorage.getItem(K_DEV_SEC);
+  var dev = getOrCreateDevice();
+
+  if (hasDevice) {
+    showLoading('جاري التحقق من الترخيص...');
+    fetch(APPS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'quick_check',
+        device_id: dev.id,
+        device_secret: dev.secret,
+        course_id: COURSE_ID
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.ok && data.status === 'licensed') {
+        saveLicenseCache(data.license);
+        hideLoading();
+        addWatermark(data.license);
+        _releaseDOM();
+        return;
+      }
+      _fullSignInFlow();
+    })
+    .catch(function(){ _fullSignInFlow(); });
+    return;
+  }
+
+  // ============ 4. أول مرة → Google Sign-in ============
+  _fullSignInFlow();
+}
+
+function _fullSignInFlow() {
+  showLoading('جاري التحقق...');
+  ensureGisReady(function(){
+    google.accounts.id.prompt(function(notification){
+      setTimeout(function(){
+        if (!_checking && document.getElementById('hero-loading')) {
+          showSignInScreen();
+        }
+      }, 2000);
+    });
+  });
+}
+
+if(document.readyState==='loading'){
+  _origAdd('DOMContentLoaded',boot);
+}else{
+  boot();
+}
+
+})();
+</script>
+
+</body>
+</html>

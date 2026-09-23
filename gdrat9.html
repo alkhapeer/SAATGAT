@@ -1371,8 +1371,6 @@ function _releaseDOM(){
   _pendingDOM=[];
 }
 
-document.documentElement.style.visibility='hidden';
-
 var _checking=false;
 var _gisInitialized=false;
 
@@ -1474,7 +1472,6 @@ function ensureGisReady(callback, credentialHandler){
       attempts++;
       if(attempts<50)return setTimeout(wait,200);
       hideLoading();
-      document.documentElement.style.visibility='visible';
       _releaseDOM();
       showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google.',{});
       return;
@@ -1563,35 +1560,29 @@ function applyStatus(data){
   
   if(data.status==='licensed'){
     addWatermark(data.license);
-    document.documentElement.style.visibility='visible';
     _releaseDOM();
     return;
   }
   if(data.status==='trial'){
-    document.documentElement.style.visibility='visible';
     _releaseDOM();
     showTrialCard(data.trial.expires_at);
     return;
   }
   if(data.status==='needs_purchase'){
-    document.documentElement.style.visibility='visible';
     _releaseDOM();
     showBlockScreen('💬 للشراء','هذه الدورة تحتاج إلى ترخيص. تواصل معنا للحصول على كود تفعيل.',true);
     return;
   }
   if(data.status==='trial_expired'){
-    document.documentElement.style.visibility='visible';
     _releaseDOM();
     showBlockScreen('⏰ انتهت التجربة','انتهت الفترة التجريبية. للاستمرار، تواصل معنا للحصول على ترخيص.',true);
     return;
   }
   if(data.status==='device_limit'){
-    document.documentElement.style.visibility='visible';
     _releaseDOM();
     showBlockScreen('📱 حد الأجهزة','وصلت للحد الأقصى من الأجهزة ('+(data.limit||3)+'). تواصل مع الإدارة.',true);
     return;
   }
-  document.documentElement.style.visibility='visible';
   _releaseDOM();
   showBlockScreen('⚠️ خطأ','حدث خطأ غير متوقع. حاول مرة أخرى.',true);
 }

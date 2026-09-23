@@ -1464,7 +1464,10 @@ function showTrialCard(expiresAt){
   _trialInterval=setInterval(tick,1000);
 }
 
-function ensureGisReady(callback){
+var _gisCallback = null;
+
+function ensureGisReady(callback, credentialHandler){
+  _gisCallback = credentialHandler || onCredential;
   var attempts=0;
   function wait(){
     if(typeof google==='undefined'||!google.accounts||!google.accounts.id){
@@ -1473,13 +1476,13 @@ function ensureGisReady(callback){
       hideLoading();
       document.documentElement.style.visibility='visible';
       _releaseDOM();
-      showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google. تحقق من الإنترنت.',true);
+      showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google.',{});
       return;
     }
     if(!_gisInitialized){
       google.accounts.id.initialize({
         client_id:CLIENT_ID,
-        callback:onCredential,
+        callback:function(r){ if(_gisCallback)_gisCallback(r); },
         auto_select:false,
         cancel_on_tap_outside:false
       });

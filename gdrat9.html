@@ -1387,9 +1387,18 @@ function getCachedLicense() {
     var raw = localStorage.getItem(K_LICENSE_CACHE);
     if (!raw) return null;
     var lic = JSON.parse(raw);
-    if (!lic || !lic.expires) return lic; // لا يوجد انتهاء = دائم
-    if (isNotExpiredClient(lic.expires)) return lic;
-    return null; // منتهي
+    if (!lic) return null;
+
+    // 1. الانتهاء الحقيقي للترخيص
+    if (lic.expires && !isNotExpiredClient(lic.expires)) return null;
+
+    // 2. موعد إعادة التحقق الدورية
+    if (lic.next_check) {
+      var nc = new Date(lic.next_check).getTime();
+      if (!isNaN(nc) && nc < Date.now()) return null;
+    }
+
+    return lic;
   } catch(e) { return null; }
 }
 
@@ -1639,64 +1648,51 @@ function applyStatus(data) {
   _releaseDOM();
   showBlockScreen('⚠️ خطأ','...',true);
 }
-function tryLoadLocalLicense(){
-  var encRaw=localStorage.getItem(K_LIC);
-  if(!encRaw)return null;
-  var dev=getOrCreateDevice();
-  var ticket=decryptTicket(encRaw,dev.secret);
-  if(!ticket)return null;
-  if(ticket.device_id!==dev.id)return null;
-  if(ticket.expires&&Date.now()>new Date(ticket.expires).getTime())return null;
-  return ticket;
-}
-function quickRecheck(ticket){
-  var dev=getOrCreateDevice();
-  fetch(APPS_URL,{
-    method:'POST',
-    headers:{'Content-Type':'text/plain;charset=utf-8'},
-    body:JSON.stringify({
-      action:'quick_check',
-      device_id:dev.id,
-      device_secret:dev.secret,
-      course_id:COURSE_ID
+
+function quickRecheck(oldLic){
+  var dev = getOrCreateDevice();
+  showLoading('جاري التحقق من الترخيص...');
+  fetch(APPS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action: 'quick_check',
+      device_id: dev.id,
+      device_secret: dev.secret,
+      course_id: COURSE_ID
     })
   })
-  .then(function(r){return r.json();})
+  .then(function(r){ return r.json(); })
   .then(function(data){
-    if(data.ok && data.status==='licensed'){
-      // جدّد التذكرة المشفّرة بـ next_check جديدة
-      var enc=encryptTicket(data.license,dev.secret);
-      if(enc){
-        try{localStorage.setItem(K_LIC,enc);}catch(e){}
-      }
-      bootWithLicense(data.license);
+    if (data.ok && data.status === 'licensed') {
+      saveLicenseCache(data.license);
+      hideLoading();
+      addWatermark(data.license);
+      _releaseDOM();
       return;
     }
-    // فشل → ألغِ التذكرة واطلب تسجيل دخول جديد
-    try{localStorage.removeItem(K_LIC);}catch(e){}
-    showLoginOverlay('انتهت صلاحية الجلسة. سجّل دخولك مجدداً.');
+    // فشل التحقق → ألغِ الكاش واطلب تسجيل دخول جديد
+    clearLicenseCache();
+    _fullSignInFlow();
   })
   .catch(function(err){
-    // تعذّر الاتصال (Offline) → اعمل محلياً بالتذكرة الحالية
-    console.warn('quick_check failed, using local ticket:', err.message);
-    bootWithLicense(ticket);
+    // تعذّر الاتصال — استخدم الترخيص المخزّن محلياً
+    console.warn('quick_check failed, using cached:', err.message);
+    hideLoading();
+    addWatermark(oldLic);
+    _releaseDOM();
   });
 }
 
 function boot(){
-  // 1. حاول تحميل ترخيص محلي صالح
-  var lic=tryLoadLocalLicense();
-  if(lic){
-    if(lic._needs_recheck){
-      // مر 30 يوم → أعد التحقق عبر quick_check (بدون Google)
-      quickRecheck(lic);
-    } else {
-      bootWithLicense(lic);
-    }
+  // ============ 1. ترخيص مخزّن ساري؟ ============
+  var lic = getCachedLicense();
+  if (lic) {
+    console.log('✅ ترخيص مخزّن — وضع Offline');
+    addWatermark(lic);
+    _releaseDOM();
     return;
   }
-  
-  // 2. لا يوجد ترخيص → تحقق من التجربة
 
   // ============ 2. تجربة سارية مخزّنة؟ ============
   var cachedTrial = getCachedTrial();
@@ -1763,6 +1759,5 @@ if(document.readyState==='loading'){
 
 })();
 </script>
-
 </body>
 </html>

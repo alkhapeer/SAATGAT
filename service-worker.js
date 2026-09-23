@@ -1,64 +1,124 @@
-const CACHE_NAME = "hero-academy-v1";
+/* =========================================================
+   Hero Academy — Service Worker
+   ========================================================= */
 
-const ASSETS = [
+const CACHE_VERSION = "v2";
+const CACHE_STATIC  = `hero-static-${CACHE_VERSION}`;
+const CACHE_RUNTIME = `hero-runtime-${CACHE_VERSION}`;
+
+/* الملفات الأساسية التي يجب تخزينها مسبقًا */
+const PRECACHE_ASSETS = [
   "./",
   "./index.html",
   "./manifest.json",
   "./icons/icon.svg",
   "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  "./icons/icon-512.png",
+  "./icons/icon-maskable-192.png",
+  "./icons/icon-maskable-512.png",
+  "./icons/apple-touch-icon.png",
+  "./icons/splash-1170x2532.png",
+  "./icons/splash-1290x2796.png",
+  "./icons/splash-1536x2048.png",
+  "./icons/splash-1668x2388.png",
+  "./icons/splash-2048x2732.png"
 ];
 
-// تثبيت Service Worker وتخزين الملفات الأساسية
+/* ============ INSTALL ============ */
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS);
-    })
-  );
-  self.skipWaiting();
-});
-
-// تفعيل Service Worker وحذف النسخ القديمة
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
+    (async () => {
+      const cache = await caches.open(CACHE_STATIC);
+      // نستخدم addAll مع تجاهل الأخطاء حتى لا يفشل التثبيت لو نقص ملف
+      await Promise.all(
+        PRECACHE_ASSETS.map(async (url) => {
+          try {
+            await cache.add(new Request(url, { cache: "reload" }));
+          } catch (err) {
+            console.warn("[SW] فشل تخزين:", url, err);
           }
         })
       );
-    })
+      self.skipWaiting();
+    })()
   );
-  self.clients.claim();
 });
 
-// اعتراض الطلبات: الشبكة أولاً ثم الكاش
-self.addEventListener("fetch", (event) => {
-  // تجاهل الطلبات غير GET
-  if (event.request.method !== "GET") return;
+/* ============ ACTIVATE ============ */
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys
+          .filter((key) => key !== CACHE_STATIC && key !== CACHE_RUNTIME)
+          .map((key) => caches.delete(key))
+      );
+      if (self.registration.navigationPreload) {
+        await self.registration.navigationPreload.enable();
+      }
+      await self.clients.claim();
+    })()
+  );
+});
 
-  // لا تعترض الطلبات إلى نطاقات خارجية (مثل الروابط الخارجية)
-  const url = new URL(event.request.url);
+/* ============ FETCH ============ */
+self.addEventListener("fetch", (event) => {
+  const { request } = event;
+
+  // تجاهل غير GET
+  if (request.method !== "GET") return;
+
+  const url = new URL(request.url);
+
+  // تجاهل الطلبات الخارجية (نطاقات أخرى)
   if (url.origin !== self.location.origin) return;
 
+  // طلبات التنقل (HTML) => Network First مع fallback إلى الكاش
+  if (request.mode === "navigate") {
+    event.respondWith(
+      (async () => {
+        try {
+          const preload = await event.preloadResponse;
+          if (preload) return preload;
+
+          const network = await fetch(request);
+          const cache = await caches.open(CACHE_STATIC);
+          cache.put("./index.html", network.clone());
+          return network;
+        } catch (err) {
+          const cache = await caches.open(CACHE_STATIC);
+          const cached = await cache.match("./index.html");
+          return cached || Response.error();
+        }
+      })()
+    );
+    return;
+  }
+
+  // الملفات الثابتة (CSS/JS/Images) => Cache First مع تحديث في الخلفية
   event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // تحديث الكاش بنسخة جديدة
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
-        return response;
-      })
-      .catch(() => {
-        // في حال فشل الشبكة، استخدم الكاش
-        return caches.match(event.request).then((cached) => {
-          return cached || caches.match("./index.html");
-        });
-      })
+    (async () => {
+      const cache = await caches.open(CACHE_STATIC);
+      const cached = await cache.match(request);
+
+      const fetchAndUpdate = fetch(request)
+        .then((response) => {
+          if (response && response.status === 200 && response.type === "basic") {
+            cache.put(request, response.clone());
+          }
+          return response;
+        })
+        .catch(() => cached);
+
+      return cached || fetchAndUpdate;
+    })()
   );
+});
+
+/* ============ MESSAGES ============ */
+self.addEventListener("message", (event) => {
+  if (event.data === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
 });

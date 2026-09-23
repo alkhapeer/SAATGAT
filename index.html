@@ -4,18 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>أكاديمية هيرو | التحصيلي والقدرات</title>
-  <meta name="description" content="أكاديمية هيرو للتدريب على التحصيلي والقدرات. مواد التحصيلي والقدرات الكمي واللفظي في واجهة تعليمية سهلة.">
+  <title>تطبيق سوبر هيرو | التحصيلي والقدرات</title>
+  <meta name="description" content="تطبيق سوبر هيرو للتدريب على التحصيلي والقدرات. مواد التحصيلي والقدرات الكمي واللفظي في واجهة تعليمية سهلة.">
   <meta name="theme-color" content="#2563eb">
 
   <!-- ===== PWA ===== -->
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="أكاديمية هيرو">
+  <meta name="apple-mobile-web-app-title" content="سوبر هيرو">
 
   <style>
     * {
@@ -51,6 +52,8 @@
       padding: 55px 20px 70px;
       text-align: center;
       border-radius: 0 0 35px 35px;
+      position: relative;
+      margin-bottom: 65px;
     }
 
     .brand {
@@ -100,30 +103,19 @@
       transform: translateY(-2px);
     }
 
-    header {
-      position: relative;
-      margin-bottom: 65px;
-    }
-
     .section-badge {
       position: absolute;
       bottom: -28px;
       right: 50%;
       transform: translateX(50%);
-
       background: white;
       color: #2563eb;
-
-      padding: 10px 32px;
+      padding: 8px 24px;
       border-radius: 16px;
-
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 800;
-
       border: 3px solid #2563eb;
-
       box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
-
       white-space: nowrap;
       z-index: 10;
     }
@@ -206,8 +198,9 @@
     }
 
     .card h3 {
-      font-size: 19px;
+      font-size: 16px;
       margin-bottom: 7px;
+      line-height: 1.4;
     }
 
     .card p {
@@ -357,22 +350,18 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1100;
-
       display: inline-flex;
       align-items: center;
       gap: 9px;
-
       background: linear-gradient(135deg, #173b8f, #2563eb);
       color: #fff;
       border: none;
       padding: 13px 26px;
       border-radius: 999px;
-
       font-family: inherit;
       font-size: 14.5px;
       font-weight: bold;
       cursor: pointer;
-
       box-shadow: 0 10px 26px rgba(37, 99, 235, .38);
       animation: installPulse 2.4s ease-in-out infinite;
       transition: transform .2s ease;
@@ -403,18 +392,15 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1100;
-
       width: min(92vw, 420px);
       background: #ffffff;
       color: #172033;
       border: 1px solid #e7ebf3;
       border-radius: 18px;
       padding: 14px 16px;
-
       font-size: 13px;
       line-height: 1.6;
       text-align: center;
-
       box-shadow: 0 12px 32px rgba(0, 0, 0, .16);
     }
 
@@ -470,6 +456,15 @@
         padding: 22px 18px;
       }
 
+      .card h3 {
+        font-size: 15px;
+      }
+
+      .section-badge {
+        font-size: 15px;
+        padding: 7px 20px;
+      }
+
       .bottom-nav {
         height: 68px;
       }
@@ -493,9 +488,9 @@
 
   <header id="home">
 
-    <div class="brand">HERO ACADEMY</div>
+    <div class="brand">SUPER HERO</div>
 
-    <h1>أكاديمية هيرو</h1>
+    <h1>سوبر هيرو</h1>
 
     <p>
       طريقك للاستعداد للقدرات والتحصيلي
@@ -507,8 +502,8 @@
       <a href="#helper" class="hero-btn secondary">مساعد الطالب</a>
     </div>
 
-    <!-- شارة التحصيلي خارج البانر -->
-    <div class="section-badge">التحصيلي</div>
+    <!-- شارة خارج البانر -->
+    <div class="section-badge">سوبر هيرو التحصيلي</div>
 
   </header>
 
@@ -528,7 +523,7 @@
         <!-- Physics -->
         <a href="http://saatgat.hero1.vip/demo_course_phys001.html" class="card">
           <div class="icon">⚛️</div>
-          <h3>الفيزياء</h3>
+          <h3>سوبر هيرو الفيزياء</h3>
           <p>مراجعة ومحتوى الفيزياء للتحصيلي</p>
           <span class="card-button">دخول المادة</span>
         </a>
@@ -536,7 +531,7 @@
         <!-- Chemistry -->
         <a href="http://saatgat.hero1.vip/demo_course_chem001.html" class="card">
           <div class="icon">🧪</div>
-          <h3>الكيمياء</h3>
+          <h3>سوبر هيرو الكيمياء</h3>
           <p>مراجعة ومحتوى الكيمياء للتحصيلي</p>
           <span class="card-button">دخول المادة</span>
         </a>
@@ -544,7 +539,7 @@
         <!-- Biology -->
         <a href="#" class="card">
           <div class="icon">🧬</div>
-          <h3>الأحياء</h3>
+          <h3>سوبر هيرو الأحياء</h3>
           <p>مراجعة ومحتوى الأحياء للتحصيلي</p>
           <span class="card-button">دخول المادة</span>
         </a>
@@ -552,7 +547,7 @@
         <!-- Math -->
         <a href="#" class="card">
           <div class="icon">📐</div>
-          <h3>الرياضيات</h3>
+          <h3>سوبر هيرو الرياضيات</h3>
           <p>مراجعة ومحتوى الرياضيات للتحصيلي</p>
           <span class="card-button">دخول المادة</span>
         </a>
@@ -572,10 +567,10 @@
 
       <div class="cards">
 
-        <!-- Quantitative -->
+        <!-- Quantitative & Verbal -->
         <a href="gdrat9.html" class="card">
           <div class="icon">🔢</div>
-          <h3>القدرات الكمي واللفظي</h3>
+          <h3>سوبر هيرو القدرات</h3>
           <p>تدريب على المهارات والأسئلة الكمية</p>
           <p>تدريب على المهارات والأسئلة اللفظية</p>
           <span class="card-button">دخول المادة</span>
@@ -623,10 +618,10 @@
     <section id="about">
 
       <div class="about">
-        <h2>عن أكاديمية هيرو</h2>
+        <h2>عن سوبر هيرو</h2>
 
         <p>
-          أكاديمية هيرو منصة تعليمية تهدف إلى تقديم محتوى تدريبي
+          سوبر هيرو منصة تعليمية تهدف إلى تقديم محتوى تدريبي
           يساعد الطلاب على الاستعداد لاختبارات القدرات والتحصيلي
           من خلال تجربة بسيطة وسهلة الاستخدام.
         </p>
@@ -659,22 +654,22 @@
 
     <div class="nav-inner">
 
-      <a href="https://app.hero1.vip/#home" class="nav-item active">
+      <a href="#home" class="nav-item active">
         <span>⌂</span>
         <span>الرئيسية</span>
       </a>
 
-      <a href="https://app.hero1.vip/#courses" class="nav-item">
+      <a href="#courses" class="nav-item">
         <span>📚</span>
         <span>الدورات</span>
       </a>
 
-      <a href="https://app.hero1.vip/#helper" class="nav-item">
+      <a href="#helper" class="nav-item">
         <span>💡</span>
         <span>مساعد الطالب</span>
       </a>
 
-      <a href="https://app.hero1.vip/#about" class="nav-item">
+      <a href="#about" class="nav-item">
         <span>ℹ️</span>
         <span>عن</span>
       </a>

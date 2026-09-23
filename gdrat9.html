@@ -1358,13 +1358,63 @@ var TG="https://t.me/Herocourses";
 
 var K_DEV_ID="hero_dev_id_"+COURSE_ID;
 var K_DEV_SEC="hero_dev_sec_"+COURSE_ID;
-
+var K_LICENSE_CACHE = "hero_lic_cache_" + COURSE_ID;
+var K_TRIAL_CACHE   = "hero_trial_cache_" + COURSE_ID;
 var _pendingDOM=[],_allowDOM=false;
 var _origAdd=document.addEventListener.bind(document);
 document.addEventListener=function(t,f,o){
   if(t==='DOMContentLoaded'&&!_allowDOM){_pendingDOM.push({fn:f,opts:o});return;}
   return _origAdd(t,f,o);
 };
+function isNotExpiredClient(raw) {
+  if (!raw) return true;
+  var str = String(raw).trim();
+  if (str === '') return true;
+
+  var m = str.match(/^(\d{4})[-.\/](\d{1,2})[-.\/](\d{1,2})/);
+  if (m) return new Date(+m[1], +m[2]-1, +m[3], 23, 59, 59).getTime() >= Date.now();
+
+  m = str.match(/^(\d{1,2})[-.\/](\d{1,2})[-.\/](\d{4})/);
+  if (m) return new Date(+m[3], +m[2]-1, +m[1], 23, 59, 59).getTime() >= Date.now();
+
+  var fb = new Date(str);
+  if (!isNaN(fb.getTime())) return fb.getTime() >= Date.now();
+  return false;
+}
+
+function getCachedLicense() {
+  try {
+    var raw = localStorage.getItem(K_LICENSE_CACHE);
+    if (!raw) return null;
+    var lic = JSON.parse(raw);
+    if (!lic || !lic.expires) return lic; // لا يوجد انتهاء = دائم
+    if (isNotExpiredClient(lic.expires)) return lic;
+    return null; // منتهي
+  } catch(e) { return null; }
+}
+
+function saveLicenseCache(lic) {
+  try { localStorage.setItem(K_LICENSE_CACHE, JSON.stringify(lic)); } catch(e) {}
+}
+
+function clearLicenseCache() {
+  try { localStorage.removeItem(K_LICENSE_CACHE); } catch(e) {}
+}
+
+function getCachedTrial() {
+  try {
+    var raw = localStorage.getItem(K_TRIAL_CACHE);
+    if (!raw) return null;
+    var tr = JSON.parse(raw);
+    if (!tr || !tr.expires_at) return null;
+    if (new Date(tr.expires_at).getTime() > Date.now()) return tr;
+    return null;
+  } catch(e) { return null; }
+}
+
+function saveTrialCache(tr) {
+  try { localStorage.setItem(K_TRIAL_CACHE, JSON.stringify(tr)); } catch(e) {}
+}
 function _releaseDOM(){
   _allowDOM=true;
   _pendingDOM.forEach(function(p){try{p.fn.call(document,new Event('DOMContentLoaded'));}catch(e){}});
@@ -1473,7 +1523,7 @@ function ensureGisReady(callback, credentialHandler){
       if(attempts<50)return setTimeout(wait,200);
       hideLoading();
       _releaseDOM();
-      showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google.',{});
+      showBlockScreen('⚠️ خطأ','فشل تحميل مكتبة Google.',false);
       return;
     }
     if(!_gisInitialized){
@@ -1555,44 +1605,149 @@ function onCredential(response){
   });
 }
 
-function applyStatus(data){
+function applyStatus(data) {
   hideLoading();
-  
-  if(data.status==='licensed'){
+
+  if (data.status === 'licensed') {
+    saveLicenseCache(data.license);   // ← خزّن للاستخدام Offline
     addWatermark(data.license);
     _releaseDOM();
     return;
   }
-  if(data.status==='trial'){
+  if (data.status === 'trial') {
+    saveTrialCache(data.trial);        // ← خزّن التجربة أيضاً
     _releaseDOM();
     showTrialCard(data.trial.expires_at);
     return;
   }
-  if(data.status==='needs_purchase'){
+  if (data.status === 'needs_purchase') {
     _releaseDOM();
-    showBlockScreen('💬 للشراء','هذه الدورة تحتاج إلى ترخيص. تواصل معنا للحصول على كود تفعيل.',true);
+    showBlockScreen('💬 للشراء','هذه الدورة تحتاج إلى ترخيص...',true);
     return;
   }
-  if(data.status==='trial_expired'){
+  if (data.status === 'trial_expired') {
+    try { localStorage.removeItem(K_TRIAL_CACHE); } catch(e){}
     _releaseDOM();
-    showBlockScreen('⏰ انتهت التجربة','انتهت الفترة التجريبية. للاستمرار، تواصل معنا للحصول على ترخيص.',true);
+    showBlockScreen('⏰ انتهت التجربة','...',true);
     return;
   }
-  if(data.status==='device_limit'){
+  if (data.status === 'device_limit') {
     _releaseDOM();
-    showBlockScreen('📱 حد الأجهزة','وصلت للحد الأقصى من الأجهزة ('+(data.limit||3)+'). تواصل مع الإدارة.',true);
+    showBlockScreen('📱 حد الأجهزة','...',true);
     return;
   }
   _releaseDOM();
-  showBlockScreen('⚠️ خطأ','حدث خطأ غير متوقع. حاول مرة أخرى.',true);
+  showBlockScreen('⚠️ خطأ','...',true);
+}
+function tryLoadLocalLicense(){
+  var encRaw=localStorage.getItem(K_LIC);
+  if(!encRaw)return null;
+  var dev=getOrCreateDevice();
+  var ticket=decryptTicket(encRaw,dev.secret);
+  if(!ticket)return null;
+  if(ticket.device_id!==dev.id)return null;
+  if(ticket.expires&&Date.now()>new Date(ticket.expires).getTime())return null;
+  return ticket;
+}
+function quickRecheck(ticket){
+  var dev=getOrCreateDevice();
+  fetch(APPS_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({
+      action:'quick_check',
+      device_id:dev.id,
+      device_secret:dev.secret,
+      course_id:COURSE_ID
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.ok && data.status==='licensed'){
+      // جدّد التذكرة المشفّرة بـ next_check جديدة
+      var enc=encryptTicket(data.license,dev.secret);
+      if(enc){
+        try{localStorage.setItem(K_LIC,enc);}catch(e){}
+      }
+      bootWithLicense(data.license);
+      return;
+    }
+    // فشل → ألغِ التذكرة واطلب تسجيل دخول جديد
+    try{localStorage.removeItem(K_LIC);}catch(e){}
+    showLoginOverlay('انتهت صلاحية الجلسة. سجّل دخولك مجدداً.');
+  })
+  .catch(function(err){
+    // تعذّر الاتصال (Offline) → اعمل محلياً بالتذكرة الحالية
+    console.warn('quick_check failed, using local ticket:', err.message);
+    bootWithLicense(ticket);
+  });
 }
 
 function boot(){
+  // 1. حاول تحميل ترخيص محلي صالح
+  var lic=tryLoadLocalLicense();
+  if(lic){
+    if(lic._needs_recheck){
+      // مر 30 يوم → أعد التحقق عبر quick_check (بدون Google)
+      quickRecheck(lic);
+    } else {
+      bootWithLicense(lic);
+    }
+    return;
+  }
+  
+  // 2. لا يوجد ترخيص → تحقق من التجربة
+
+  // ============ 2. تجربة سارية مخزّنة؟ ============
+  var cachedTrial = getCachedTrial();
+  if (cachedTrial) {
+    console.log('✅ تجربة سارية — وضع Offline');
+    _releaseDOM();
+    showTrialCard(cachedTrial.expires_at);
+    return;
+  }
+
+  // ============ 3. سبق التفعيل؟ → quick_check ============
+  var hasDevice = !!localStorage.getItem(K_DEV_ID) && !!localStorage.getItem(K_DEV_SEC);
+  var dev = getOrCreateDevice();
+
+  if (hasDevice) {
+    showLoading('جاري التحقق من الترخيص...');
+    fetch(APPS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        action: 'quick_check',
+        device_id: dev.id,
+        device_secret: dev.secret,
+        course_id: COURSE_ID
+      })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (data.ok && data.status === 'licensed') {
+        saveLicenseCache(data.license);
+        hideLoading();
+        addWatermark(data.license);
+        _releaseDOM();
+        return;
+      }
+      _fullSignInFlow();
+    })
+    .catch(function(){ _fullSignInFlow(); });
+    return;
+  }
+
+  // ============ 4. أول مرة → Google Sign-in ============
+  _fullSignInFlow();
+}
+
+function _fullSignInFlow() {
   showLoading('جاري التحقق...');
   ensureGisReady(function(){
     google.accounts.id.prompt(function(notification){
       setTimeout(function(){
-        if(!_checking && document.getElementById('hero-loading')){
+        if (!_checking && document.getElementById('hero-loading')) {
           showSignInScreen();
         }
       }, 2000);

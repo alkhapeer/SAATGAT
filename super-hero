@@ -1169,7 +1169,7 @@ section { padding: 90px 0; position: relative; }
       <!-- 📌 [PLACEHOLDER: EMAIL_URL] -->
       <a href="mailto:info@hero1.vip" title="البريد الإلكتروني">📧</a>
       <!-- 📌 [PLACEHOLDER: YOUTUBE_URL] -->
-      <a href="#" target="_blank" rel="noopener" title="يوتيوب">▶️</a>
+      <a href="https://www.youtube.com/@Hero1vip" target="_blank" rel="noopener" title="يوتيوب">▶️</a>
     </div>
     <div class="footer-bottom">
       © 2025 Hero Academy. جميع الحقوق محفوظة. | صُنع بـ ❤️ للطلاب العرب

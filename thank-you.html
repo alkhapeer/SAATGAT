@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شكراً لشرائك! - سوبر هيرو</title>
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 30px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 15px 40px rgba(30, 64, 175, 0.1);
+      border: 1px solid #e7ebf3;
+    }
+    .icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+    h1 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #1a2634;
+    }
+    p {
+      color: #475569;
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    .btn-activate {
+      display: inline-block;
+      background: linear-gradient(135deg, #173b8f, #2563eb);
+      color: white;
+      padding: 16px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-activate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+    }
+    .btn-activate:active {
+      transform: scale(0.98);
+    }
+    .status-msg {
+      margin-top: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 20px;
+    }
+    .status-msg.success { color: #166534; }
+    .status-msg.error { color: #b00020; }
+    .status-msg.loading { color: #2563eb; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="icon">🎉</div>
+  <h1>شكراً لشرائك!</h1>
+  <p>اضغط على الزر أدناه لتفعيل دورتك فوراً. بعد التفعيل، يمكنك الدخول إلى الدرس باستخدام نفس حساب Google الذي استخدمته في الشراء.</p>
+  
+  <button id="activateBtn" class="btn-activate">🔓 تفعيل الدورة الآن</button>
+  
+  <div id="statusMsg" class="status-msg"></div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  // ⚠️ استبدل هذا الرابط برابط Web App الخاص بك (ينتهي بـ /exec)
+  var APPS_URL = "https://script.google.com/macros/s/XXXXXXXXXXXXXXXX/exec";
+
+  var btn = document.getElementById("activateBtn");
+  var msg = document.getElementById("statusMsg");
+
+  btn.addEventListener("click", function() {
+    btn.disabled = true;
+    btn.textContent = "⏳ جاري التفعيل...";
+    msg.className = "status-msg loading";
+    msg.textContent = "نقوم بالتحقق من عملية الشراء وتفعيل حسابك...";
+
+    fetch(APPS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ action: "trigger_poll" })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        msg.className = "status-msg success";
+        msg.textContent = "✅ تم التفعيل بنجاح! جاري تحويلك...";
+        setTimeout(function() {
+          // ⚠️ استبدل هذا الرابط برابط الدرس المحمي (مثال: protected_9.html)
+          window.location.href = "https://saatgat.hero1.vip/protected_9.html";
+        }, 2000);
+      } else {
+        msg.className = "status-msg error";
+        msg.textContent = "❌ حدث خطأ: " + (data.message || "يرجى المحاولة مرة أخرى أو التواصل مع الدعم.");
+        btn.disabled = false;
+        btn.textContent = "🔓 تفعيل الدورة الآن";
+      }
+    })
+    .catch(function(err) {
+      msg.className = "status-msg error";
+      msg.textContent = "❌ فشل الاتصال. يرجى المحاولة مرة أخرى.";
+      btn.disabled = false;
+      btn.textContent = "🔓 تفعيل الدورة الآن";
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

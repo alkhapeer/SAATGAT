@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎓 Hero Academy — منصتك الشاملة للتحصيلي والقدرات</title>
+<meta name="description" content="5 تطبيقات تفاعلية متكاملة للتحصيلي والقدرات. مراجعة ذكية، تدريب مكثف، تشخيص دقيق. ابدأ الآن وارفع درجتك!">
+
+<!--
+  ═══════════════════════════════════════════════════════════════
+  📌 دليل تعديل الروابط السريع (ابحث عن: [PLACEHOLDER])
+  ═══════════════════════════════════════════════════════════════
+  1. GUMROAD_URL  → رابط الشراء الرئيسي (Gumroad / Payhip / إلخ)
+  2. WHATSAPP_URL → رابط واتساب للتفعيل المباشر
+  3. TELEGRAM_URL → رابط تيليجرام للتفعيل المباشر
+  4. TRIAL_URL    → رابط التجربة المجانية
+  5. APP_*_URL    → روابط فتح كل تطبيق بعد الشراء
+  ═══════════════════════════════════════════════════════════════
+-->
+
+<style>
+/* ============ RESET & ROOT ============ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --primary: #0b1e4a;
+  --primary-light: #1a3a7c;
+  --accent: #f5a623;
+  --accent-light: #ffc94a;
+  --gold: #d4af37;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --bg: #f8fafc;
+  --bg-dark: #060d1f;
+  --text: #0f172a;
+  --text-light: #64748b;
+  --text-inverse: #f1f5f9;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow: 0 10px 40px -10px rgba(11,30,74,0.15);
+  --shadow-lg: 0 25px 60px -15px rgba(11,30,74,0.25);
+  --shadow-glow: 0 0 40px rgba(245,166,35,0.35);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', 'Tahoma', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
+
+/* ============ ANIMATIONS ============ */
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.6); } 50% { box-shadow: 0 0 0 20px rgba(245,166,35,0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+@keyframes blob { 0%,100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } 50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; } }
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ============ CONTAINER ============ */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* ============ NAVBAR ============ */
+.navbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 14px 0;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(226,232,240,0.6);
+  transition: var(--transition);
+}
+.navbar.scrolled { padding: 8px 0; box-shadow: var(--shadow-sm); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+.logo-badge {
+  width: 42px; height: 42px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: grid; place-items: center; color: var(--accent);
+  font-size: 1.4rem;
+  box-shadow: 0 4px 15px rgba(11,30,74,0.3);
+}
+.logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a { font-size: 0.95rem; font-weight: 600; color: var(--text-light); transition: var(--transition); }
+.nav-links a:hover { color: var(--primary); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--primary) !important;
+  padding: 10px 22px; border-radius: 40px;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 15px rgba(245,166,35,0.4);
+  transition: var(--transition);
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(245,166,35,0.5); }
+.menu-toggle { display: none; font-size: 1.5rem; color: var(--primary); }
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  padding: 140px 0 80px;
+  background: linear-gradient(180deg, #f0f4ff 0%, #f8fafc 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(245,166,35,0.15), transparent 70%);
+  border-radius: 50%;
+  animation: blob 15s infinite;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -150px; left: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(26,58,124,0.12), transparent 70%);
+  border-radius: 50%;
+  animation: blob 20s infinite reverse;
+}
+.hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, rgba(245,166,35,0.15), rgba(245,166,35,0.05));
+  color: #b17c00;
+  padding: 8px 18px; border-radius: 40px;
+  font-size: 0.85rem; font-weight: 700;
+  border: 1px solid rgba(245,166,35,0.3);
+  margin-bottom: 20px;
+}
+.hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse-glow 2s infinite; box-shadow: 0 0 0 0 rgba(34,197,94,0.6); }
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.25; font-weight: 900;
+  color: var(--primary); margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--accent), #ff9d00);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+.hero h1 .highlight::after {
+  content: ''; position: absolute; bottom: 4px; left: 0; right: 0;
+  height: 8px; background: rgba(245,166,35,0.25); border-radius: 4px;
+  z-index: -1;
+}
+.hero p.lead {
+  font-size: 1.15rem; color: var(--text-light);
+  margin-bottom: 32px; max-width: 540px; line-height: 1.8;
+}
+.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 16px 32px; border-radius: 50px;
+  font-weight: 800; font-size: 1rem;
+  transition: var(--transition); cursor: pointer;
+  position: relative; overflow: hidden;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--primary);
+  box-shadow: 0 10px 30px -8px rgba(245,166,35,0.6);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 45px -10px rgba(245,166,35,0.7); }
+.btn-secondary {
+  background: var(--card); color: var(--primary);
+  border: 2px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+.btn-secondary:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow); }
+.btn-dark {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  box-shadow: 0 10px 30px -8px rgba(11,30,74,0.5);
+}
+.btn-dark:hover { transform: translateY(-3px); box-shadow: 0 18px 45px -10px rgba(11,30,74,0.6); }
+.btn-large { padding: 20px 44px; font-size: 1.1rem; }
+
+.hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.hero-stat .num { font-size: 2rem; font-weight: 900; color: var(--primary); line-height: 1; }
+.hero-stat .num span { color: var(--accent); }
+.hero-stat .lbl { font-size: 0.85rem; color: var(--text-light); margin-top: 4px; font-weight: 600; }
+
+/* HERO VISUAL */
+.hero-visual { position: relative; }
+.hero-mockup {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 32px;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+  transition: var(--transition);
+}
+.hero-mockup:hover { transform: perspective(1200px) rotateY(0deg) rotateX(0deg); }
+.mockup-header { display: flex; gap: 6px; margin-bottom: 16px; }
+.mockup-header span { width: 12px; height: 12px; border-radius: 50%; }
+.mockup-header span:nth-child(1) { background: #ff5f57; }
+.mockup-header span:nth-child(2) { background: #febc2e; }
+.mockup-header span:nth-child(3) { background: #28c840; }
+.mockup-body { background: #fff; border-radius: 16px; padding: 20px; }
+.mockup-title { font-size: 0.9rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
+.mockup-sub { font-size: 0.75rem; color: var(--text-light); margin-bottom: 16px; }
+.mockup-progress { height: 8px; background: #f1f5f9; border-radius: 10px; overflow: hidden; margin-bottom: 12px; }
+.mockup-progress .fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-light)); border-radius: 10px; width: 78%; }
+.mockup-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mockup-card {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 12px; border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.mockup-card .icon { font-size: 1.2rem; margin-bottom: 4px; }
+.mockup-card .t { font-size: 0.75rem; font-weight: 700; color: var(--primary); }
+.mockup-card .v { font-size: 1rem; font-weight: 800; color: var(--accent); }
+
+.floating-badge {
+  position: absolute; background: #fff;
+  padding: 12px 18px; border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; font-size: 0.85rem;
+  z-index: 5;
+}
+.floating-badge.b1 { top: 20px; left: -30px; animation: float 4s infinite; }
+.floating-badge.b2 { bottom: 40px; right: -30px; animation: float 5s infinite 0.5s; }
+.floating-badge .fb-icon { font-size: 1.4rem; }
+.floating-badge .fb-text { color: var(--primary); }
+.floating-badge .fb-sub { font-size: 0.7rem; color: var(--text-light); font-weight: 500; }
+
+/* ============ SECTIONS ============ */
+section { padding: 90px 0; position: relative; }
+.section-header { text-align: center; margin-bottom: 60px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.section-tag {
+  display: inline-block;
+  background: rgba(11,30,74,0.06);
+  color: var(--primary);
+  padding: 6px 18px; border-radius: 40px;
+  font-size: 0.8rem; font-weight: 800;
+  margin-bottom: 16px;
+  letter-spacing: 0.05em;
+}
+.section-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 900; color: var(--primary);
+  margin-bottom: 14px; line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+.section-header p { font-size: 1.05rem; color: var(--text-light); }
+
+/* ============ PAIN POINTS ============ */
+.pain-section { background: linear-gradient(180deg, #fff 0%, #f8fafc 100%); }
+.pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.pain-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 30px 26px;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.pain-card::before {
+  content: ''; position: absolute; top: 0; right: 0;
+  width: 4px; height: 100%;
+  background: var(--danger);
+  opacity: 0;
+  transition: var(--transition);
+}
+.pain-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); border-color: transparent; }
+.pain-card:hover::before { opacity: 1; }
+.pain-icon {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  display: grid; place-items: center;
+  font-size: 1.6rem; margin-bottom: 18px;
+}
+.pain-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+.pain-card p { font-size: 0.92rem; color: var(--text-light); }
+
+/* ============ SOLUTION / FEATURES ============ */
+.features-section { background: var(--bg-dark); color: var(--text-inverse); position: relative; overflow: hidden; }
+.features-section::before {
+  content: ''; position: absolute; top: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(245,166,35,0.15), transparent 70%);
+  border-radius: 50%;
+}
+.features-section .section-header h2 { color: #fff; }
+.features-section .section-header p { color: #94a3b8; }
+.features-section .section-tag { background: rgba(245,166,35,0.15); color: var(--accent); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; position: relative; z-index: 2; }
+.feature-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+.feature-card:hover {
+  background: rgba(255,255,255,0.07);
+  transform: translateY(-6px);
+  border-color: rgba(245,166,35,0.4);
+  box-shadow: var(--shadow-glow);
+}
+.feature-icon {
+  width: 60px; height: 60px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(245,166,35,0.2), rgba(245,166,35,0.05));
+  border: 1px solid rgba(245,166,35,0.3);
+  display: grid; place-items: center;
+  font-size: 1.8rem; margin-bottom: 20px;
+}
+.feature-card h3 { font-size: 1.15rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.feature-card p { font-size: 0.92rem; color: #94a3b8; line-height: 1.8; }
+
+/* ============ APPS SHOWCASE ============ */
+.apps-section { background: linear-gradient(180deg, #f8fafc 0%, #f0f4ff 100%); }
+.apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.app-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: relative;
+}
+.app-card::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-light));
+  transform: scaleX(0); transition: var(--transition);
+}
+.app-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.app-card:hover::after { transform: scaleX(1); }
+.app-header {
+  padding: 26px 24px 20px;
+  background: linear-gradient(135deg, var(--app-color, var(--primary)) 0%, var(--app-color2, var(--primary-light)) 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.app-header::before {
+  content: ''; position: absolute;
+  top: -50px; left: -50px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+  border-radius: 50%;
+}
+.app-emoji { font-size: 2.4rem; margin-bottom: 8px; position: relative; z-index: 2; }
+.app-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 4px; position: relative; z-index: 2; }
+.app-subtitle { font-size: 0.85rem; opacity: 0.9; position: relative; z-index: 2; }
+.app-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; }
+.app-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px; line-height: 1.7; }
+.app-features { list-style: none; margin-bottom: 18px; flex: 1; }
+.app-features li {
+  font-size: 0.85rem; color: var(--text);
+  padding: 6px 0 6px 0;
+  display: flex; align-items: center; gap: 8px;
+}
+.app-features li::before {
+  content: '✓'; color: var(--success);
+  font-weight: 900; font-size: 0.9rem;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: rgba(34,197,94,0.1);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.app-actions { display: flex; gap: 8px; }
+.app-btn {
+  flex: 1; text-align: center;
+  padding: 12px 16px; border-radius: 12px;
+  font-weight: 700; font-size: 0.88rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.app-btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--primary);
+  box-shadow: 0 4px 15px -4px rgba(245,166,35,0.5);
+}
+.app-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px -4px rgba(245,166,35,0.6); }
+.app-btn-outline {
+  background: transparent;
+  color: var(--text-light);
+  border: 2px solid var(--border);
+}
+.app-btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ============ TESTIMONIALS ============ */
+.testimonials-section { background: #fff; }
+.testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.testimonial-card {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: var(--radius);
+  padding: 28px 26px;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+}
+.testimonial-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.testimonial-card::before {
+  content: '"'; position: absolute; top: 10px; left: 20px;
+  font-size: 5rem; color: var(--accent); opacity: 0.15;
+  font-family: Georgia, serif; line-height: 1;
+}
+.testimonial-stars { color: var(--accent); font-size: 1rem; margin-bottom: 12px; letter-spacing: 2px; }
+.testimonial-text { font-size: 0.95rem; color: var(--text); line-height: 1.8; margin-bottom: 20px; position: relative; z-index: 2; }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.testimonial-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  display: grid; place-items: center;
+  color: #fff; font-weight: 800; font-size: 1.1rem;
+}
+.testimonial-info .name { font-weight: 800; font-size: 0.95rem; color: var(--primary); }
+.testimonial-info .role { font-size: 0.8rem; color: var(--text-light); }
+
+/* ============ PRICING ============ */
+.pricing-section { background: linear-gradient(180deg, #f0f4ff 0%, #f8fafc 100%); }
+.pricing-card {
+  max-width: 640px; margin: 0 auto;
+  background: var(--card);
+  border-radius: 28px;
+  padding: 44px 40px;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--accent);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.pricing-card::before {
+  content: 'الأكثر طلباً'; position: absolute;
+  top: 20px; left: -40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  color: var(--primary);
+  padding: 6px 50px; font-weight: 800; font-size: 0.8rem;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 15px rgba(245,166,35,0.4);
+}
+.pricing-title { font-size: 1.4rem; font-weight: 900; color: var(--primary); margin-bottom: 8px; }
+.pricing-sub { font-size: 0.95rem; color: var(--text-light); margin-bottom: 26px; }
+.pricing-price { margin: 20px 0; }
+.pricing-price .price {
+  font-size: 3.6rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+.pricing-price .currency { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-right: 4px; }
+.pricing-price .old {
+  font-size: 1.2rem; color: var(--text-light);
+  text-decoration: line-through; margin-right: 12px;
+}
+.pricing-note { font-size: 0.85rem; color: var(--text-light); margin-bottom: 24px; }
+.pricing-features { list-style: none; text-align: right; margin: 28px 0; padding: 24px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.pricing-features li {
+  padding: 8px 0; font-size: 0.95rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.pricing-features li::before {
+  content: '✓'; color: var(--success); font-weight: 900;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(34,197,94,0.1);
+  display: grid; place-items: center; flex-shrink: 0;
+}
+.pricing-cta { margin-top: 20px; }
+.pricing-guarantee {
+  margin-top: 20px; padding: 16px; border-radius: 14px;
+  background: rgba(34,197,94,0.06);
+  border: 1px solid rgba(34,197,94,0.2);
+  font-size: 0.88rem; color: #166534;
+  display: flex; align-items: center; gap: 10px;
+  text-align: right;
+}
+.pricing-guarantee .ico { font-size: 1.6rem; }
+
+/* ============ FAQ ============ */
+.faq-section { background: #fff; }
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: var(--transition);
+  background: #fff;
+}
+.faq-item:hover { border-color: var(--primary); box-shadow: var(--shadow-sm); }
+.faq-question {
+  padding: 20px 24px;
+  font-weight: 800; font-size: 1rem;
+  color: var(--primary);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 16px;
+  user-select: none;
+}
+.faq-question .arrow { transition: var(--transition); font-size: 1.2rem; color: var(--accent); }
+.faq-item.open .faq-question .arrow { transform: rotate(180deg); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding: 0 24px;
+  color: var(--text-light);
+  font-size: 0.92rem; line-height: 1.8;
+}
+.faq-item.open .faq-answer { max-height: 500px; padding-bottom: 20px; }
+
+/* ============ FINAL CTA ============ */
+.final-cta {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.final-cta::before {
+  content: ''; position: absolute; top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(245,166,35,0.2), transparent 70%);
+  border-radius: 50%; animation: blob 12s infinite;
+}
+.final-cta::after {
+  content: ''; position: absolute; bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  border-radius: 50%; animation: blob 15s infinite reverse;
+}
+.final-cta-content { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
+.final-cta h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 900; margin-bottom: 16px; line-height: 1.3; }
+.final-cta h2 span { color: var(--accent); }
+.final-cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 32px; }
+.final-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.final-cta .btn-primary { background: var(--accent); color: var(--primary); }
+.final-cta .btn-secondary { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
+.final-cta .btn-secondary:hover { background: rgba(255,255,255,0.2); border-color: #fff; }
+
+/* ============ FOOTER ============ */
+.footer {
+  background: var(--bg-dark); color: #94a3b8;
+  padding: 50px 0 30px;
+  text-align: center;
+  font-size: 0.88rem;
+}
+.footer-logo { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 12px; }
+.footer-logo span { color: var(--accent); }
+.footer p { margin-bottom: 8px; }
+.footer-social { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+.footer-social a {
+  width: 44px; height: 44px; border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  display: grid; place-items: center;
+  font-size: 1.2rem; transition: var(--transition);
+}
+.footer-social a:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
+.footer-bottom { margin-top: 24px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.8rem; }
+
+/* ============ STICKY MOBILE CTA ============ */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: #fff;
+  padding: 12px 16px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+  z-index: 99;
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.sticky-cta .btn { width: 100%; padding: 14px; font-size: 1rem; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+  .hero p.lead { margin-left: auto; margin-right: auto; }
+  .hero-cta { justify-content: center; }
+  .hero-stats { justify-content: center; }
+  .hero-mockup { transform: none; max-width: 500px; margin: 0 auto; }
+  .nav-links { display: none; }
+  .menu-toggle { display: block; }
+  .floating-badge { display: none; }
+}
+@media (max-width: 640px) {
+  section { padding: 60px 0; }
+  .hero { padding: 110px 0 50px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat .num { font-size: 1.6rem; }
+  .pricing-card { padding: 32px 22px; }
+  .pricing-price .price { font-size: 2.8rem; }
+  .pricing-card::before { display: none; }
+  .sticky-cta { display: block; }
+  body { padding-bottom: 80px; }
+  .btn { padding: 14px 24px; font-size: 0.95rem; }
+  .btn-large { padding: 16px 30px; font-size: 1rem; }
+  .final-cta-buttons .btn { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<nav class="navbar" id="navbar">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-badge">🎓</span>
+      Hero <span>Academy</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">المميزات</a>
+      <a href="#apps">التطبيقات</a>
+      <a href="#testimonials">آراء الطلاب</a>
+      <a href="#pricing">الأسعار</a>
+      <a href="#faq">الأسئلة الشائعة</a>
+      <!--
+        ═══════════════════════════════════════════════════
+        📌 [PLACEHOLDER: GUMROAD_URL]
+        استبدل الرابط التالي برابط الشراء الفعلي
+        ═══════════════════════════════════════════════════
+      -->
+      <a href="https://hero1.gumroad.com/l/gdrat9" class="nav-cta" target="_blank" rel="noopener">🚀 ابدأ الآن</a>
+    </div>
+    <button class="menu-toggle" onclick="alert('للجوال: استخدم القائمة السفلية')">☰</button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        منصة معتمدة من +5000 طالب
+      </div>
+      <h1>
+        استعد للتحصيلي والقدرات<br>
+        بذكاء — وليس <span class="highlight">بالسهر</span>
+      </h1>
+      <p class="lead">
+        5 تطبيقات تفاعلية متكاملة تجمع بين المراجعة المركزة، التدريب المكثف، التشخيص الذكي، والمحاكاة الحقيقية — كل ما تحتاجه لرفع درجتك في مكان واحد.
+      </p>
+      <div class="hero-cta">
+        <!--
+          ═══════════════════════════════════════════════════
+          📌 [PLACEHOLDER: GUMROAD_URL] - زر الشراء الرئيسي
+          ═══════════════════════════════════════════════════
+        -->
+        <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+          🚀 اشترك الآن — وابدأ فوراً
+        </a>
+        <!--
+          ═══════════════════════════════════════════════════
+          📌 [PLACEHOLDER: TRIAL_URL] - رابط التجربة المجانية
+          ═══════════════════════════════════════════════════
+        -->
+        <a href="#apps" class="btn btn-secondary btn-large">
+          🎁 تجربة مجانية
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num">+5000</div>
+          <div class="lbl">طالب مسجّل</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">+600<span>%</span></div>
+          <div class="lbl">نسبة تحسّن الدرجات</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">+1500</div>
+          <div class="lbl">سؤال أصلي</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">4.9<span>★</span></div>
+          <div class="lbl">تقييم الطلاب</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="floating-badge b1">
+        <span class="fb-icon">🏆</span>
+        <div>
+          <div class="fb-text">+90 درجة</div>
+          <div class="fb-sub">متوسط طلابنا</div>
+        </div>
+      </div>
+      <div class="floating-badge b2">
+        <span class="fb-icon">⚡</span>
+        <div>
+          <div class="fb-text">تعلّم في 5 دقائق</div>
+          <div class="fb-sub">يومياً فقط!</div>
+        </div>
+      </div>
+      <div class="hero-mockup">
+        <div class="mockup-header">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-title">📊 تقدمك في المهارات</div>
+          <div class="mockup-sub">آخر تحديث: قبل دقيقتين</div>
+          <div class="mockup-progress"><div class="fill"></div></div>
+          <div class="mockup-cards">
+            <div class="mockup-card">
+              <div class="icon">📐</div>
+              <div class="t">الكمي</div>
+              <div class="v">92%</div>
+            </div>
+            <div class="mockup-card">
+              <div class="icon">🧠</div>
+              <div class="t">اللفظي</div>
+              <div class="v">88%</div>
+            </div>
+            <div class="mockup-card">
+              <div class="icon">🧪</div>
+              <div class="t">الكيمياء</div>
+              <div class="v">95%</div>
+            </div>
+            <div class="mockup-card">
+              <div class="icon">📐</div>
+              <div class="t">الرياضيات</div>
+              <div class="v">90%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PAIN POINTS ============ -->
+<section class="pain-section" id="pain">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">هل تعاني من هذه المشاكل؟</span>
+      <h2>لست وحدك — كل طالب يمر بها</h2>
+      <p>لكن الفرق بين من ينجح ومن يتعثر هو الحل الصحيح</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <div class="pain-icon">😰</div>
+        <h3>الوقت ضيق والمنهج ضخم</h3>
+        <p>لا تعرف من أين تبدأ وكيف تراجع كل هذه المواد قبل الاختبار؟</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">🤯</div>
+        <h3>تشتت بين عشرات المصادر</h3>
+        <p>ملفات PDF، فيديوهات يوتيوب، ملخصات واتساب... ولا شيء منظم!</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">📉</div>
+        <h3>درجاتك لا تتحسن</h3>
+        <p>تذاكر كثيراً لكن النتيجة ثابتة؟ المشكلة في الطريقة وليس الجهد.</p>
+      </div>
+      <div class="pain-card reveal">
+        <div class="pain-icon">😵</div>
+        <h3>لا تعرف نقاط ضعفك</h3>
+        <p>تكرر نفس الأخطاء دون أن تدري — وتضيع وقتك في ما تتقنه أصلاً.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="features-section" id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">الحل المتكامل</span>
+      <h2>لماذا Hero Academy؟</h2>
+      <p>صممنا كل شيء ليوصل لك الدرجة التي تستحقها — بدون تعقيد</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎯</div>
+        <h3>تشخيص ذكي لمستواك</h3>
+        <p>اختبار شامل يحلل أدائك في كل مهارة، ويحدد لك بالضبط ما تحتاج مراجعته.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">⚡</div>
+        <h3>جرعات مركزة</h3>
+        <p>كل درس في 10 دقائق — مثالي للطالب المشغول. راجع في الحافلة أو قبل النوم.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🧪</div>
+        <h3>أسئلة على نمط قياس</h3>
+        <p>أكثر من 1500 سؤال أصلي مع شرح مفصّل وحلول ذكية لكل سؤال.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🔥</div>
+        <h3>تدريب على أخطائك</h3>
+        <p>النظام يتذكر أخطاءك ويعيد تدريبك عليها حتى تتقنها تماماً.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">📊</div>
+        <h3>تحليلات دقيقة</h3>
+        <p>تقارير مفصلة عن مستواك ونقاط قوتك وضعفك بعد كل اختبار.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">🎁</div>
+        <h3>5 تطبيقات في اشتراك واحد</h3>
+        <p>قدرات + تحصيلي (رياضيات، كيمياء، فيزياء، أحياء) — كل شيء بسعر واحد.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPS SHOWCASE ============ -->
+<section class="apps-section" id="apps">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">تطبيقاتنا الخمسة</span>
+      <h2>5 تطبيقات متكاملة<br>بين يديك الآن</h2>
+      <p>كل تطبيق مصمم بعناية لمادة واحدة — لكن جميعها بتجربة استخدام موحدة وسلسة</p>
+    </div>
+
+    <div class="apps-grid">
+      <!-- APP 1: القدرات العامة -->
+      <div class="app-card reveal" style="--app-color: #1e40af; --app-color2: #2563eb;">
+        <div class="app-header">
+          <div class="app-emoji">🎯</div>
+          <div class="app-title">القدرات العامة</div>
+          <div class="app-subtitle">كمي / لفظي</div>
+        </div>
+        <div class="app-body">
+          <p class="app-desc">اختصارات الضرب الذكية، استراتيجيات احصد وأبجد، وأكثر من 35 سؤالاً على نمط قياس مع شرح وافٍ.</p>
+          <ul class="app-features">
+            <li>اختصارات الحريف للضرب والقسمة</li>
+            <li>استراتيجيات التناظر وإكمال الجمل</li>
+            <li>بطاقات مراجعة ذكية (Flashcards)</li>
+            <li>تشخيص ومحاكاة كاملة</li>
+          </ul>
+          <div class="app-actions">
+            <!--
+              ═══════════════════════════════════════════════════
+              📌 [PLACEHOLDER: APP_QUDRAT_URL] - رابط التطبيق الفعلي
+              ═══════════════════════════════════════════════════
+            -->
+            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('قدرات')">
+              🚀 ابدأ
+            </a>
+            <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 2: الرياضيات -->
+      <div class="app-card reveal" style="--app-color: #7c3aed; --app-color2: #a78bfa;">
+        <div class="app-header">
+          <div class="app-emoji">📐</div>
+          <div class="app-title">الرياضيات التحصيلي</div>
+          <div class="app-subtitle">المتقدم</div>
+        </div>
+        <div class="app-body">
+          <p class="app-desc">7 وحدات شاملة تغطي المنطق، الدوال، المثلثات، المتتابعات، القطوع المخروطية، الاحتمالات، والتفاضل والتكامل.</p>
+          <ul class="app-features">
+            <li>+105 سؤال أصلي مع شرح</li>
+            <li>ورقة إنقاذ شاملة للمراجعة النهائية</li>
+            <li>تشخيص دقيق لنقاط ضعفك</li>
+            <li>محاكاة واقعية للاختبار</li>
+          </ul>
+          <div class="app-actions">
+            <!-- 📌 [PLACEHOLDER: APP_MATH_URL] -->
+            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الرياضيات')">
+              🚀 ابدأ
+            </a>
+            <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 3: الكيمياء -->
+      <div class="app-card reveal" style="--app-color: #0d9488; --app-color2: #14b8a6;">
+        <div class="app-header">
+          <div class="app-emoji">🧪</div>
+          <div class="app-title">الكيمياء التحصيلي</div>
+          <div class="app-subtitle">المتقدم</div>
+        </div>
+        <div class="app-body">
+          <p class="app-desc">8 جرعات مركزة تغطي بنية المادة، المحاليل، سرعة التفاعل، الكيمياء الحرارية، الكهربائية، العضوية، والأحماض والقواعد.</p>
+          <ul class="app-features">
+            <li>+80 سؤالاً مع شرح مفصّل</li>
+            <li>خرائط ذهنية لكل وحدة</li>
+            <li>روابط لمصادر خارجية معتمدة</li>
+            <li>نموذج امتحان تجريبي</li>
+          </ul>
+          <div class="app-actions">
+            <!-- 📌 [PLACEHOLDER: APP_CHEM_URL] -->
+            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الكيمياء')">
+              🚀 ابدأ
+            </a>
+            <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 4: الأحياء -->
+      <div class="app-card reveal" style="--app-color: #16a34a; --app-color2: #22c55e;">
+        <div class="app-header">
+          <div class="app-emoji">🧬</div>
+          <div class="app-title">الأحياء التحصيلي</div>
+          <div class="app-subtitle">المتقدم</div>
+        </div>
+        <div class="app-body">
+          <p class="app-desc">6 جرعات شاملة: المنهجية العلمية، التصنيف، الديناميكية الحيوية، الاتزان الهرموني، الوراثة، وهندسة اللافقاريات.</p>
+          <ul class="app-features">
+            <li>+54 سؤالاً أصلياً مع شرح</li>
+            <li>ورقة الإنقاذ للمراجعة الليلية</li>
+            <li>نماذج محاكاة كاملة</li>
+            <li>تحليل الأداء حسب الجرعة</li>
+          </ul>
+          <div class="app-actions">
+            <!-- 📌 [PLACEHOLDER: APP_BIO_URL] -->
+            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الأحياء')">
+              🚀 ابدأ
+            </a>
+            <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- APP 5: الفيزياء -->
+      <div class="app-card reveal" style="--app-color: #dc2626; --app-color2: #ef4444;">
+        <div class="app-header">
+          <div class="app-emoji">⚛️</div>
+          <div class="app-title">الفيزياء التحصيلي</div>
+          <div class="app-subtitle">المتقدم</div>
+        </div>
+        <div class="app-body">
+          <p class="app-desc">4 وحدات متكاملة: الميكانيكا، الجاذبية والدوران، الديناميكا الحرارية، والحث والفيزياء الحديثة.</p>
+          <ul class="app-features">
+            <li>+200 سؤال مع حلول تفصيلية</li>
+            <li>مخطط طور وأدوات تفاعلية</li>
+            <li>نماذج محاكاة (A و B)</li>
+            <li>خرائط ذهنية وأدلة مراجعة</li>
+          </ul>
+          <div class="app-actions">
+            <!-- 📌 [PLACEHOLDER: APP_PHYSICS_URL] -->
+            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الفيزياء')">
+              🚀 ابدأ
+            </a>
+            <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">آراء الطلاب</span>
+      <h2>ماذا يقول طلابنا؟</h2>
+      <p>أكثر من 5000 طالب حسّنوا درجاتهم معنا</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">والله التطبيق غير مسار مذاكرتي! كنت أضيع 4 ساعات يومياً، الآن أراجع في 30 دقيقة فقط. جبت 94 في التحصيلي بفضل الله ثم هذا الشغل المرتب.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">ع</div>
+          <div class="testimonial-info">
+            <div class="name">عبدالله المطيري</div>
+            <div class="role">طالب جامعي — جامعة الملك سعود</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">أفضل ما يميزه هو التشخيص الذكي. عرفت بالضبط إيش نقاط ضعفي واشتغلت عليها. الرياضيات كانت كابوساً وصارت أحب مادة عندي!</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">ن</div>
+          <div class="testimonial-info">
+            <div class="name">نورة العتيبي</div>
+            <div class="role">طالبة — السنة التحضيرية</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">جربت عشرات التطبيقات، هذا الوحيد اللي حسيته معمول بعناية. الأسئلة على نمط قياس بالضبط، والشرح يخليك تفهم مش تحفظ.</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">م</div>
+          <div class="testimonial-info">
+            <div class="name">محمد الشهري</div>
+            <div class="role">طالب — كلية الهندسة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">السعر</span>
+      <h2>استثمار واحد — نتائج مدى الحياة</h2>
+      <p>دفعة واحدة، بدون اشتراكات شهرية، ووصول دائم لكل التحديثات</p>
+    </div>
+
+    <div class="pricing-card reveal">
+      <div class="pricing-title">الاشتراك الكامل</div>
+      <div class="pricing-sub">5 تطبيقات • +1500 سؤال • تحديثات مدى الحياة</div>
+
+      <div class="pricing-price">
+        <span class="old">199 ر.س</span>
+        <span class="price">99</span>
+        <span class="currency">ر.س</span>
+      </div>
+      <div class="pricing-note">عرض محدود — يشمل جميع التطبيقات الخمسة</div>
+
+      <ul class="pricing-features">
+        <li>تطبيق القدرات العامة (كمي + لفظي)</li>
+        <li>تطبيق الرياضيات التحصيلي المتقدم</li>
+        <li>تطبيق الكيمياء التحصيلي المتقدم</li>
+        <li>تطبيق الأحياء التحصيلي المتقدم</li>
+        <li>تطبيق الفيزياء التحصيلي المتقدم</li>
+        <li>+1500 سؤال مع شرح مفصّل</li>
+        <li>بطاقات مراجعة ذكية (Flashcards)</li>
+        <li>تشخيصات ومحاكاة غير محدودة</li>
+        <li>تحديثات مجانية مدى الحياة</li>
+        <li>دعم فني عبر واتساب وتيليجرام</li>
+      </ul>
+
+      <div class="pricing-cta">
+        <!--
+          ═══════════════════════════════════════════════════
+          📌 [PLACEHOLDER: GUMROAD_URL] - زر الشراء الرئيسي
+          ضع هنا رابط Gumroad أو Payhip أو أي بوابة الدفع
+          ═══════════════════════════════════════════════════
+        -->
+        <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary btn-large" style="width:100%;" target="_blank" rel="noopener">
+          💳 اشترِ الآن — تفعيل فوري
+        </a>
+
+        <!--
+          ═══════════════════════════════════════════════════
+          📌 [PLACEHOLDER: WHATSAPP_URL] - رابط واتساب
+          استبدل الرقم: 249915886600 برقمك الفعلي
+          ═══════════════════════════════════════════════════
+        -->
+        <a href="https://wa.me/249915886600?text=أريد%20الاستفسار%20عن%20اشتراك%20Hero%20Academy"
+           class="btn btn-secondary" style="width:100%;margin-top:10px;" target="_blank" rel="noopener">
+          📱 تواصل عبر واتساب
+        </a>
+      </div>
+
+      <div class="pricing-guarantee">
+        <span class="ico">🛡️</span>
+        <div>
+          <strong>ضمان استرداد 7 أيام</strong><br>
+          <span style="font-size:0.82rem;">إذا لم يعجبك المنتج، استرد نقودك كاملة بدون أي أسئلة.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag">الأسئلة الشائعة</span>
+      <h2>لديك سؤال؟ إليك الإجابة</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>كيف يتم تفعيل الاشتراك بعد الدفع؟</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          بعد إتمام الدفع، ستتلقى رابطاً مباشراً لتفعيل حسابك عبر البريد الإلكتروني. يمكنك أيضاً التواصل معنا عبر واتساب أو تيليجرام وسنقوم بتفعيلك يدوياً في أقل من 5 دقائق.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>هل التطبيقات تعمل على الجوال؟</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          نعم! جميع التطبيقات مصممة بتقنية Web App تعمل على أي جهاز: جوال، تابلت، أو كمبيوتر. يمكنك الوصول إليها من المتصفح مباشرة بدون تحميل أي شيء.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>كم مرة يمكنني استخدام التطبيقات؟</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          عدد لا محدود! يمكنك الدخول متى شئت، وحل الأسئلة بدون أي قيود، والوصول لكل التحديثات المستقبلية مدى الحياة.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>هل يمكنني تجربة المنتج قبل الشراء؟</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          بالتأكيد! نوفر تجربة مجانية لجميع التطبيقات تتيح لك الوصول لجزء من المحتوى. إذا أعجبك، يمكنك الترقية للنسخة الكاملة.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>هل الأسئلة مطابقة لنمط اختبار قياس؟</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          نعم، جميع الأسئلة مصممة على نمط اختبارات قياس الحقيقية من حيث الصياغة، مستوى الصعوبة، ونوعية المهارات المستهدفة. تم تطويرها من قبل معلمين متخصصين.
+        </div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span>ماذا لو لم يعجبني المنتج؟</span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="faq-answer">
+          نوفر ضمان استرداد كامل خلال 7 أيام من تاريخ الشراء. فقط تواصل معنا وسنعيد لك المبلغ بدون أي أسئلة.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta-content reveal">
+      <h2>مستقبلك يستحق <span>الاستثمار الصحيح</span></h2>
+      <p>انضم إلى أكثر من 5000 طالب حققوا درجاتهم المطلوبة. لا تنتظر حتى اللحظة الأخيرة — ابدأ الآن واصنع الفرق.</p>
+      <div class="final-cta-buttons">
+        <!-- 📌 [PLACEHOLDER: GUMROAD_URL] -->
+        <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+          🚀 ابدأ الآن — تفعيل فوري
+        </a>
+        <!-- 📌 [PLACEHOLDER: WHATSAPP_URL] -->
+        <a href="https://wa.me/249915886600" class="btn btn-secondary btn-large" target="_blank" rel="noopener">
+          💬 تحدث معنا
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">🎓 Hero <span>Academy</span></div>
+    <p>منصتك الشاملة للتحصيلي والقدرات</p>
+    <div class="footer-social">
+      <!-- 📌 [PLACEHOLDER: WHATSAPP_URL] -->
+      <a href="https://wa.me/249915886600" target="_blank" rel="noopener" title="واتساب">📱</a>
+      <!-- 📌 [PLACEHOLDER: TELEGRAM_URL] -->
+      <a href="https://t.me/Herocourses" target="_blank" rel="noopener" title="تيليجرام">💬</a>
+      <!-- 📌 [PLACEHOLDER: EMAIL_URL] -->
+      <a href="mailto:info@hero1.vip" title="البريد الإلكتروني">📧</a>
+      <!-- 📌 [PLACEHOLDER: YOUTUBE_URL] -->
+      <a href="#" target="_blank" rel="noopener" title="يوتيوب">▶️</a>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Hero Academy. جميع الحقوق محفوظة. | صُنع بـ ❤️ للطلاب العرب
+    </div>
+  </div>
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="sticky-cta">
+  <!-- 📌 [PLACEHOLDER: GUMROAD_URL] -->
+  <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary" target="_blank" rel="noopener">
+    🚀 اشترك الآن — 99 ر.س فقط
+  </a>
+</div>
+
+<script>
+// ============ NAVBAR SCROLL ============
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ============ REVEAL ON SCROLL ============
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ============ FAQ TOGGLE ============
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ============ SMOOTH SCROLL ============
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const offset = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ============ HANDLE APP CLICK ============
+/*
+  ═══════════════════════════════════════════════════════════════
+  📌 [PLACEHOLDER] - روابط التطبيقات الفعلية
+  استبدل الروابط التالية بروابط التطبيقات الحقيقية:
+  ═══════════════════════════════════════════════════════════════
+*/
+const APP_URLS = {
+  'قدرات':      'https://saatgat.hero1.vip/gdrat9.html', // 📌 ضع هنا رابط protected_9.html
+  'الرياضيات':  'http://saatgat.hero1.vip/math15.html', // 📌 ضع هنا رابط Math.html
+  'الكيمياء':   'http://saatgat.hero1.vip/Chemistry13.html', // 📌 ضع هنا رابط final_chemistry.html
+  'الأحياء':    'http://saatgat.hero1.vip/biology14.html', // 📌 ضع هنا رابط bio_sa_01.html
+  'الفيزياء':   'http://saatgat.hero1.vip/Physics10.html', // 📌 ضع هنا رابط phy001_tashili.html
+};
+
+function handleAppClick(appName) {
+  const url = APP_URLS[appName];
+  if (!url || url === '#') {
+    // إذا لم يكن الرابط موجوداً، نوجه للأسعار
+    showToast(`🔒 التطبيق متاح للمشتركين — اشترك للوصول الكامل`);
+    setTimeout(() => {
+      document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+    }, 800);
+  } else {
+    window.open(url, '_blank');
+  }
+}
+
+
+// ============ TOAST ============
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position: fixed; top: 100px; left: 50%; transform: translateX(-50%) translateY(-20px);
+    background: var(--primary); color: #fff; padding: 14px 28px;
+    border-radius: 40px; font-weight: 700; font-size: 0.95rem;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2); z-index: 9999;
+    opacity: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 90%; text-align: center;
+  `;
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => {
+    toast.style.opacity = '1';
+    toast.style.transform = 'translateX(-50%) translateY(0)';
+  });
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(-20px)';
+    setTimeout(() => toast.remove(), 400);
+  }, 3000);
+}
+
+// ============ COUNTER ANIMATION (Hero stats) ============
+function animateCounter(el, target, suffix = '') {
+  const duration = 2000;
+  const start = performance.now();
+  const initial = 0;
+
+  function update(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(initial + (target - initial) * eased);
+    el.textContent = current + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+// ============ TRACK PURCHASE INTENT ============
+document.querySelectorAll('a[href*="gumroad"], a[href*="wa.me"]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // يمكنك إضافة تتبع Google Analytics أو Facebook Pixel هنا
+    // مثال: gtag('event', 'purchase_intent', { value: 99, currency: 'SAR' });
+    console.log('🎯 Purchase intent tracked');
+  });
+});
+
+// ============ SMOOTH PAGE LOAD ============
+window.addEventListener('load', () => {
+  document.body.style.opacity = '1';
+  console.log('🎓 Hero Academy Landing Page — Ready!');
+  console.log('📌 تذكّر: استبدل جميع [PLACEHOLDER] بروابطك الفعلية');
+});
+</script>
+
+</body>
+</html>

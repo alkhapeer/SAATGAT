@@ -629,7 +629,7 @@ section { padding: 90px 0; position: relative; }
         استبدل الرابط التالي برابط الشراء الفعلي
         ═══════════════════════════════════════════════════
       -->
-      <a href="https://hero1.gumroad.com/l/gdrat9" class="nav-cta" target="_blank" rel="noopener">🚀 ابدأ الآن</a>
+      <a href="https://hero1.gumroad.com" class="nav-cta" target="_blank" rel="noopener">🚀 ابدأ الآن</a>
     </div>
     <button class="menu-toggle" onclick="alert('للجوال: استخدم القائمة السفلية')">☰</button>
   </div>
@@ -656,7 +656,7 @@ section { padding: 90px 0; position: relative; }
           📌 [PLACEHOLDER: GUMROAD_URL] - زر الشراء الرئيسي
           ═══════════════════════════════════════════════════
         -->
-        <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+        <a href="https://hero1.gumroad.com" class="btn btn-primary btn-large" target="_blank" rel="noopener">
           🚀 اشترك الآن — وابدأ فوراً
         </a>
         <!--
@@ -846,7 +846,7 @@ section { padding: 90px 0; position: relative; }
               📌 [PLACEHOLDER: APP_QUDRAT_URL] - رابط التطبيق الفعلي
               ═══════════════════════════════════════════════════
             -->
-            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('قدرات')">
+            <a href="https://saatgat.hero1.vip/" class="app-btn app-btn-primary" onclick="handleAppClick('قدرات')">
               🚀 ابدأ
             </a>
             <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
@@ -871,7 +871,7 @@ section { padding: 90px 0; position: relative; }
           </ul>
           <div class="app-actions">
             <!-- 📌 [PLACEHOLDER: APP_MATH_URL] -->
-            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الرياضيات')">
+            <a href="http://saatgat.hero1.vip/math15.html" class="app-btn app-btn-primary" onclick="handleAppClick('الرياضيات')">
               🚀 ابدأ
             </a>
             <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
@@ -896,7 +896,7 @@ section { padding: 90px 0; position: relative; }
           </ul>
           <div class="app-actions">
             <!-- 📌 [PLACEHOLDER: APP_CHEM_URL] -->
-            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الكيمياء')">
+            <a href="http://saatgat.hero1.vip/Chemistry13.html" class="app-btn app-btn-primary" onclick="handleAppClick('الكيمياء')">
               🚀 ابدأ
             </a>
             <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
@@ -921,7 +921,7 @@ section { padding: 90px 0; position: relative; }
           </ul>
           <div class="app-actions">
             <!-- 📌 [PLACEHOLDER: APP_BIO_URL] -->
-            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الأحياء')">
+            <a href="http://saatgat.hero1.vip/biology14.html" class="app-btn app-btn-primary" onclick="handleAppClick('الأحياء')">
               🚀 ابدأ
             </a>
             <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
@@ -946,7 +946,7 @@ section { padding: 90px 0; position: relative; }
           </ul>
           <div class="app-actions">
             <!-- 📌 [PLACEHOLDER: APP_PHYSICS_URL] -->
-            <a href="#" class="app-btn app-btn-primary" onclick="handleAppClick('الفيزياء')">
+            <a href="http://saatgat.hero1.vip/Physics10.html" class="app-btn app-btn-primary" onclick="handleAppClick('الفيزياء')">
               🚀 ابدأ
             </a>
             <a href="#pricing" class="app-btn app-btn-outline">التفاصيل</a>
@@ -1017,7 +1017,7 @@ section { padding: 90px 0; position: relative; }
       <div class="pricing-sub">5 تطبيقات • +1500 سؤال • تحديثات مدى الحياة</div>
 
       <div class="pricing-price">
-        <span class="old">199 ر.س</span>
+        <span class="old">149 ر.س</span>
         <span class="price">99</span>
         <span class="currency">ر.س</span>
       </div>
@@ -1063,7 +1063,7 @@ section { padding: 90px 0; position: relative; }
         <span class="ico">🛡️</span>
         <div>
           <strong>ضمان استرداد 7 أيام</strong><br>
-          <span style="font-size:0.82rem;">إذا لم يعجبك المنتج، استرد نقودك كاملة بدون أي أسئلة.</span>
+          <span style="font-size:0.82rem;">إذا لم يعجبك المنتج، استرد نقودك  بدون أي أسئلة - تخصم رسوم بوابة الدفع غير المستردة.</span>
         </div>
       </div>
     </div>
@@ -1102,7 +1102,7 @@ section { padding: 90px 0; position: relative; }
           <span class="arrow">▼</span>
         </div>
         <div class="faq-answer">
-          عدد لا محدود! يمكنك الدخول متى شئت، وحل الأسئلة بدون أي قيود، والوصول لكل التحديثات المستقبلية مدى الحياة.
+          عدد لا محدود! يمكنك الدخول متى شئت، وحل الأسئلة بدون أي قيود، والوصول لكل التحديثات المستقبلية حسب اشتراكك.
         </div>
       </div>
       <div class="faq-item reveal">
@@ -1129,7 +1129,7 @@ section { padding: 90px 0; position: relative; }
           <span class="arrow">▼</span>
         </div>
         <div class="faq-answer">
-          نوفر ضمان استرداد كامل خلال 7 أيام من تاريخ الشراء. فقط تواصل معنا وسنعيد لك المبلغ بدون أي أسئلة.
+          نوفر ضمان استرداد كامل خلال 7 أيام من تاريخ الشراء. فقط تواصل معنا وسنعيد لك المبلغ بدون أي أسئلة - - تخصم رسوم بوابة الدفع غير المستردة.
         </div>
       </div>
     </div>
@@ -1144,7 +1144,7 @@ section { padding: 90px 0; position: relative; }
       <p>انضم إلى أكثر من 5000 طالب حققوا درجاتهم المطلوبة. لا تنتظر حتى اللحظة الأخيرة — ابدأ الآن واصنع الفرق.</p>
       <div class="final-cta-buttons">
         <!-- 📌 [PLACEHOLDER: GUMROAD_URL] -->
-        <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary btn-large" target="_blank" rel="noopener">
+        <a href="https://hero1.gumroad.com" class="btn btn-primary btn-large" target="_blank" rel="noopener">
           🚀 ابدأ الآن — تفعيل فوري
         </a>
         <!-- 📌 [PLACEHOLDER: WHATSAPP_URL] -->
@@ -1180,7 +1180,7 @@ section { padding: 90px 0; position: relative; }
 <!-- ============ STICKY MOBILE CTA ============ -->
 <div class="sticky-cta">
   <!-- 📌 [PLACEHOLDER: GUMROAD_URL] -->
-  <a href="https://hero1.gumroad.com/l/gdrat9" class="btn btn-primary" target="_blank" rel="noopener">
+  <a href="https://hero1.gumroad.com" class="btn btn-primary" target="_blank" rel="noopener">
     🚀 اشترك الآن — 99 ر.س فقط
   </a>
 </div>
